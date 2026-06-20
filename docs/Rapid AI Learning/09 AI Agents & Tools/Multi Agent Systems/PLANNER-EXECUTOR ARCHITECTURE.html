@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PLANNER-EXECUTOR ARCHITECTURE — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="../../../_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar"><div class="nav-home"><a href="../../../index.html">⌂ &nbsp;The Vault</a></div><ul class="nav-root"><li class="nav-section is-open"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/index.html">Mathematics</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Calculus.html">Calculus</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Linear%20Algebra.html">Linear Algebra</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Probability.html">Probability</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Statistics.html">Statistics</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/index.html">Foundations of AI</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Basic%20Evaluation%20Metrics.html">Basic Evaluation Metrics</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Fundamental%20Concepts.html">Fundamental Concepts</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Precision%20Recall%20-%20CTR.html">Precision Recall - CTR</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/index.html">Deep Learning Fundamentals</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/Optimization.html">Optimization</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/index.html">Prompt Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/Prompt%20Engineering%20Tips.html">Prompt Engineering Tips</a></li></ul></li><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/index.html">A2A</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/A2A.html">A2A</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/index.html">Context Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/References.html">References</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/index.html">MCP</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/Core%20MCP.html">Core MCP</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/MCP%20Connection.html">MCP Connection</a></li></ul></li><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/index.html">Multi Agent Systems</a></div><ul class="nav-children"><li class="nav-file"><a class="active" href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/PLANNER-EXECUTOR%20ARCHITECTURE.html">PLANNER-EXECUTOR ARCHITECTURE</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/References.html">References</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/Untitled.html">Untitled</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/index.html">Tool Retreival</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/ToolRetrieval.html">ToolRetrieval</a></li></ul></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/index.html">Performance Optimization</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/index.html">Caching</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Batching.html">Batching</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20in%20LLM-Based%20Agentic%20Systems.html">Prompt Caching in LLM-Based Agentic Systems</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20Intuition.html">Prompt Caching Intuition</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Quantization.html">Quantization</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Response%20Caching.html">Response Caching</a></li></ul></li></ul></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../System%20Design%20-%20LLM%20based/index.html">System Design - LLM based</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/AI%20generated%20Scenarios.html">AI generated Scenarios</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/Approach%20for%20Interviews.html">Approach for Interviews</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/IndianQuestionBank.html">IndianQuestionBank</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/Question%20Bank%20GitHub.html">Question Bank GitHub</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../AI%20Engineering/index.html">AI Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../AI%20Engineering/01%20Role%20Vision.html">Role Vision</a></li><li class="nav-file"><a href="../../../AI%20Engineering/02%20Skills.html">Skills</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/index.html">Resume`</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/UberOrchestrator/index.html">UberOrchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/COPILOT_SDK_GUIDE.html">COPILOT_SDK_GUIDE</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/DESIGN.html">DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/REPORTING_AGENT_DESIGN.html">REPORTING_AGENT_DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_DESIGN.html">SESSION_PERSISTENCE_DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_IMPL.html">SESSION_PERSISTENCE_IMPL</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/VL%20Orchestrator/index.html">VL Orchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/AgentContextEngineering.html">AgentContextEngineering</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Designing%20decision-heavy%20enterprise%20AI%20systems%20without%20losing%20control.html">Designing decision-heavy enterprise AI systems without losing control</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/EvalAgent%20Dashboard.html">EvalAgent Dashboard</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Multi%20agent%20Architectures.html">Multi agent Architectures</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/MultiAgentArchitecture.html">MultiAgentArchitecture</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Orchestrator%20Library.html">Orchestrator Library</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/OrchestratorGuardRails.html">OrchestratorGuardRails</a></li></ul></li><li class="nav-file"><a href="../../../Resume%60/LLM%20Evaluation%20Framework.html">LLM Evaluation Framework</a></li><li class="nav-file"><a href="../../../Resume%60/Math%20strategy.html">Math strategy</a></li><li class="nav-file"><a href="../../../Resume%60/Preparation%20Strategy.html">Preparation Strategy</a></li><li class="nav-file"><a href="../../../Resume%60/RAG%20Pipeline.html">RAG Pipeline</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Companies/index.html">Companies</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Companies/CoinBase.html">CoinBase</a></li><li class="nav-file"><a href="../../../Companies/DataBricks.html">DataBricks</a></li><li class="nav-file"><a href="../../../Companies/Deliveroo.html">Deliveroo</a></li><li class="nav-file"><a href="../../../Companies/LeoForce.html">LeoForce</a></li><li class="nav-file"><a href="../../../Companies/Sarvam%20AI.html">Sarvam AI</a></li><li class="nav-file"><a href="../../../Companies/TataSons.html">TataSons</a></li></ul></li></ul></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="../../../index.html">The Vault</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/index.html">Multi Agent Systems</a><span class="sep">/</span><span>PLANNER-EXECUTOR ARCHITECTURE</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Entry</div>
+        <h1 class="doc-title">PLANNER-EXECUTOR ARCHITECTURE</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body"><h1 id="planner-executor-architecture" tabindex="-1"><a class="h-anchor" href="#planner-executor-architecture">#</a> Planner Executor Architecture</h1>
+<h2 id="purpose" tabindex="-1"><a class="h-anchor" href="#purpose">#</a> Purpose</h2>
+<p>This document consolidates the current architecture across the Planner, OnDemand Quote Orchestrator, queue-management layer, and Execution Orchestrator.</p>
+<p>It is intended to answer four questions clearly:</p>
+<ol>
+<li>What each agent or layer is responsible for.</li>
+<li>How requests move between them at runtime.</li>
+<li>What payloads, events, and state objects are handed off.</li>
+<li>Why the system is built this way, where it is weak, and what future work is implied.</li>
+</ol>
+<p>This document reflects the implemented architecture in the repository today. It does not describe the older future-state idea in which every agent returns a universal envelope with <code>execution_context</code> and <code>external_context</code>. That normalization remains a roadmap direction, not the live contract.</p>
+<hr>
+<h2 id="executive-summary" tabindex="-1"><a class="h-anchor" href="#executive-summary">#</a> Executive Summary</h2>
+<p>The current system is a layered quote-workflow architecture.</p>
+<ul>
+<li><code>VLCOrchestrator</code> is the front door and router.</li>
+<li><code>OnDemandQuoteTool</code> is the bridge from VLC into quote-specific orchestration.</li>
+<li><code>OnDemandQuoteOrchestrator</code> is the quote-workflow coordinator and state owner.</li>
+<li><code>PlannerTool</code> and <code>PlannerOrchestrator</code> are validation-first planning components.</li>
+<li>queue tools and <code>SimpleTaskQueue</code> are the workflow-control mechanism for multi-step work.</li>
+<li><code>pop_task_queue</code> is the operational handoff into execution.</li>
+<li><code>ExecutionOrchestrator</code> is the task-execution agent with filtered tools.</li>
+</ul>
+<p>The most important architectural truth is this:</p>
+<blockquote>
+<p>planning and execution are not directly coupled; OnDemand and the queue layer couple them.</p>
+</blockquote>
+<p>That design allows the system to validate first, sequence work explicitly, preserve multi-step state, and execute only the subset of tools needed for the next task group.</p>
+<hr>
+<h2 id="visual-overview" tabindex="-1"><a class="h-anchor" href="#visual-overview">#</a> Visual Overview</h2>
+<p>The diagrams below are intended to make the architecture readable in a few seconds before going into the detailed sections.</p>
+<h3 id="1-layered-system-view" tabindex="-1"><a class="h-anchor" href="#1-layered-system-view">#</a> 1. Layered System View</h3>
+<div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    U[User] --&gt; VLC[VLCOrchestrator\nTop-level routing]
+    VLC --&gt; ODT[OnDemandQuoteTool\nTool bridge into quote workflow]
+    ODT --&gt; ODO[OnDemandQuoteOrchestrator\nWorkflow owner and response aggregator]
+
+    ODO --&gt; PL[PlannerTool / PlannerOrchestrator\nValidation-first plan generation]
+    ODO --&gt; Q[Queue Layer\nSimpleTaskQueue and queue tools]
+    Q --&gt; POP[pop_task_queue\nExecution handoff point]
+    POP --&gt; EX[ExecutionOrchestrator\nFiltered tool execution]
+    EX --&gt; ODO
+    ODO --&gt; RESP[OnDemandServiceResponse]
+    RESP --&gt; VLC
+</pre></div>
+<h3 id="2-main-plan-to-execute-sequence" tabindex="-1"><a class="h-anchor" href="#2-main-plan-to-execute-sequence">#</a> 2. Main Plan to Execute Sequence</h3>
+<div class="mermaid-wrap"><pre class="mermaid">sequenceDiagram
+    participant U as User
+    participant VLC as VLCOrchestrator
+    participant ODT as OnDemandQuoteTool
+    participant ODO as OnDemandQuoteOrchestrator
+    participant PL as PlannerTool/PlannerOrchestrator
+    participant Q as Queue Layer
+    participant POP as pop_task_queue
+    participant EX as ExecutionOrchestrator
+
+    U-&gt;&gt;VLC: Quote-related request
+    VLC-&gt;&gt;ODT: Invoke quote tool
+    ODT-&gt;&gt;ODO: Pass query and context
+    ODO-&gt;&gt;PL: Request validated plan
+    PL--&gt;&gt;ODO: OutputFormat
+    ODO-&gt;&gt;Q: Materialize actions as Task/TaskWithUUID
+    ODO-&gt;&gt;POP: pop_task_queue(pop_and_execute=True)
+    POP-&gt;&gt;POP: Pop task group and mark INPROGRESS
+    POP-&gt;&gt;EX: Invoke with synthesized query and filtered tools
+    EX--&gt;&gt;POP: OnDemandServiceResponse
+    POP--&gt;&gt;ODO: PopTaskQueueOutput + extracted conversationContext
+    ODO--&gt;&gt;ODT: Aggregated OnDemandServiceResponse
+    ODT--&gt;&gt;VLC: Quote response
+    VLC--&gt;&gt;U: Final response
+</pre></div>
+<h3 id="3-decision-flow-for-possible-runtime-paths" tabindex="-1"><a class="h-anchor" href="#3-decision-flow-for-possible-runtime-paths">#</a> 3. Decision Flow for Possible Runtime Paths</h3>
+<div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    A[Quote request enters OnDemand] --&gt; B{Need direct quote handling only?}
+    B -- Yes --&gt; C[Handle directly in OnDemand]
+    C --&gt; R[Return OnDemandServiceResponse]
+
+    B -- No --&gt; D{Need decomposition or validation?}
+    D -- No --&gt; E[Manage queue or continue existing workflow]
+    E --&gt; F{Execute now?}
+    F -- No --&gt; G[Return workflow state and pending queue]
+    F -- Yes --&gt; H[pop_task_queue invokes Executor]
+    H --&gt; R
+
+    D -- Yes --&gt; I[Invoke Planner]
+    I --&gt; J{Missing information?}
+    J -- Yes --&gt; K[Return clarification response]
+    K --&gt; R
+    J -- No --&gt; L[Convert executable_actions into queue tasks]
+    L --&gt; F
+</pre></div>
+<hr>
+<h2 id="system-roles" tabindex="-1"><a class="h-anchor" href="#system-roles">#</a> System Roles</h2>
+<h2 id="1-vlcorchestrator" tabindex="-1"><a class="h-anchor" href="#1-vlcorchestrator">#</a> 1. VLCOrchestrator</h2>
+<p>Role:</p>
+<ul>
+<li>top-level orchestrator</li>
+<li>classifies the incoming request at a broad capability level</li>
+<li>routes quote-related requests into the OnDemand path</li>
+</ul>
+<p>What it is not:</p>
+<ul>
+<li>not the quote workflow owner</li>
+<li>not the planner</li>
+<li>not the executor</li>
+</ul>
+<p>Practical interpretation:</p>
+<p>VLC decides whether the request belongs to quote operations. Once it decides that, detailed quote orchestration moves down into OnDemand.</p>
+<h2 id="2-ondemandquotetool" tabindex="-1"><a class="h-anchor" href="#2-ondemandquotetool">#</a> 2. OnDemandQuoteTool</h2>
+<p>Role:</p>
+<ul>
+<li>tool boundary used by VLC to invoke quote-specific orchestration</li>
+<li>marshals the request into the OnDemand workflow</li>
+<li>returns quote-agent output back to VLC</li>
+</ul>
+<p>Practical interpretation:</p>
+<p>This is the tool-level bridge between the general router and the quote workflow coordinator.</p>
+<h2 id="3-ondemandquoteorchestrator" tabindex="-1"><a class="h-anchor" href="#3-ondemandquoteorchestrator">#</a> 3. OnDemandQuoteOrchestrator</h2>
+<p>Role:</p>
+<ul>
+<li>quote-workflow coordinator</li>
+<li>owner of queue-backed workflow state</li>
+<li>owner of quote-agent conversation context</li>
+<li>consumer of planner output</li>
+<li>aggregator of execution output</li>
+</ul>
+<p>What it owns today:</p>
+<ul>
+<li><code>task_queue</code></li>
+<li><code>tools_additional_params</code></li>
+<li><code>ondemand_conversation_context</code></li>
+<li>final <code>executionConversationContext</code></li>
+<li>user-facing aggregated <code>OnDemandServiceResponse</code></li>
+</ul>
+<p>What it decides:</p>
+<ul>
+<li>whether to ask Planner for decomposition or clarification</li>
+<li>whether to queue work</li>
+<li>whether to pop and execute work now</li>
+<li>whether to respond directly with clarification or workflow status</li>
+</ul>
+<p>Practical interpretation:</p>
+<p>OnDemand is the control plane for quote workflows. It is the layer that turns a quote request into either a plan, queued work, execution, or a clarification loop.</p>
+<h2 id="4-plannertool-and-plannerorchestrator" tabindex="-1"><a class="h-anchor" href="#4-plannertool-and-plannerorchestrator">#</a> 4. PlannerTool and PlannerOrchestrator</h2>
+<p>Role:</p>
+<ul>
+<li>validation-first planning agent</li>
+<li>produces structured execution-ready actions</li>
+<li>reports missing information explicitly</li>
+</ul>
+<p>Current live output contract:</p>
+<ul>
+<li><code>OutputFormat</code> via <code>ResponseTool</code></li>
+</ul>
+<p>What the planner does well:</p>
+<ul>
+<li>validates before proposing execution</li>
+<li>checks schema, entity state, enums, and search results</li>
+<li>sequences actions by ranking</li>
+<li>emits a compact structured plan</li>
+</ul>
+<p>What the planner does not do:</p>
+<ul>
+<li>does not execute write operations</li>
+<li>does not own queue insertion</li>
+<li>does not return <code>OnDemandServiceResponse</code></li>
+</ul>
+<p>Practical interpretation:</p>
+<p>The planner is the reasoning and validation layer that says what should happen next and with what metadata.</p>
+<h2 id="5-queue-layer" tabindex="-1"><a class="h-anchor" href="#5-queue-layer">#</a> 5. Queue Layer</h2>
+<p>Main components:</p>
+<ul>
+<li><code>SimpleTaskQueue</code></li>
+<li><code>push_back_task_queue</code></li>
+<li><code>push_front_task_queue</code></li>
+<li><code>pop_task_queue</code></li>
+<li><code>view_task_queue</code></li>
+<li><code>delete_task_queue</code></li>
+<li><code>update_task_arguments</code></li>
+</ul>
+<p>Role:</p>
+<ul>
+<li>stores work as explicit executable queue items</li>
+<li>preserves order and priority</li>
+<li>supports multi-step flows across turns</li>
+<li>converts planning output into an execution-control surface</li>
+</ul>
+<p>Practical interpretation:</p>
+<p>The queue layer is not a utility detail. It is the explicit workflow-control mechanism that separates deciding work from executing work.</p>
+<h2 id="6-executionorchestrator" tabindex="-1"><a class="h-anchor" href="#6-executionorchestrator">#</a> 6. ExecutionOrchestrator</h2>
+<p>Role:</p>
+<ul>
+<li>executes one popped task group at a time</li>
+<li>runs with a filtered authorized tool set</li>
+<li>streams progress and task-status events</li>
+<li>returns final execution output in the same service wrapper used by quote orchestration</li>
+</ul>
+<p>Current live output contract:</p>
+<ul>
+<li><code>OnDemandServiceResponse</code></li>
+</ul>
+<p>Practical interpretation:</p>
+<p>Execution is task-group based, tool-filtered, and invoked by queue handoff rather than by direct planner-to-executor coupling.</p>
+<hr>
+<h2 id="canonical-runtime-flow" tabindex="-1"><a class="h-anchor" href="#canonical-runtime-flow">#</a> Canonical Runtime Flow</h2>
+<pre><code class="language-text">User
+  -&gt; VLCOrchestrator
+  -&gt; OnDemandQuoteTool
+  -&gt; OnDemandQuoteOrchestrator
+       -&gt; PlannerTool / PlannerOrchestrator
+       -&gt; queue tools / SimpleTaskQueue
+       -&gt; pop_task_queue
+       -&gt; ExecutionOrchestrator
+  -&gt; OnDemandServiceResponse
+  -&gt; VLC final response
+</code></pre>
+<p>The control boundary changes at each step:</p>
+<ul>
+<li>VLC owns routing.</li>
+<li>OnDemand owns workflow coordination.</li>
+<li>Planner owns plan generation and missing-information detection.</li>
+<li>Queue tools own workflow ordering and execution handoff.</li>
+<li>Executor owns actual task execution.</li>
+</ul>
+<hr>
+<h2 id="current-runtime-contracts" tabindex="-1"><a class="h-anchor" href="#current-runtime-contracts">#</a> Current Runtime Contracts</h2>
+<h2 id="1-planner-action-contract" tabindex="-1"><a class="h-anchor" href="#1-planner-action-contract">#</a> 1. Planner Action Contract</h2>
+<h3 id="actionformat" tabindex="-1"><a class="h-anchor" href="#actionformat">#</a> ActionFormat</h3>
+<pre><code class="language-python">{
+    &quot;action_type&quot;: &quot;standard&quot; | &quot;custom&quot; | &quot;unsupported&quot;,
+    &quot;action_name&quot;: str,
+    &quot;metadata&quot;: dict,
+    &quot;execution_order&quot;: int,
+    &quot;original_ranking&quot;: int
+}
+</code></pre>
+<p>Meaning:</p>
+<ul>
+<li><code>action_name</code> is the downstream action/tool identifier that later becomes queueable work.</li>
+<li><code>metadata</code> contains execution-ready arguments and dependency details.</li>
+<li><code>execution_order</code> is the planner-produced runtime sequence.</li>
+<li><code>original_ranking</code> records the ranking inherited from planner prompt rules.</li>
+</ul>
+<h3 id="outputformat" tabindex="-1"><a class="h-anchor" href="#outputformat">#</a> OutputFormat</h3>
+<pre><code class="language-python">{
+    &quot;executable_actions&quot;: list[ActionFormat],
+    &quot;missing_information&quot;: list[str],
+    &quot;response&quot;: str,
+    &quot;one_line_summary&quot;: str
+}
+</code></pre>
+<p>Meaning:</p>
+<ul>
+<li><code>executable_actions</code> is the validated plan.</li>
+<li><code>missing_information</code> is what still blocks safe execution.</li>
+<li><code>response</code> is the user-facing planning response.</li>
+<li><code>one_line_summary</code> is the compact UX summary used in planner task status.</li>
+</ul>
+<h2 id="2-queue-contract" tabindex="-1"><a class="h-anchor" href="#2-queue-contract">#</a> 2. Queue Contract</h2>
+<h3 id="task" tabindex="-1"><a class="h-anchor" href="#task">#</a> Task</h3>
+<pre><code class="language-python">{
+    &quot;name&quot;: str,
+    &quot;friendly_name&quot;: str,
+    &quot;description&quot;: str,
+    &quot;arguments&quot;: dict | None
+}
+</code></pre>
+<h3 id="taskwithuuid" tabindex="-1"><a class="h-anchor" href="#taskwithuuid">#</a> TaskWithUUID</h3>
+<pre><code class="language-python">{
+    &quot;uuid&quot;: str,
+    &quot;task&quot;: Task,
+    &quot;status&quot;: &quot;QUEUED&quot; | &quot;INPROGRESS&quot; | &quot;COMPLETED&quot; | &quot;FAILED&quot;
+}
+</code></pre>
+<h3 id="queue-storage-shape" tabindex="-1"><a class="h-anchor" href="#queue-storage-shape">#</a> Queue Storage Shape</h3>
+<p>Top-level queue items are either:</p>
+<pre><code class="language-python">TaskWithUUID
+</code></pre>
+<p>or:</p>
+<pre><code class="language-python">list[TaskWithUUID]
+</code></pre>
+<p>Meaning:</p>
+<ul>
+<li>single item means sequential work</li>
+<li>list item means a parallel task group in the same queue slot</li>
+</ul>
+<h2 id="3-pop-handoff-contract" tabindex="-1"><a class="h-anchor" href="#3-pop-handoff-contract">#</a> 3. Pop Handoff Contract</h2>
+<h3 id="poptaskqueueoutput" tabindex="-1"><a class="h-anchor" href="#poptaskqueueoutput">#</a> PopTaskQueueOutput</h3>
+<pre><code class="language-python">{
+    &quot;success&quot;: bool,
+    &quot;task&quot;: TaskWithUUID | list[TaskWithUUID] | None,
+    &quot;message&quot;: str,
+    &quot;task_response&quot;: str | None,
+    &quot;queue_size&quot;: int,
+    &quot;conversationContext&quot;: list | None
+}
+</code></pre>
+<p>Meaning:</p>
+<ul>
+<li><code>task</code> is the popped task group.</li>
+<li><code>task_response</code> is the serialized nested execution response.</li>
+<li><code>conversationContext</code> is the execution chat history extracted from that nested response.</li>
+</ul>
+<h2 id="4-final-quote-and-execution-contract" tabindex="-1"><a class="h-anchor" href="#4-final-quote-and-execution-contract">#</a> 4. Final Quote and Execution Contract</h2>
+<h3 id="ondemandserviceresponse" tabindex="-1"><a class="h-anchor" href="#ondemandserviceresponse">#</a> OnDemandServiceResponse</h3>
+<pre><code class="language-python">{
+    &quot;message&quot;: str,
+    &quot;renderType&quot;: str,
+    &quot;actions&quot;: Any,
+    &quot;suggestedNextQuestions&quot;: list[str],
+    &quot;switchResource&quot;: bool,
+    &quot;conversationContext&quot;: list[ChatMessage],
+    &quot;taskQueue&quot;: str | None,
+    &quot;executionConversationContext&quot;: list[ChatMessage]
+}
+</code></pre>
+<p>Important fact:</p>
+<p>This is currently used both by the OnDemand quote path and by the Execution Orchestrator. That means execution does not yet return a dedicated normalized execution result object.</p>
+<hr>
+<h2 id="handoff-model" tabindex="-1"><a class="h-anchor" href="#handoff-model">#</a> Handoff Model</h2>
+<h2 id="1-vlc-to-ondemand" tabindex="-1"><a class="h-anchor" href="#1-vlc-to-ondemand">#</a> 1. VLC to OnDemand</h2>
+<p>Handoff trigger:</p>
+<ul>
+<li>VLC determines the request is quote-related.</li>
+</ul>
+<p>Handoff mechanism:</p>
+<ul>
+<li>VLC invokes <code>OnDemandQuoteTool</code>.</li>
+</ul>
+<p>Handoff payload shape at a high level:</p>
+<ul>
+<li>user <code>query</code></li>
+<li><code>pageContext</code></li>
+<li><code>aad_token</code></li>
+<li>prior quote conversation context</li>
+<li>possibly persisted queue state</li>
+</ul>
+<p>What changes at this boundary:</p>
+<ul>
+<li>ownership moves from global routing to quote-specific workflow control.</li>
+</ul>
+<h2 id="2-ondemand-to-planner" tabindex="-1"><a class="h-anchor" href="#2-ondemand-to-planner">#</a> 2. OnDemand to Planner</h2>
+<p>Handoff trigger:</p>
+<ul>
+<li>request needs decomposition, validation, sequencing, or clarification.</li>
+</ul>
+<p>Handoff mechanism:</p>
+<ul>
+<li>OnDemand invokes <code>planner_tool</code>.</li>
+</ul>
+<p>Live planner input pattern:</p>
+<pre><code class="language-python">{
+    &quot;query&quot;: str,
+    &quot;tools_additional_params&quot;: {
+        &quot;pageContext&quot;: dict,
+        &quot;aad_token&quot;: str,
+        &quot;ondemand_conversation_context&quot;: list
+    }
+}
+</code></pre>
+<p>What changes at this boundary:</p>
+<ul>
+<li>ownership moves from workflow coordination to validation-first plan generation.</li>
+</ul>
+<h2 id="3-planner-back-to-ondemand" tabindex="-1"><a class="h-anchor" href="#3-planner-back-to-ondemand">#</a> 3. Planner back to OnDemand</h2>
+<p>Handoff trigger:</p>
+<ul>
+<li>planner finishes and calls <code>ResponseTool</code>.</li>
+</ul>
+<p>Handoff mechanism:</p>
+<ul>
+<li>planner payload is emitted through <code>FinishResponse</code> SSE event and captured by <code>PlannerTool.process_stream(...)</code>.</li>
+</ul>
+<p>Returned payload:</p>
+<ul>
+<li><code>OutputFormat</code></li>
+</ul>
+<p>What OnDemand does with it:</p>
+<ul>
+<li>asks for clarification if <code>missing_information</code> is non-empty</li>
+<li>converts actions into queued tasks if execution can proceed</li>
+<li>may respond immediately if the planning result itself is the desired stopping point</li>
+</ul>
+<h2 id="4-ondemand-to-queue" tabindex="-1"><a class="h-anchor" href="#4-ondemand-to-queue">#</a> 4. OnDemand to Queue</h2>
+<p>Handoff trigger:</p>
+<ul>
+<li>planner output contains executable actions or the workflow otherwise requires explicit step management.</li>
+</ul>
+<p>Handoff mechanism:</p>
+<ul>
+<li><code>push_back_task_queue</code> for normal sequencing</li>
+<li><code>push_front_task_queue</code> for priority insertion</li>
+</ul>
+<p>What changes at this boundary:</p>
+<ul>
+<li>work stops being a plan and becomes executable queue state.</li>
+</ul>
+<h2 id="5-queue-to-execution" tabindex="-1"><a class="h-anchor" href="#5-queue-to-execution">#</a> 5. Queue to Execution</h2>
+<p>Handoff trigger:</p>
+<ul>
+<li>OnDemand or workflow logic calls <code>pop_task_queue(pop_and_execute=True)</code>.</li>
+</ul>
+<p>Handoff mechanism:</p>
+<ul>
+<li>next task group is popped</li>
+<li>statuses change to <code>INPROGRESS</code></li>
+<li>execution query is synthesized from task description and arguments</li>
+<li>tool set is filtered for the popped task name or names</li>
+<li><code>ExecutionOrchestrator.invoke(...)</code> is called</li>
+</ul>
+<p>What changes at this boundary:</p>
+<ul>
+<li>work stops being queued intent and becomes live execution.</li>
+</ul>
+<h2 id="6-execution-back-to-ondemand" tabindex="-1"><a class="h-anchor" href="#6-execution-back-to-ondemand">#</a> 6. Execution back to OnDemand</h2>
+<p>Handoff trigger:</p>
+<ul>
+<li>ExecutionOrchestrator finishes and emits final response.</li>
+</ul>
+<p>Handoff mechanism:</p>
+<ul>
+<li>final serialized <code>OnDemandServiceResponse</code> is captured in <code>task_response</code></li>
+<li>nested <code>conversationContext</code> is extracted</li>
+<li>execution metadata is accumulated under execution-specific context fields</li>
+</ul>
+<p>What OnDemand does with it:</p>
+<ul>
+<li>updates user-facing result</li>
+<li>updates task queue state</li>
+<li>surfaces <code>executionConversationContext</code></li>
+<li>returns the final aggregated <code>OnDemandServiceResponse</code></li>
+</ul>
+<hr>
+<h2 id="detailed-workflow-by-agent" tabindex="-1"><a class="h-anchor" href="#detailed-workflow-by-agent">#</a> Detailed Workflow by Agent</h2>
+<h2 id="1-planner-workflow" tabindex="-1"><a class="h-anchor" href="#1-planner-workflow">#</a> 1. Planner Workflow</h2>
+<ol>
+<li>OnDemand decides planning is needed.</li>
+<li><code>PlannerTool._arun(...)</code> extracts <code>pageContext</code>, <code>aad_token</code>, and <code>ondemand_conversation_context</code>.</li>
+<li>planner emits <code>TaskStatusEvent</code> with <code>INPROGRESS</code>.</li>
+<li><code>PlannerOrchestrator</code> builds its system prompt from planner prompt files.</li>
+<li>planner uses support tools such as <code>FetchSchema</code>, <code>FetchEntity</code>, <code>FetchEnum</code>, and search/validation tools.</li>
+<li>planner resolves what it can before claiming anything is missing.</li>
+<li>planner orders actions according to ranking rules.</li>
+<li>planner finishes with <code>ResponseTool</code>.</li>
+<li>final <code>OutputFormat</code> returns to OnDemand through the event-stream capture path.</li>
+<li>planner emits completion task status using <code>one_line_summary</code>.</li>
+</ol>
+<p>Key property:</p>
+<p>Planner is a validation-first action generator, not a task executor.</p>
+<h2 id="2-ondemand-workflow" tabindex="-1"><a class="h-anchor" href="#2-ondemand-workflow">#</a> 2. OnDemand Workflow</h2>
+<ol>
+<li>receives routed quote request.</li>
+<li>rehydrates or initializes quote workflow state.</li>
+<li>decides whether to clarify, plan, queue, or execute.</li>
+<li>invokes planner when the request needs decomposition.</li>
+<li>turns executable plan items into queueable tasks.</li>
+<li>manages queue lifecycle over one or more turns.</li>
+<li>invokes <code>pop_task_queue</code> when work should execute.</li>
+<li>aggregates nested execution result into quote-agent response.</li>
+<li>returns unified <code>OnDemandServiceResponse</code> upward.</li>
+</ol>
+<p>Key property:</p>
+<p>OnDemand is the only layer that sees the full quote workflow from request intake through final response aggregation.</p>
+<h2 id="3-queue-workflow" tabindex="-1"><a class="h-anchor" href="#3-queue-workflow">#</a> 3. Queue Workflow</h2>
+<ol>
+<li>tasks are inserted into <code>SimpleTaskQueue</code>.</li>
+<li>each task is wrapped with UUID and status.</li>
+<li>queue order persists execution intent.</li>
+<li>queue can hold a single sequential task or a parallel task group.</li>
+<li><code>view_task_queue</code> and related tools expose and manage workflow state.</li>
+<li><code>pop_task_queue</code> becomes the execution bridge when <code>pop_and_execute=True</code>.</li>
+</ol>
+<p>Key property:</p>
+<p>The queue is the durable operational representation of pending workflow steps.</p>
+<h2 id="4-execution-workflow" tabindex="-1"><a class="h-anchor" href="#4-execution-workflow">#</a> 4. Execution Workflow</h2>
+<ol>
+<li><code>pop_task_queue</code> pops the next task group.</li>
+<li>task status moves to <code>INPROGRESS</code>.</li>
+<li>execution query is synthesized from queued task content.</li>
+<li>available execution tools are filtered using queued task names.</li>
+<li><code>ExecutionOrchestrator</code> runs the task group.</li>
+<li>execution streams status, debug, refresh, and response events.</li>
+<li>final <code>OnDemandServiceResponse</code> is emitted.</li>
+<li>nested <code>conversationContext</code> is extracted.</li>
+<li>queue task status is mapped to completion or failure.</li>
+<li>execution result is returned to OnDemand for final aggregation.</li>
+</ol>
+<p>Key property:</p>
+<p>Execution is controlled by queued task groups and filtered tool access, not by free-form direct invocation from Planner.</p>
+<hr>
+<h2 id="full-end-to-end-flows" tabindex="-1"><a class="h-anchor" href="#full-end-to-end-flows">#</a> Full End-to-End Flows</h2>
+<h2 id="flow-1-clarification-only-flow" tabindex="-1"><a class="h-anchor" href="#flow-1-clarification-only-flow">#</a> Flow 1: Clarification-Only Flow</h2>
+<p>Use when:</p>
+<ul>
+<li>request is incomplete or ambiguous</li>
+<li>planner cannot safely generate executable actions</li>
+</ul>
+<p>Path:</p>
+<ol>
+<li>VLC routes to OnDemand.</li>
+<li>OnDemand invokes Planner.</li>
+<li>Planner validates what it can.</li>
+<li>Planner returns <code>missing_information</code> and explanatory <code>response</code>.</li>
+<li>OnDemand returns clarification response without queue execution.</li>
+</ol>
+<p>Output pattern:</p>
+<ul>
+<li>user-facing clarification message</li>
+<li>no execution yet</li>
+<li>workflow may continue next turn with more information</li>
+</ul>
+<h2 id="flow-2-planning-only-flow" tabindex="-1"><a class="h-anchor" href="#flow-2-planning-only-flow">#</a> Flow 2: Planning-Only Flow</h2>
+<p>Use when:</p>
+<ul>
+<li>a plan is needed first but execution is not yet performed in this turn</li>
+</ul>
+<p>Path:</p>
+<ol>
+<li>VLC routes to OnDemand.</li>
+<li>OnDemand invokes Planner.</li>
+<li>Planner returns ordered <code>executable_actions</code>.</li>
+<li>OnDemand may queue the tasks but not execute them immediately, or it may stop after presenting the plan.</li>
+<li>caller receives workflow state and response.</li>
+</ol>
+<p>Output pattern:</p>
+<ul>
+<li>plan created</li>
+<li>queue may be populated</li>
+<li>execution deferred</li>
+</ul>
+<h2 id="flow-3-plan-queue-and-execute-in-one-turn" tabindex="-1"><a class="h-anchor" href="#flow-3-plan-queue-and-execute-in-one-turn">#</a> Flow 3: Plan, Queue, and Execute in One Turn</h2>
+<p>Use when:</p>
+<ul>
+<li>request is clear enough and execution should proceed immediately</li>
+</ul>
+<p>Path:</p>
+<ol>
+<li>VLC routes to OnDemand.</li>
+<li>OnDemand invokes Planner.</li>
+<li>Planner returns executable actions.</li>
+<li>OnDemand materializes them into <code>Task</code> objects.</li>
+<li>tasks are pushed into <code>SimpleTaskQueue</code>.</li>
+<li>OnDemand calls <code>pop_task_queue(pop_and_execute=True)</code>.</li>
+<li><code>pop_task_queue</code> invokes ExecutionOrchestrator.</li>
+<li>ExecutionOrchestrator returns nested <code>OnDemandServiceResponse</code>.</li>
+<li>OnDemand aggregates final result and returns upstream.</li>
+</ol>
+<p>Output pattern:</p>
+<ul>
+<li>plan created</li>
+<li>queue consumed at least partially</li>
+<li>execution response surfaced in same turn</li>
+</ul>
+<h2 id="flow-4-multi-turn-queue-continuation-flow" tabindex="-1"><a class="h-anchor" href="#flow-4-multi-turn-queue-continuation-flow">#</a> Flow 4: Multi-Turn Queue Continuation Flow</h2>
+<p>Use when:</p>
+<ul>
+<li>workflow spans multiple dependent steps</li>
+<li>user returns later</li>
+<li>some work remains queued after current turn</li>
+</ul>
+<p>Path:</p>
+<ol>
+<li>OnDemand already has existing <code>task_queue</code> and context from a prior turn.</li>
+<li>request re-enters the quote path.</li>
+<li>OnDemand rehydrates the queue and conversation state.</li>
+<li>OnDemand either modifies the queue, asks for clarification, or pops the next task group.</li>
+<li>execution continues from the preserved queue state.</li>
+</ol>
+<p>Output pattern:</p>
+<ul>
+<li>queue continuity across turns</li>
+<li>explicit pending work visibility</li>
+<li>progressive execution over time</li>
+</ul>
+<h2 id="flow-5-direct-quote-handling-flow" tabindex="-1"><a class="h-anchor" href="#flow-5-direct-quote-handling-flow">#</a> Flow 5: Direct Quote Handling Flow</h2>
+<p>Use when:</p>
+<ul>
+<li>request does not need the full planner-plus-queue path</li>
+<li>OnDemand can satisfy the request with direct quote-oriented behavior</li>
+</ul>
+<p>Path:</p>
+<ol>
+<li>VLC routes to OnDemand.</li>
+<li>OnDemand handles the quote interaction directly.</li>
+<li>response is aggregated and returned without planner or executor involvement.</li>
+</ol>
+<p>Output pattern:</p>
+<ul>
+<li>simpler response path</li>
+<li>lower orchestration overhead</li>
+</ul>
+<hr>
+<h2 id="event-model" tabindex="-1"><a class="h-anchor" href="#event-model">#</a> Event Model</h2>
+<p>The system relies on SSE-style runtime events, not just final objects.</p>
+<p>Main event types seen across these flows:</p>
+<ul>
+<li><code>ResetStatus</code></li>
+<li><code>ResetResponse</code></li>
+<li><code>AppendResponse</code></li>
+<li><code>FinishResponse</code></li>
+<li><code>TaskStatus</code></li>
+<li><code>Refresh</code></li>
+<li><code>Debug</code></li>
+<li><code>ExecutionSteps</code></li>
+</ul>
+<p>Why they matter:</p>
+<ul>
+<li>they drive user-visible progress</li>
+<li>they synchronize task lifecycle state</li>
+<li>they transport some final payloads, especially planner output</li>
+<li>they make nested orchestration observable during execution</li>
+</ul>
+<p>Important nuance:</p>
+<p>Planner’s logical contract is structured <code>OutputFormat</code>, but its runtime transport still depends on the event stream. Execution also streams status and response content before the final aggregated quote response exists.</p>
+<hr>
+<h2 id="state-and-context-model" tabindex="-1"><a class="h-anchor" href="#state-and-context-model">#</a> State and Context Model</h2>
+<h2 id="1-quote-workflow-state" tabindex="-1"><a class="h-anchor" href="#1-quote-workflow-state">#</a> 1. Quote Workflow State</h2>
+<p>Current important state holders:</p>
+<ul>
+<li><code>ondemand_conversation_context</code></li>
+<li><code>task_queue</code></li>
+<li><code>tools_additional_params</code></li>
+<li>execution metadata accumulated under <code>tools_additional_params[&quot;pop_task_queue&quot;]</code></li>
+</ul>
+<h2 id="2-execution-context-reality" tabindex="-1"><a class="h-anchor" href="#2-execution-context-reality">#</a> 2. Execution Context Reality</h2>
+<p>Current execution metadata is distributed across:</p>
+<ul>
+<li>nested tool responses</li>
+<li><code>conversationContext</code></li>
+<li><code>executionConversationContext</code></li>
+<li>serialized queue state</li>
+<li>context-store fields under <code>tools_additional_params</code></li>
+</ul>
+<p>This is the biggest architectural gap relative to the earlier normalized design.</p>
+<h2 id="3-rehydration-reality" tabindex="-1"><a class="h-anchor" href="#3-rehydration-reality">#</a> 3. Rehydration Reality</h2>
+<p>Current live behavior includes:</p>
+<ul>
+<li>rehydrating OnDemand conversation context</li>
+<li>rehydrating queue state across turns</li>
+<li>accumulating execution conversation history</li>
+</ul>
+<p>But there is an important limitation:</p>
+<ul>
+<li>full execution-conversation replay back into <code>ExecutionOrchestrator.invoke(...)</code> is not currently active in the live <code>pop_task_queue</code> path.</li>
+</ul>
+<p>That means execution context is preserved more as accumulated metadata than as a fully replayed deterministic execution state.</p>
+<hr>
+<h2 id="why-this-architecture-exists" tabindex="-1"><a class="h-anchor" href="#why-this-architecture-exists">#</a> Why This Architecture Exists</h2>
+<p>The system is gaining several concrete things from this setup.</p>
+<h2 id="1-safer-execution" tabindex="-1"><a class="h-anchor" href="#1-safer-execution">#</a> 1. Safer Execution</h2>
+<p>Planner validates first, which reduces blind execution attempts.</p>
+<h2 id="2-explicit-workflow-control" tabindex="-1"><a class="h-anchor" href="#2-explicit-workflow-control">#</a> 2. Explicit Workflow Control</h2>
+<p>The queue makes pending work visible, ordered, and manageable.</p>
+<h2 id="3-multi-step-and-multi-turn-support" tabindex="-1"><a class="h-anchor" href="#3-multi-step-and-multi-turn-support">#</a> 3. Multi-Step and Multi-Turn Support</h2>
+<p>The system can preserve partial progress instead of forcing each request into a single monolithic turn.</p>
+<h2 id="4-separation-of-concerns" tabindex="-1"><a class="h-anchor" href="#4-separation-of-concerns">#</a> 4. Separation of Concerns</h2>
+<ul>
+<li>VLC handles routing.</li>
+<li>OnDemand handles quote workflow coordination.</li>
+<li>Planner handles reasoning and validation.</li>
+<li>Executor handles actual task execution.</li>
+</ul>
+<h2 id="5-tool-surface-reduction-at-execution-time" tabindex="-1"><a class="h-anchor" href="#5-tool-surface-reduction-at-execution-time">#</a> 5. Tool Surface Reduction at Execution Time</h2>
+<p>Execution runs with filtered tools per task group, which improves control and reduces accidental tool exposure.</p>
+<h2 id="6-better-ux-observability" tabindex="-1"><a class="h-anchor" href="#6-better-ux-observability">#</a> 6. Better UX Observability</h2>
+<p>Task status events and streaming responses give the UI richer lifecycle visibility than a simple request-response model would.</p>
+<hr>
+<h2 id="problems-and-architectural-costs" tabindex="-1"><a class="h-anchor" href="#problems-and-architectural-costs">#</a> Problems and Architectural Costs</h2>
+<h2 id="1-split-contracts" tabindex="-1"><a class="h-anchor" href="#1-split-contracts">#</a> 1. Split Contracts</h2>
+<p>Planner returns <code>OutputFormat</code>, while execution and quote orchestration return <code>OnDemandServiceResponse</code>.</p>
+<p>Impact:</p>
+<ul>
+<li>more translation logic</li>
+<li>harder cross-agent standardization</li>
+<li>more complexity for future persistence and observability</li>
+</ul>
+<h2 id="2-distributed-execution-metadata" tabindex="-1"><a class="h-anchor" href="#2-distributed-execution-metadata">#</a> 2. Distributed Execution Metadata</h2>
+<p>Execution state is spread across multiple fields instead of a single deterministic execution-result object.</p>
+<p>Impact:</p>
+<ul>
+<li>harder downstream parsing</li>
+<li>weaker guarantees for replay or analytics</li>
+<li>more brittle integrations</li>
+</ul>
+<h2 id="3-event-dependent-transport" tabindex="-1"><a class="h-anchor" href="#3-event-dependent-transport">#</a> 3. Event-Dependent Transport</h2>
+<p>Some critical payloads are captured from streaming events instead of crossing a clean typed boundary.</p>
+<p>Impact:</p>
+<ul>
+<li>orchestration logic depends on transport behavior</li>
+<li>debugging can be harder</li>
+<li>the logical contract and transport contract are not fully separated</li>
+</ul>
+<h2 id="4-planner-to-queue-translation-is-downstream" tabindex="-1"><a class="h-anchor" href="#4-planner-to-queue-translation-is-downstream">#</a> 4. Planner-to-Queue Translation Is Downstream</h2>
+<p>Planner produces <code>ActionFormat</code>, but task materialization happens later.</p>
+<p>Impact:</p>
+<ul>
+<li>implicit transformation logic sits outside planner’s own contract</li>
+<li>execution-readiness depends partly on downstream interpretation</li>
+</ul>
+<h2 id="5-task-status-mapping-uses-heuristics" tabindex="-1"><a class="h-anchor" href="#5-task-status-mapping-uses-heuristics">#</a> 5. Task Status Mapping Uses Heuristics</h2>
+<p>Queue-to-execution status correlation depends partly on name matching and queue matching rather than one fully stable execution identifier carried end to end.</p>
+<p>Impact:</p>
+<ul>
+<li>less robust lifecycle tracking</li>
+<li>harder to reason about failure mapping in edge cases</li>
+</ul>
+<h2 id="6-partial-execution-rehydration" tabindex="-1"><a class="h-anchor" href="#6-partial-execution-rehydration">#</a> 6. Partial Execution Rehydration</h2>
+<p>Execution history is accumulated, but not fully replayed into the live execution call path.</p>
+<p>Impact:</p>
+<ul>
+<li>execution can lose some historical determinism</li>
+<li>conversation history and execution state are not perfectly aligned</li>
+</ul>
+<h2 id="7-orchestration-depth" tabindex="-1"><a class="h-anchor" href="#7-orchestration-depth">#</a> 7. Orchestration Depth</h2>
+<p>The flow is intentionally layered, but that means more moving parts.</p>
+<p>Impact:</p>
+<ul>
+<li>more state transitions to reason about</li>
+<li>more surfaces where contracts can drift</li>
+<li>higher documentation burden</li>
+</ul>
+<hr>
+<h2 id="interview-grade-mental-model" tabindex="-1"><a class="h-anchor" href="#interview-grade-mental-model">#</a> Interview-Grade Mental Model</h2>
+<p>If asked to explain this system simply but precisely, the best framing is:</p>
+<blockquote>
+<p>VLC routes quote work to OnDemand. OnDemand owns the quote workflow. Planner validates and proposes ordered actions. OnDemand turns those actions into queued tasks. <code>pop_task_queue</code> is the bridge from queued work into execution. Execution runs the next task group with filtered tools and returns an <code>OnDemandServiceResponse</code>. OnDemand aggregates that result, preserves queue and execution context, and returns the quote response upstream.</p>
+</blockquote>
+<p>If asked what is unusual or important about the design, the key points are:</p>
+<ul>
+<li>planning and execution are separated by an explicit queue layer</li>
+<li>OnDemand is the workflow owner rather than Planner or Executor</li>
+<li>runtime transport depends heavily on SSE events</li>
+<li>current state is conversation-centric, not yet normalized into a universal execution envelope</li>
+</ul>
+<p>If asked where the main architectural debt is, the answer is:</p>
+<ul>
+<li>split contracts</li>
+<li>distributed execution metadata</li>
+<li>event-coupled payload transport</li>
+<li>incomplete normalization of planner, quote, and executor outputs</li>
+</ul>
+<hr>
+<h2 id="future-direction" tabindex="-1"><a class="h-anchor" href="#future-direction">#</a> Future Direction</h2>
+<p>The most credible future path is not to remove the queue architecture. The queue is useful. The stronger direction is to normalize the data contracts around it.</p>
+<p>Most likely improvements:</p>
+<ol>
+<li>keep Planner as a validation-first structured planner</li>
+<li>keep OnDemand as the workflow owner</li>
+<li>keep the queue as the execution-control mechanism</li>
+<li>introduce a canonical structured execution result envelope</li>
+<li>reduce dependence on mined chat history for execution metadata</li>
+<li>standardize lifecycle identifiers across planning, queueing, and execution</li>
+<li>separate transport events from logical return contracts more cleanly</li>
+</ol>
+<p>This would preserve the strengths of the architecture while reducing its biggest operational ambiguities.</p>
+<hr>
+<h2 id="summary" tabindex="-1"><a class="h-anchor" href="#summary">#</a> Summary</h2>
+<p>This architecture is a layered quote-workflow system built around explicit handoffs.</p>
+<ul>
+<li>VLC routes.</li>
+<li>OnDemand coordinates.</li>
+<li>Planner validates and plans.</li>
+<li>queue tools hold and order executable work.</li>
+<li><code>pop_task_queue</code> hands work to execution.</li>
+<li>Execution runs filtered tools and returns nested service output.</li>
+<li>OnDemand aggregates the final response and preserves state for future turns.</li>
+</ul>
+<p>The setup is more complex than a single-agent model, but it buys clearer role separation, safer planning, explicit multi-step workflow management, and better runtime observability. Its main costs are contract fragmentation, distributed execution state, and event-driven transport coupling.</p>
+</div>
+        <nav class="toc"><div class="toc-label">On this page</div><ul><li class="lvl-2"><a href="#purpose">Purpose</a></li><li class="lvl-2"><a href="#executive-summary">Executive Summary</a></li><li class="lvl-2"><a href="#visual-overview">Visual Overview</a></li><li class="lvl-3"><a href="#1-layered-system-view">1. Layered System View</a></li><li class="lvl-3"><a href="#2-main-plan-to-execute-sequence">2. Main Plan to Execute Sequence</a></li><li class="lvl-3"><a href="#3-decision-flow-for-possible-runtime-paths">3. Decision Flow for Possible Runtime Paths</a></li><li class="lvl-2"><a href="#system-roles">System Roles</a></li><li class="lvl-2"><a href="#1-vlcorchestrator">1. VLCOrchestrator</a></li><li class="lvl-2"><a href="#2-ondemandquotetool">2. OnDemandQuoteTool</a></li><li class="lvl-2"><a href="#3-ondemandquoteorchestrator">3. OnDemandQuoteOrchestrator</a></li><li class="lvl-2"><a href="#4-plannertool-and-plannerorchestrator">4. PlannerTool and PlannerOrchestrator</a></li><li class="lvl-2"><a href="#5-queue-layer">5. Queue Layer</a></li><li class="lvl-2"><a href="#6-executionorchestrator">6. ExecutionOrchestrator</a></li><li class="lvl-2"><a href="#canonical-runtime-flow">Canonical Runtime Flow</a></li><li class="lvl-2"><a href="#current-runtime-contracts">Current Runtime Contracts</a></li><li class="lvl-2"><a href="#1-planner-action-contract">1. Planner Action Contract</a></li><li class="lvl-3"><a href="#actionformat">ActionFormat</a></li><li class="lvl-3"><a href="#outputformat">OutputFormat</a></li><li class="lvl-2"><a href="#2-queue-contract">2. Queue Contract</a></li><li class="lvl-3"><a href="#task">Task</a></li><li class="lvl-3"><a href="#taskwithuuid">TaskWithUUID</a></li><li class="lvl-3"><a href="#queue-storage-shape">Queue Storage Shape</a></li><li class="lvl-2"><a href="#3-pop-handoff-contract">3. Pop Handoff Contract</a></li><li class="lvl-3"><a href="#poptaskqueueoutput">PopTaskQueueOutput</a></li><li class="lvl-2"><a href="#4-final-quote-and-execution-contract">4. Final Quote and Execution Contract</a></li><li class="lvl-3"><a href="#ondemandserviceresponse">OnDemandServiceResponse</a></li><li class="lvl-2"><a href="#handoff-model">Handoff Model</a></li><li class="lvl-2"><a href="#1-vlc-to-ondemand">1. VLC to OnDemand</a></li><li class="lvl-2"><a href="#2-ondemand-to-planner">2. OnDemand to Planner</a></li><li class="lvl-2"><a href="#3-planner-back-to-ondemand">3. Planner back to OnDemand</a></li><li class="lvl-2"><a href="#4-ondemand-to-queue">4. OnDemand to Queue</a></li><li class="lvl-2"><a href="#5-queue-to-execution">5. Queue to Execution</a></li><li class="lvl-2"><a href="#6-execution-back-to-ondemand">6. Execution back to OnDemand</a></li><li class="lvl-2"><a href="#detailed-workflow-by-agent">Detailed Workflow by Agent</a></li><li class="lvl-2"><a href="#1-planner-workflow">1. Planner Workflow</a></li><li class="lvl-2"><a href="#2-ondemand-workflow">2. OnDemand Workflow</a></li><li class="lvl-2"><a href="#3-queue-workflow">3. Queue Workflow</a></li><li class="lvl-2"><a href="#4-execution-workflow">4. Execution Workflow</a></li><li class="lvl-2"><a href="#full-end-to-end-flows">Full End-to-End Flows</a></li><li class="lvl-2"><a href="#flow-1-clarification-only-flow">Flow 1: Clarification-Only Flow</a></li><li class="lvl-2"><a href="#flow-2-planning-only-flow">Flow 2: Planning-Only Flow</a></li><li class="lvl-2"><a href="#flow-3-plan-queue-and-execute-in-one-turn">Flow 3: Plan, Queue, and Execute in One Turn</a></li><li class="lvl-2"><a href="#flow-4-multi-turn-queue-continuation-flow">Flow 4: Multi-Turn Queue Continuation Flow</a></li><li class="lvl-2"><a href="#flow-5-direct-quote-handling-flow">Flow 5: Direct Quote Handling Flow</a></li><li class="lvl-2"><a href="#event-model">Event Model</a></li><li class="lvl-2"><a href="#state-and-context-model">State and Context Model</a></li><li class="lvl-2"><a href="#1-quote-workflow-state">1. Quote Workflow State</a></li><li class="lvl-2"><a href="#2-execution-context-reality">2. Execution Context Reality</a></li><li class="lvl-2"><a href="#3-rehydration-reality">3. Rehydration Reality</a></li><li class="lvl-2"><a href="#why-this-architecture-exists">Why This Architecture Exists</a></li><li class="lvl-2"><a href="#1-safer-execution">1. Safer Execution</a></li><li class="lvl-2"><a href="#2-explicit-workflow-control">2. Explicit Workflow Control</a></li><li class="lvl-2"><a href="#3-multi-step-and-multi-turn-support">3. Multi-Step and Multi-Turn Support</a></li><li class="lvl-2"><a href="#4-separation-of-concerns">4. Separation of Concerns</a></li><li class="lvl-2"><a href="#5-tool-surface-reduction-at-execution-time">5. Tool Surface Reduction at Execution Time</a></li><li class="lvl-2"><a href="#6-better-ux-observability">6. Better UX Observability</a></li><li class="lvl-2"><a href="#problems-and-architectural-costs">Problems and Architectural Costs</a></li><li class="lvl-2"><a href="#1-split-contracts">1. Split Contracts</a></li><li class="lvl-2"><a href="#2-distributed-execution-metadata">2. Distributed Execution Metadata</a></li><li class="lvl-2"><a href="#3-event-dependent-transport">3. Event-Dependent Transport</a></li><li class="lvl-2"><a href="#4-planner-to-queue-translation-is-downstream">4. Planner-to-Queue Translation Is Downstream</a></li><li class="lvl-2"><a href="#5-task-status-mapping-uses-heuristics">5. Task Status Mapping Uses Heuristics</a></li><li class="lvl-2"><a href="#6-partial-execution-rehydration">6. Partial Execution Rehydration</a></li><li class="lvl-2"><a href="#7-orchestration-depth">7. Orchestration Depth</a></li><li class="lvl-2"><a href="#interview-grade-mental-model">Interview-Grade Mental Model</a></li><li class="lvl-2"><a href="#future-direction">Future Direction</a></li><li class="lvl-2"><a href="#summary">Summary</a></li></ul></nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Compiled from Obsidian · KaTeX · Mermaid</span>
+    </footer>
+  </main>
+</div>
+<script src="../../../_assets/app.js"></script>
+<script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        const root = document.documentElement;
+        const dark = root.getAttribute('data-theme') === 'dark';
+        const cs = getComputedStyle(root);
+        const vget = (n) => cs.getPropertyValue(n).trim();
+        const palette = ['--c1','--c2','--c3','--c4','--c5','--c6'].map(vget);
+        const ink = vget('--ink');
+        const line = vget('--line-strong');
+        const tint = dark ? '2e' : '24';          // node fill alpha
+        const clusterTint = dark ? '17' : '12';    // subgraph fill alpha
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          fontFamily: 'Inter, sans-serif',
+          securityLevel: 'loose',
+          flowchart: { curve: 'basis', htmlLabels: true, padding: 14, nodeSpacing: 48, rankSpacing: 56, useMaxWidth: true },
+          themeVariables: {
+            background: 'transparent',
+            primaryColor: palette[0] + tint,
+            primaryBorderColor: palette[0],
+            primaryTextColor: ink,
+            secondaryColor: palette[2] + tint,
+            tertiaryColor: palette[3] + tint,
+            lineColor: line,
+            titleColor: ink,
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '14px'
+          }
+        });
+        const colorize = () => {
+          document.querySelectorAll('.mermaid svg').forEach((svg) => {
+            svg.querySelectorAll('g.node').forEach((node, i) => {
+              const c = palette[i % palette.length];
+              node.querySelectorAll('rect, polygon, circle, ellipse, path').forEach((sh) => {
+                sh.style.setProperty('fill', c + tint, 'important');
+                sh.style.setProperty('stroke', c, 'important');
+                sh.style.setProperty('stroke-width', '1.5px', 'important');
+              });
+              node.querySelectorAll('.nodeLabel, .label, span, p, foreignObject div').forEach((t) => {
+                t.style.setProperty('color', ink, 'important');
+              });
+            });
+            svg.querySelectorAll('g.cluster rect').forEach((r, i) => {
+              const c = palette[(i + 1) % palette.length];
+              r.style.setProperty('fill', c + clusterTint, 'important');
+              r.style.setProperty('stroke', c, 'important');
+            });
+            // sequence-diagram actor boxes (top + bottom kept in sync by order)
+            ['.actor-top', '.actor-bottom'].forEach((sel) => {
+              const boxes = svg.querySelectorAll('rect' + sel);
+              const list = boxes.length ? boxes : (sel === '.actor-top' ? svg.querySelectorAll('rect.actor') : []);
+              list.forEach((r, i) => {
+                const c = palette[i % palette.length];
+                r.style.setProperty('fill', c + tint, 'important');
+                r.style.setProperty('stroke', c, 'important');
+              });
+            });
+            svg.querySelectorAll('text.actor, .actor > tspan').forEach((t) => {
+              t.style.setProperty('fill', ink, 'important');
+            });
+          });
+        };
+        await mermaid.run({ querySelector: '.mermaid' });
+        colorize();
+        window.__mermaid = mermaid;
+      </script>
+</body>
+</html>

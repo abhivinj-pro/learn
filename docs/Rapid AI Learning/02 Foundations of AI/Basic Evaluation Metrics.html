@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Basic Evaluation Metrics — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="../../_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar"><div class="nav-home"><a href="../../index.html">⌂ &nbsp;The Vault</a></div><ul class="nav-root"><li class="nav-section is-open"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/01%20Mathematics/index.html">Mathematics</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/01%20Mathematics/Calculus.html">Calculus</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/01%20Mathematics/Linear%20Algebra.html">Linear Algebra</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/01%20Mathematics/Probability.html">Probability</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/01%20Mathematics/Statistics.html">Statistics</a></li></ul></li><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/index.html">Foundations of AI</a></div><ul class="nav-children"><li class="nav-file"><a class="active" href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Basic%20Evaluation%20Metrics.html">Basic Evaluation Metrics</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Fundamental%20Concepts.html">Fundamental Concepts</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Precision%20Recall%20-%20CTR.html">Precision Recall - CTR</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/index.html">Deep Learning Fundamentals</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/Optimization.html">Optimization</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/index.html">Prompt Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/Prompt%20Engineering%20Tips.html">Prompt Engineering Tips</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/index.html">A2A</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/A2A.html">A2A</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/index.html">Context Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/References.html">References</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/index.html">MCP</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/Core%20MCP.html">Core MCP</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/MCP%20Connection.html">MCP Connection</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/index.html">Multi Agent Systems</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/PLANNER-EXECUTOR%20ARCHITECTURE.html">PLANNER-EXECUTOR ARCHITECTURE</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/References.html">References</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/Untitled.html">Untitled</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/index.html">Tool Retreival</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/ToolRetrieval.html">ToolRetrieval</a></li></ul></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/index.html">Performance Optimization</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/index.html">Caching</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Batching.html">Batching</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20in%20LLM-Based%20Agentic%20Systems.html">Prompt Caching in LLM-Based Agentic Systems</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20Intuition.html">Prompt Caching Intuition</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Quantization.html">Quantization</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Response%20Caching.html">Response Caching</a></li></ul></li></ul></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../System%20Design%20-%20LLM%20based/index.html">System Design - LLM based</a></div><ul class="nav-children"><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/AI%20generated%20Scenarios.html">AI generated Scenarios</a></li><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/Approach%20for%20Interviews.html">Approach for Interviews</a></li><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/IndianQuestionBank.html">IndianQuestionBank</a></li><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/Question%20Bank%20GitHub.html">Question Bank GitHub</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../AI%20Engineering/index.html">AI Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../AI%20Engineering/01%20Role%20Vision.html">Role Vision</a></li><li class="nav-file"><a href="../../AI%20Engineering/02%20Skills.html">Skills</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Resume%60/index.html">Resume`</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Resume%60/UberOrchestrator/index.html">UberOrchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/COPILOT_SDK_GUIDE.html">COPILOT_SDK_GUIDE</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/DESIGN.html">DESIGN</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/REPORTING_AGENT_DESIGN.html">REPORTING_AGENT_DESIGN</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_DESIGN.html">SESSION_PERSISTENCE_DESIGN</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_IMPL.html">SESSION_PERSISTENCE_IMPL</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Resume%60/VL%20Orchestrator/index.html">VL Orchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/AgentContextEngineering.html">AgentContextEngineering</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/Designing%20decision-heavy%20enterprise%20AI%20systems%20without%20losing%20control.html">Designing decision-heavy enterprise AI systems without losing control</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/EvalAgent%20Dashboard.html">EvalAgent Dashboard</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/Multi%20agent%20Architectures.html">Multi agent Architectures</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/MultiAgentArchitecture.html">MultiAgentArchitecture</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/Orchestrator%20Library.html">Orchestrator Library</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/OrchestratorGuardRails.html">OrchestratorGuardRails</a></li></ul></li><li class="nav-file"><a href="../../Resume%60/LLM%20Evaluation%20Framework.html">LLM Evaluation Framework</a></li><li class="nav-file"><a href="../../Resume%60/Math%20strategy.html">Math strategy</a></li><li class="nav-file"><a href="../../Resume%60/Preparation%20Strategy.html">Preparation Strategy</a></li><li class="nav-file"><a href="../../Resume%60/RAG%20Pipeline.html">RAG Pipeline</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Companies/index.html">Companies</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Companies/CoinBase.html">CoinBase</a></li><li class="nav-file"><a href="../../Companies/DataBricks.html">DataBricks</a></li><li class="nav-file"><a href="../../Companies/Deliveroo.html">Deliveroo</a></li><li class="nav-file"><a href="../../Companies/LeoForce.html">LeoForce</a></li><li class="nav-file"><a href="../../Companies/Sarvam%20AI.html">Sarvam AI</a></li><li class="nav-file"><a href="../../Companies/TataSons.html">TataSons</a></li></ul></li></ul></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="../../index.html">The Vault</a><span class="sep">/</span><a href="../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a><span class="sep">/</span><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/index.html">Foundations of AI</a><span class="sep">/</span><span>Basic Evaluation Metrics</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Entry</div>
+        <h1 class="doc-title">Basic Evaluation Metrics</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body"><h1 id="classification-metrics" tabindex="-1"><a class="h-anchor" href="#classification-metrics">#</a> Classification Metrics</h1>
+<ul>
+<li><a href="#everything-flows-from-the-confusion-matrix">Everything flows from the confusion matrix</a></li>
+<li><a href="#the-four-metrics">The four metrics</a>
+<ul>
+<li><a href="#%F0%9F%94%B5-precision">🔵 Precision</a></li>
+<li><a href="#%F0%9F%9F%A0-recall-sensitivity-tpr">🟠 Recall (Sensitivity / TPR)</a></li>
+<li><a href="#%F0%9F%9F%A2-f1-score">🟢 F1 Score</a></li>
+<li><a href="#%F0%9F%A9%B7-roc-auc">🩷 ROC-AUC</a></li>
+</ul>
+</li>
+<li><a href="#roc-curve-%E2%80%94-visual-intuition">ROC curve — visual intuition</a></li>
+<li><a href="#the-precision%E2%80%93recall-trade-off">The precision–recall trade-off</a></li>
+<li><a href="#when-to-use-which-metric">When to use which metric</a></li>
+<li><a href="#memory-anchors">Memory anchors</a>
+<ul>
+<li><a href="#precision-vs-recall-in-one-sentence">Precision vs Recall in one sentence</a></li>
+<li><a href="#roc-auc-in-one-sentence">ROC-AUC in one sentence</a></li>
+</ul>
+</li>
+<li><a href="#the-doctor-analogy-covers-all-four">The doctor analogy (covers all four)</a></li>
+<li><a href="#formula-quick-reference">Formula quick-reference</a></li>
+</ul>
+<hr>
+<h2 id="everything-flows-from-the-confusion-matrix" tabindex="-1"><a class="h-anchor" href="#everything-flows-from-the-confusion-matrix">#</a> Everything flows from the confusion matrix</h2>
+<figure class="md-figure"><img class="md-img" src="../../_media/confusion_matrix.svg" alt="confusion_matrix.svg" style="width:1182px;max-width:100%" loading="lazy"></figure>
+<hr>
+<h2 id="the-four-metrics" tabindex="-1"><a class="h-anchor" href="#the-four-metrics">#</a> The four metrics</h2>
+<h3 id="🔵-precision" tabindex="-1"><a class="h-anchor" href="#🔵-precision">#</a> 🔵 Precision</h3>
+<p><strong>“Of all I said YES, how many were actually YES?”</strong></p>
+<blockquote>
+<p><em>“When I raise the alarm, am I usually right?”</em></p>
+</blockquote>
+<pre><code>Precision = TP / (TP + FP)
+</code></pre>
+<ul>
+<li>Looks <strong>down the predicted-positive column</strong></li>
+<li>Low precision = <strong>cry-wolf problem</strong> — too many false alarms</li>
+<li>Penalizes <strong>FP</strong></li>
+<li>🔍 <strong>Spam filter:</strong> If a real email lands in spam, users are furious. Maximize precision → only flag when very sure.</li>
+</ul>
+<hr>
+<h3 id="🟠-recall-sensitivity-tpr" tabindex="-1"><a class="h-anchor" href="#🟠-recall-sensitivity-tpr">#</a> 🟠 Recall (Sensitivity / TPR)</h3>
+<p><strong>“Of all the real YESes, how many did I catch?”</strong></p>
+<blockquote>
+<p><em>“Am I missing sick people?”</em></p>
+</blockquote>
+<pre><code>Recall = TP / (TP + FN)
+</code></pre>
+<ul>
+<li>Looks <strong>across the actual-positive row</strong></li>
+<li>Low recall = <strong>missed cases problem</strong> — dangerous misses</li>
+<li>Penalizes <strong>FN</strong></li>
+<li>🏥 <strong>Cancer screening:</strong> Missing a real case is catastrophic. Maximize recall → catch every possible case, even with false alarms.</li>
+</ul>
+<hr>
+<h3 id="🟢-f1-score" tabindex="-1"><a class="h-anchor" href="#🟢-f1-score">#</a> 🟢 F1 Score</h3>
+<p><strong>“The balance between precision &amp; recall”</strong></p>
+<blockquote>
+<p><em>“Harmonic mean — punishes extremes”</em></p>
+</blockquote>
+<pre><code>F1 = 2 × Precision × Recall / (Precision + Recall)
+</code></pre>
+<ul>
+<li>Use when you want <strong>both</strong> to matter equally</li>
+<li>A model with Precision=1, Recall=0 gets F1=<strong>0</strong>, not 0.5</li>
+<li>⚖️ <strong>Why harmonic?</strong> Arithmetic mean of 100% + 0% = 50% — seems OK but is terrible. Harmonic mean = <strong>0%</strong>. Extremes are punished.</li>
+</ul>
+<hr>
+<h3 id="🩷-roc-auc" tabindex="-1"><a class="h-anchor" href="#🩷-roc-auc">#</a> 🩷 ROC-AUC</h3>
+<p><strong>“How well does the model rank positives above negatives — at every possible threshold?”</strong></p>
+<pre><code>AUC = P(score(positive) &gt; score(negative))
+</code></pre>
+<ul>
+<li><strong>Threshold-independent</strong> — evaluates the model’s discriminative ability overall</li>
+<li>AUC = 1.0 → perfect · AUC = 0.5 → random coin flip</li>
+<li><strong>Unaffected by class imbalance</strong></li>
+<li>ROC plots <strong>TPR (recall) vs FPR</strong> at every decision threshold. AUC is the area under that curve.</li>
+</ul>
+<hr>
+<h2 id="roc-curve-—-visual-intuition" tabindex="-1"><a class="h-anchor" href="#roc-curve-—-visual-intuition">#</a> ROC curve — visual intuition</h2>
+<figure class="md-figure"><img class="md-img" src="../../_media/roc_curve.svg" alt="roc_curve.svg" style="width:1313px;max-width:100%" loading="lazy"></figure>
+<hr>
+<h2 id="the-precision–recall-trade-off" tabindex="-1"><a class="h-anchor" href="#the-precision–recall-trade-off">#</a> The precision–recall trade-off</h2>
+<figure class="md-figure"><img class="md-img" src="../../_media/precision_recall_tradeoff.svg" alt="precision_recall_tradeoff.svg" style="width:1393px;max-width:100%" loading="lazy"></figure>
+<blockquote>
+<p><strong>Key rule:</strong> Lowering a classifier’s decision threshold → flags more things as positive → <strong>recall goes up, precision goes down.</strong> You can’t generally have both high. Pick based on what failure is worse: a missed case (optimize recall) or a false alarm (optimize precision).</p>
+</blockquote>
+<hr>
+<h2 id="when-to-use-which-metric" tabindex="-1"><a class="h-anchor" href="#when-to-use-which-metric">#</a> When to use which metric</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Use when…</th>
+<th>Classic example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Precision</strong></td>
+<td>False alarms are costly</td>
+<td>Spam filter, legal doc retrieval</td>
+</tr>
+<tr>
+<td><strong>Recall</strong></td>
+<td>Missing a case is costly</td>
+<td>Cancer screening, fraud detection</td>
+</tr>
+<tr>
+<td><strong>F1</strong></td>
+<td>Classes are imbalanced &amp; both matter</td>
+<td>NLP tagging, information retrieval</td>
+</tr>
+<tr>
+<td><strong>ROC-AUC</strong></td>
+<td>Threshold-independent comparison</td>
+<td>Comparing models overall</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="memory-anchors" tabindex="-1"><a class="h-anchor" href="#memory-anchors">#</a> Memory anchors</h2>
+<h3 id="precision-vs-recall-in-one-sentence" tabindex="-1"><a class="h-anchor" href="#precision-vs-recall-in-one-sentence">#</a> Precision vs Recall in one sentence</h3>
+<ul>
+<li><strong>Precision</strong> = “Is my YES trustworthy?” → a <em>precise</em> marksman hits exactly what they aim at</li>
+<li><strong>Recall</strong> = “Did I find all the YESes?” → a wide <em>net</em> catches every fish (and some seaweed)</li>
+</ul>
+<h3 id="roc-auc-in-one-sentence" tabindex="-1"><a class="h-anchor" href="#roc-auc-in-one-sentence">#</a> ROC-AUC in one sentence</h3>
+<p>Pick any threshold → plot (FPR, TPR) → move the threshold → trace a curve → AUC = area under it = probability that the model ranks a random positive above a random negative.</p>
+<p><code>0.5 = random guessing</code> · <code>1.0 = perfect</code></p>
+<hr>
+<h2 id="the-doctor-analogy-covers-all-four" tabindex="-1"><a class="h-anchor" href="#the-doctor-analogy-covers-all-four">#</a> The doctor analogy (covers all four)</h2>
+<p>A radiologist reads <strong>100 scans</strong> — <strong>10 are cancerous</strong>. She flags <strong>12</strong> as positive: <strong>8 true cancers + 4 false alarms</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Calculation</th>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Precision</strong></td>
+<td>8 / 12</td>
+<td><strong>67%</strong></td>
+<td>Of her flags, 67% were real cancers</td>
+</tr>
+<tr>
+<td><strong>Recall</strong></td>
+<td>8 / 10</td>
+<td><strong>80%</strong></td>
+<td>She caught 80% of actual cancers</td>
+</tr>
+<tr>
+<td><strong>F1</strong></td>
+<td>2×0.67×0.8 / (0.67+0.8)</td>
+<td><strong>73%</strong></td>
+<td>Balanced score</td>
+</tr>
+<tr>
+<td><strong>ROC-AUC</strong></td>
+<td>—</td>
+<td><strong>~0.85</strong></td>
+<td>Her confidence scores rank real cancers above healthy scans 85% of the time</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="formula-quick-reference" tabindex="-1"><a class="h-anchor" href="#formula-quick-reference">#</a> Formula quick-reference</h2>
+<pre><code>Precision  =  TP / (TP + FP)          ← denominator: all predicted positives
+Recall     =  TP / (TP + FN)          ← denominator: all actual positives
+F1         =  2 × P × R / (P + R)     ← harmonic mean of P and R
+Accuracy   =  (TP + TN) / (all)       ← don't use when classes are imbalanced
+ROC-AUC    =  P(score(pos) &gt; score(neg))
+</code></pre>
+<blockquote>
+<p><strong>Why NOT accuracy on imbalanced data?</strong> If 99% of samples are negative, a model that always predicts “NO” gets 99% accuracy but 0% recall. It’s useless.</p>
+</blockquote>
+</div>
+        <nav class="toc"><div class="toc-label">On this page</div><ul><li class="lvl-2"><a href="#everything-flows-from-the-confusion-matrix">Everything flows from the confusion matrix</a></li><li class="lvl-2"><a href="#the-four-metrics">The four metrics</a></li><li class="lvl-3"><a href="#🔵-precision">🔵 Precision</a></li><li class="lvl-3"><a href="#🟠-recall-sensitivity-tpr">🟠 Recall (Sensitivity / TPR)</a></li><li class="lvl-3"><a href="#🟢-f1-score">🟢 F1 Score</a></li><li class="lvl-3"><a href="#🩷-roc-auc">🩷 ROC-AUC</a></li><li class="lvl-2"><a href="#roc-curve-—-visual-intuition">ROC curve — visual intuition</a></li><li class="lvl-2"><a href="#the-precision–recall-trade-off">The precision–recall trade-off</a></li><li class="lvl-2"><a href="#when-to-use-which-metric">When to use which metric</a></li><li class="lvl-2"><a href="#memory-anchors">Memory anchors</a></li><li class="lvl-3"><a href="#precision-vs-recall-in-one-sentence">Precision vs Recall in one sentence</a></li><li class="lvl-3"><a href="#roc-auc-in-one-sentence">ROC-AUC in one sentence</a></li><li class="lvl-2"><a href="#the-doctor-analogy-covers-all-four">The doctor analogy (covers all four)</a></li><li class="lvl-2"><a href="#formula-quick-reference">Formula quick-reference</a></li></ul></nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Compiled from Obsidian · KaTeX · Mermaid</span>
+    </footer>
+  </main>
+</div>
+<script src="../../_assets/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skills — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="../_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar"><div class="nav-home"><a href="../index.html">⌂ &nbsp;The Vault</a></div><ul class="nav-root"><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/01%20Mathematics/index.html">Mathematics</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/01%20Mathematics/Calculus.html">Calculus</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/01%20Mathematics/Linear%20Algebra.html">Linear Algebra</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/01%20Mathematics/Probability.html">Probability</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/01%20Mathematics/Statistics.html">Statistics</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/index.html">Foundations of AI</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Basic%20Evaluation%20Metrics.html">Basic Evaluation Metrics</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Fundamental%20Concepts.html">Fundamental Concepts</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Precision%20Recall%20-%20CTR.html">Precision Recall - CTR</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/index.html">Deep Learning Fundamentals</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/Optimization.html">Optimization</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/07%20Prompt%20Engineering/index.html">Prompt Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/07%20Prompt%20Engineering/Prompt%20Engineering%20Tips.html">Prompt Engineering Tips</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/index.html">A2A</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/A2A.html">A2A</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/index.html">Context Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/References.html">References</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/index.html">MCP</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/Core%20MCP.html">Core MCP</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/MCP%20Connection.html">MCP Connection</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/index.html">Multi Agent Systems</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/PLANNER-EXECUTOR%20ARCHITECTURE.html">PLANNER-EXECUTOR ARCHITECTURE</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/References.html">References</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/Untitled.html">Untitled</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/index.html">Tool Retreival</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/ToolRetrieval.html">ToolRetrieval</a></li></ul></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/10%20Performance%20Optimization/index.html">Performance Optimization</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/index.html">Caching</a></div><ul class="nav-children"><li class="nav-file"><a href="../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Batching.html">Batching</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20in%20LLM-Based%20Agentic%20Systems.html">Prompt Caching in LLM-Based Agentic Systems</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20Intuition.html">Prompt Caching Intuition</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Quantization.html">Quantization</a></li><li class="nav-file"><a href="../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Response%20Caching.html">Response Caching</a></li></ul></li></ul></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../System%20Design%20-%20LLM%20based/index.html">System Design - LLM based</a></div><ul class="nav-children"><li class="nav-file"><a href="../System%20Design%20-%20LLM%20based/AI%20generated%20Scenarios.html">AI generated Scenarios</a></li><li class="nav-file"><a href="../System%20Design%20-%20LLM%20based/Approach%20for%20Interviews.html">Approach for Interviews</a></li><li class="nav-file"><a href="../System%20Design%20-%20LLM%20based/IndianQuestionBank.html">IndianQuestionBank</a></li><li class="nav-file"><a href="../System%20Design%20-%20LLM%20based/Question%20Bank%20GitHub.html">Question Bank GitHub</a></li></ul></li><li class="nav-section is-open"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../AI%20Engineering/index.html">AI Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../AI%20Engineering/01%20Role%20Vision.html">Role Vision</a></li><li class="nav-file"><a class="active" href="../AI%20Engineering/02%20Skills.html">Skills</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Resume%60/index.html">Resume`</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Resume%60/UberOrchestrator/index.html">UberOrchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../Resume%60/UberOrchestrator/COPILOT_SDK_GUIDE.html">COPILOT_SDK_GUIDE</a></li><li class="nav-file"><a href="../Resume%60/UberOrchestrator/DESIGN.html">DESIGN</a></li><li class="nav-file"><a href="../Resume%60/UberOrchestrator/REPORTING_AGENT_DESIGN.html">REPORTING_AGENT_DESIGN</a></li><li class="nav-file"><a href="../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_DESIGN.html">SESSION_PERSISTENCE_DESIGN</a></li><li class="nav-file"><a href="../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_IMPL.html">SESSION_PERSISTENCE_IMPL</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Resume%60/VL%20Orchestrator/index.html">VL Orchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../Resume%60/VL%20Orchestrator/AgentContextEngineering.html">AgentContextEngineering</a></li><li class="nav-file"><a href="../Resume%60/VL%20Orchestrator/Designing%20decision-heavy%20enterprise%20AI%20systems%20without%20losing%20control.html">Designing decision-heavy enterprise AI systems without losing control</a></li><li class="nav-file"><a href="../Resume%60/VL%20Orchestrator/EvalAgent%20Dashboard.html">EvalAgent Dashboard</a></li><li class="nav-file"><a href="../Resume%60/VL%20Orchestrator/Multi%20agent%20Architectures.html">Multi agent Architectures</a></li><li class="nav-file"><a href="../Resume%60/VL%20Orchestrator/MultiAgentArchitecture.html">MultiAgentArchitecture</a></li><li class="nav-file"><a href="../Resume%60/VL%20Orchestrator/Orchestrator%20Library.html">Orchestrator Library</a></li><li class="nav-file"><a href="../Resume%60/VL%20Orchestrator/OrchestratorGuardRails.html">OrchestratorGuardRails</a></li></ul></li><li class="nav-file"><a href="../Resume%60/LLM%20Evaluation%20Framework.html">LLM Evaluation Framework</a></li><li class="nav-file"><a href="../Resume%60/Math%20strategy.html">Math strategy</a></li><li class="nav-file"><a href="../Resume%60/Preparation%20Strategy.html">Preparation Strategy</a></li><li class="nav-file"><a href="../Resume%60/RAG%20Pipeline.html">RAG Pipeline</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../Companies/index.html">Companies</a></div><ul class="nav-children"><li class="nav-file"><a href="../Companies/CoinBase.html">CoinBase</a></li><li class="nav-file"><a href="../Companies/DataBricks.html">DataBricks</a></li><li class="nav-file"><a href="../Companies/Deliveroo.html">Deliveroo</a></li><li class="nav-file"><a href="../Companies/LeoForce.html">LeoForce</a></li><li class="nav-file"><a href="../Companies/Sarvam%20AI.html">Sarvam AI</a></li><li class="nav-file"><a href="../Companies/TataSons.html">TataSons</a></li></ul></li></ul></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="../index.html">The Vault</a><span class="sep">/</span><a href="../AI%20Engineering/index.html">AI Engineering</a><span class="sep">/</span><span>Skills</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Entry</div>
+        <h1 class="doc-title">Skills</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body"><h2 id="ai-engineering-jobs-analysis" tabindex="-1"><a class="h-anchor" href="#ai-engineering-jobs-analysis">#</a> AI Engineering Jobs Analysis</h2>
+<p>Generated from 895 job descriptions extracted from <a href="http://builtin.com">builtin.com</a>.</p>
+<p>I searched for jobs containing “AI Engineer” keyword from LA, NY, London, Amsterdam and Berlin for last 4 weeks. I did it at the beginning of February 2026, so it mostly contains jobs published in January 2026.</p>
+<p>All numbers here come from quantitative analysis in the <a href="https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/job-market/analysis.ipynb">analysis notebook</a>.</p>
+<p>Summary</p>
+<ul>
+<li>70% of roles work directly on AI (RAG, agents)</li>
+<li>93% need skills beyond just GenAI - it’s a full-stack role</li>
+<li>35.9% of roles mention RAG - the most common pattern in all jobs</li>
+<li>64.3% of AI Engineering roles require some ML knowledge</li>
+<li>AWS (359 jobs) &gt; Azure (214 jobs) &gt; GCP (205 jobs)</li>
+</ul>
+<h2 id="“ai-engineering”-job-types" tabindex="-1"><a class="h-anchor" href="#“ai-engineering”-job-types">#</a> “AI Engineering” Job Types</h2>
+<p>Job positions we analyzed fail into these categories:</p>
+<ul>
+<li>AI-first</li>
+<li>AI-support</li>
+<li>ML</li>
+</ul>
+<h3 id="ai-first-621-jobs-694" tabindex="-1"><a class="h-anchor" href="#ai-first-621-jobs-694">#</a> AI-First: 621 jobs (69.4%)</h3>
+<p>Working ON AI/ML systems directly.</p>
+<p>What they build:</p>
+<ul>
+<li>RAG (Retrieval-Augmented Generation) systems</li>
+<li>AI agents and agentic workflows</li>
+<li>Fine-tuned LLMs for specific domains</li>
+<li>Model serving and inference pipelines</li>
+<li>Prompt engineering and optimization</li>
+</ul>
+<p>Example responsibilities:</p>
+<ul>
+<li>“Build RAG system for knowledge retrieval”</li>
+<li>“Implement agent workflows for automation”</li>
+<li>“Fine-tune Llama 3 for domain-specific tasks”</li>
+<li>“Deploy AI models to production”</li>
+<li>“Optimize prompts and model performance”</li>
+</ul>
+<p>Position title examples</p>
+<ul>
+<li>AI Engineer</li>
+<li>Senior AI Engineer</li>
+<li>Applied AI Engineer</li>
+<li>Lead AI Engineer</li>
+<li>Staff AI Engineer</li>
+<li>Principal AI Engineer</li>
+<li>AI/ML Engineer</li>
+</ul>
+<h3 id="ai-support-255-jobs-285" tabindex="-1"><a class="h-anchor" href="#ai-support-255-jobs-285">#</a> AI-Support: 255 jobs (28.5%)</h3>
+<p>Working NEAR AI but NOT ON AI itself.</p>
+<p>These roles enable AI work by building the platforms, infrastructure, and tools that AI-First engineers use.</p>
+<p>What they build:</p>
+<ul>
+<li>AI platforms and internal tooling</li>
+<li>GPU clusters and inference infrastructure</li>
+<li>Data pipelines for training/fine-tuning</li>
+<li>Frontend for AI products</li>
+<li>Deployment and monitoring systems</li>
+</ul>
+<p>Example responsibilities:</p>
+<ul>
+<li>“Build platform for RAG systems”</li>
+<li>“Pipeline data for fine-tuning”</li>
+<li>“Build deployment infrastructure”</li>
+<li>“Build prompt management UI”</li>
+<li>“Create internal tooling for AI experimentation”</li>
+</ul>
+<p>Position title examples</p>
+<ul>
+<li>AI Sales Engineer</li>
+<li>AI Data Engineer</li>
+<li>AI Infrastructure Engineer</li>
+<li>AI Platform Engineer</li>
+<li>Backend Engineer - AI Systems</li>
+<li>Full-Stack Engineer (AI/LLM Platform)</li>
+</ul>
+<h3 id="machine-learning-16-jobs-18" tabindex="-1"><a class="h-anchor" href="#machine-learning-16-jobs-18">#</a> Machine Learning: 16 jobs (1.8%)</h3>
+<p>Traditional ML/DL work without LLMs/agents.</p>
+<p>What they build:</p>
+<ul>
+<li>Classical ML models (scikit-learn, XGBoost)</li>
+<li>Deep learning models (PyTorch, TensorFlow)</li>
+<li>Computer vision systems</li>
+<li>Recommendation systems</li>
+<li>Model training pipelines</li>
+</ul>
+<p>Position title examples</p>
+<ul>
+<li>Computer Vision AI Engineer</li>
+<li>AI Research Engineer - AI Safety</li>
+<li>AI Research Engineer - Reinforcement Learning</li>
+<li>AI Research Engineer - Robotics, Control, RL</li>
+</ul>
+<p>These “AI Engineer” roles are traditional ML roles rebranded with the AI title. They do classical ML work (PyTorch, TensorFlow, computer vision) without any GenAI components.</p>
+<h3 id="how-to-tell-the-difference" tabindex="-1"><a class="h-anchor" href="#how-to-tell-the-difference">#</a> How to Tell the Difference</h3>
+<p>The key question is: Does this role work ON AI systems, or NEAR them?</p>
+<p>AI-First:</p>
+<ul>
+<li>Builds RAG systems</li>
+<li>Fine-tunes models</li>
+<li>Implements agent workflows</li>
+<li>Optimizes prompts</li>
+<li>Deploys AI features</li>
+</ul>
+<p>AI-Support:</p>
+<ul>
+<li>Builds platforms for others</li>
+<li>Manages GPU infrastructure</li>
+<li>Builds data pipelines</li>
+<li>Creates deployment tooling</li>
+<li>Builds UIs for AI products</li>
+</ul>
+<p>ML:</p>
+<ul>
+<li>Trains traditional ML models</li>
+<li>Works with structured data</li>
+<li>Builds computer vision systems</li>
+<li>Does NOT work with LLMs/agents</li>
+</ul>
+<h2 id="dataset-statistics" tabindex="-1"><a class="h-anchor" href="#dataset-statistics">#</a> Dataset Statistics</h2>
+<p>Unique companies: 590</p>
+<p>Top 20 companies by job count:</p>
+<ul>
+<li>Capital One - 28 jobs</li>
+<li>G2i - 15 jobs</li>
+<li>Scale AI - 10 jobs</li>
+<li>GEICO - 10 jobs</li>
+<li>Thomson Reuters - 10 jobs</li>
+<li>Mistral AI - 7 jobs</li>
+<li>OpenAI - 7 jobs</li>
+<li>Traversal - 7 jobs</li>
+<li>Anthropic - 7 jobs</li>
+<li>EvolutionIQ - 7 jobs</li>
+<li>Speechify - 6 jobs</li>
+<li>SentinelOne - 6 jobs</li>
+<li>NVIDIA - 6 jobs</li>
+<li>Helsing - 5 jobs</li>
+<li>Samsara - 5 jobs</li>
+<li>PwC - 5 jobs</li>
+<li>New York Life Insurance - 5 jobs</li>
+<li>Wolters Kluwer - 5 jobs</li>
+<li>Coinbase - 5 jobs</li>
+<li>Cloudflare - 4 jobs</li>
+</ul>
+<p>Company stage distribution</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Jobs</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public</td>
+<td>293</td>
+<td>32.7%</td>
+</tr>
+<tr>
+<td>Series B</td>
+<td>126</td>
+<td>14.1%</td>
+</tr>
+<tr>
+<td>Series A</td>
+<td>59</td>
+<td>6.6%</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td>36</td>
+<td>4.0%</td>
+</tr>
+</tbody>
+</table>
+<p>Roles:</p>
+<ul>
+<li>Customer-facing roles: 231 (25.8%)</li>
+<li>Management roles: 155 (17.3%)</li>
+</ul>
+<p>Most common job titles:</p>
+<ul>
+<li>AI Engineer - 53 jobs</li>
+<li>Senior AI Engineer - 31 jobs</li>
+<li>Applied AI Engineer - 20 jobs</li>
+<li>Lead AI Engineer - 10 jobs</li>
+<li>Staff AI Engineer - 8 jobs</li>
+<li>AI/ML Engineer - 7 jobs</li>
+<li>Principal AI Engineer - 6 jobs</li>
+<li>Senior AI/ML Engineer - 5 jobs</li>
+<li>AI Research Engineer - 5 jobs</li>
+<li>AI Product Engineer - 5 jobs</li>
+</ul>
+<h2 id="skills-analysis" tabindex="-1"><a class="h-anchor" href="#skills-analysis">#</a> Skills Analysis</h2>
+<p>Top GenAI skills:</p>
+<ul>
+<li>RAG - 321 jobs (35.9%)</li>
+<li>prompt engineering - 260 jobs (29.1%)</li>
+<li>LLMs - 227 jobs (25.4%)</li>
+<li>LangChain - 168 jobs (18.8%)</li>
+<li>agents - 129 jobs (14.4%)</li>
+<li>OpenAI API - 78 jobs (8.7%)</li>
+<li>LangGraph - 72 jobs (8.0%)</li>
+<li>LlamaIndex - 52 jobs (5.8%)</li>
+<li>Anthropic API - 49 jobs (5.5%)</li>
+</ul>
+<p>Top ML skills:</p>
+<ul>
+<li>PyTorch - 197 jobs</li>
+<li>TensorFlow - 115 jobs</li>
+<li>fine-tuning - 76 jobs</li>
+<li>model training - 57 jobs</li>
+<li>model evaluation - 40 jobs</li>
+<li>scikit-learn - 33 jobs</li>
+<li>embeddings - 33 jobs</li>
+</ul>
+<p>Top web skills:</p>
+<ul>
+<li>React - 132 jobs</li>
+<li>FastAPI - 96 jobs</li>
+<li>APIs - 58 jobs</li>
+<li>REST APIs - 58 jobs</li>
+<li>REST - 54 jobs</li>
+<li>API design - 42 jobs</li>
+</ul>
+<p>Top database skills:</p>
+<ul>
+<li>vector databases - 97 jobs</li>
+<li>PostgreSQL - 83 jobs</li>
+<li>Pinecone - 53 jobs</li>
+<li>Redis - 43 jobs</li>
+<li>Postgres - 42 jobs</li>
+<li>Weaviate - 41 jobs</li>
+</ul>
+<p>Top cloud skills:</p>
+<ul>
+<li>AWS - 359 jobs</li>
+<li>Azure - 214 jobs</li>
+<li>GCP - 205 jobs</li>
+</ul>
+<p>Top ops skills:</p>
+<ul>
+<li>Docker - 277 jobs</li>
+<li>CI/CD - 262 jobs</li>
+<li>Kubernetes - 260 jobs</li>
+<li>MLOps - 107 jobs</li>
+<li>Terraform - 104 jobs</li>
+</ul>
+<p>Top languages:</p>
+<ul>
+<li>Python - 738 jobs (82.5%)</li>
+<li>TypeScript - 209 jobs (23.4%)</li>
+<li>Java - 133 jobs (14.9%)</li>
+<li>Go - 101 jobs (11.3%)</li>
+<li>SQL - 88 jobs (9.8%)</li>
+</ul>
+<h2 id="genai-framework-ecosystem" tabindex="-1"><a class="h-anchor" href="#genai-framework-ecosystem">#</a> GenAI Framework Ecosystem</h2>
+<p>Framework popularity:</p>
+<ul>
+<li>LangChain - 168 jobs (18.8%)</li>
+<li>LangGraph - 72 jobs (8.0%)</li>
+<li>LlamaIndex - 52 jobs (5.8%)</li>
+<li>CrewAI - 28 jobs (3.1%)</li>
+<li>AutoGen - 17 jobs (1.9%)</li>
+</ul>
+<h2 id="supporting-roles-what-ai-support-engineers-do" tabindex="-1"><a class="h-anchor" href="#supporting-roles-what-ai-support-engineers-do">#</a> Supporting Roles: What AI-Support Engineers Do</h2>
+<p>255 jobs (28.5%) classified as AI-Support</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Jobs</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform/Infrastructure</td>
+<td>168</td>
+<td>Build AI platforms, GPU clusters, MLOps tooling</td>
+</tr>
+<tr>
+<td>Sales/Solutions</td>
+<td>21</td>
+<td>Pre-sales, customer demos, AI solutions consulting</td>
+</tr>
+<tr>
+<td>Frontend/UI</td>
+<td>20</td>
+<td>Build UIs for AI products, chatbots, AI dashboards</td>
+</tr>
+<tr>
+<td>Backend/General SWE</td>
+<td>20</td>
+<td>APIs, microservices, internal tools for AI teams</td>
+</tr>
+<tr>
+<td>Data/Pipelines</td>
+<td>11</td>
+<td>Data pipelines, ETL, dataset preparation for ML</td>
+</tr>
+</tbody>
+</table>
+<p>Do AI-Support roles need AI knowledge?</p>
+<ul>
+<li>57.3% of AI-Support roles require SOME GenAI knowledge</li>
+<li>42.7% require NO GenAI skills at all</li>
+</ul>
+<p>GenAI skills in AI-Support roles:</p>
+<ul>
+<li>LLMs (general) - 15.3%</li>
+<li>RAG - 13.3%</li>
+<li>Prompt engineering - 7.5%</li>
+<li>LangChain - 6.7%</li>
+<li>OpenAI API - 5.5%</li>
+</ul>
+<h3 id="skill-comparison-ai-first-vs-ai-support" tabindex="-1"><a class="h-anchor" href="#skill-comparison-ai-first-vs-ai-support">#</a> Skill Comparison (AI-First vs AI-Support)</h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>AI-First</th>
+<th>AI-Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RAG</td>
+<td>50.2%</td>
+<td>17.3%</td>
+</tr>
+<tr>
+<td>Prompt engineering</td>
+<td>42.4%</td>
+<td>9.0%</td>
+</tr>
+<tr>
+<td>Agents</td>
+<td>33.3%</td>
+<td>8.2%</td>
+</tr>
+<tr>
+<td>LangChain</td>
+<td>24.3%</td>
+<td>6.7%</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td>31.2%</td>
+<td>30.6%</td>
+</tr>
+<tr>
+<td>Kubernetes</td>
+<td>26.4%</td>
+<td>36.1%</td>
+</tr>
+<tr>
+<td>AWS</td>
+<td>43.3%</td>
+<td>40.8%</td>
+</tr>
+<tr>
+<td>React</td>
+<td>14.2%</td>
+<td>20.8%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="research-vs-applied-roles" tabindex="-1"><a class="h-anchor" href="#research-vs-applied-roles">#</a> Research vs Applied Roles</h2>
+<table>
+<thead>
+<tr>
+<th>Role Type</th>
+<th>Jobs</th>
+<th>Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Research</td>
+<td>39</td>
+<td>4.4%</td>
+</tr>
+<tr>
+<td>Applied/Production</td>
+<td>856</td>
+<td>95.6%</td>
+</tr>
+</tbody>
+</table>
+<p>Research roles work on:</p>
+<ul>
+<li>Novel algorithms and techniques</li>
+<li>Model architecture design</li>
+<li>Training methods and optimization</li>
+<li>Safety and alignment research</li>
+<li>Publishing papers, pushing SOTA</li>
+<li>Experimental work with uncertain outcomes</li>
+</ul>
+<p>Keywords: research, scientist, publication, novel, algorithm, architecture, state of the art, experimental</p>
+<p>Sample research titles:</p>
+<ul>
+<li>AI Research Engineer</li>
+<li>Applied Scientist / Research Engineer</li>
+<li>AI Research Engineer - Reinforcement Learning</li>
+<li>AI Research Engineer - Robotics, Control, RL</li>
+<li>Research Engineer - Decentralized AI Systems</li>
+<li>Staff Level Research Engineer, AI</li>
+</ul>
+<p>Applied / Production roles work on:</p>
+<ul>
+<li>Implementing existing models in production</li>
+<li>Building applications with AI APIs</li>
+<li>Deploying and monitoring AI systems</li>
+<li>Customer-facing AI solutions</li>
+<li>Infrastructure and platforms for AI</li>
+<li>Fine-tuning models for specific use cases</li>
+</ul>
+<p>Keywords: production, deploy, customer, enterprise, product, API integration, shipping, implementation</p>
+<h3 id="example-comparison" tabindex="-1"><a class="h-anchor" href="#example-comparison">#</a> Example Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Research</th>
+<th>Applied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Run pre-training, post-training and deploy state of the art models on clusters with thousands of GPU” (Mistral Research)</td>
+<td>“Deploy production AI solutions with measurable business impact across various industries” (Mistral FDE)</td>
+</tr>
+<tr>
+<td>“Develop novel reinforcement learning algorithms”</td>
+<td>“Implement RAG patterns with vector store integration”</td>
+</tr>
+<tr>
+<td>“Publish papers at top conferences”</td>
+<td>“Ship AI features to customers”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-other-titles-do-“ai-engineers”-go-under" tabindex="-1"><a class="h-anchor" href="#what-other-titles-do-“ai-engineers”-go-under">#</a> What Other Titles Do “AI Engineers” Go Under?</h2>
+<p>Strongly AI-First titles (75%+ classified as AI-First):</p>
+<ul>
+<li>AI Engineer - 118 jobs (97% AI-First)</li>
+<li>Applied AI Engineer - 25 jobs (88% AI-First)</li>
+<li>AI/ML Engineer - 19 jobs (95% AI-First)</li>
+<li>Software Engineer, AI - 11 jobs (91% AI-First)</li>
+<li>AI Product Engineer - 8 jobs (100% AI-First)</li>
+<li>AI Solutions Engineer - 6 jobs (83% AI-First)</li>
+<li>AI Research Engineer - 5 jobs (100% AI-First)</li>
+<li>Machine Learning Engineer, Gen AI - 5 jobs (100% AI-First)</li>
+<li>Forward Deployed AI Engineer - 3 jobs (100% AI-First)</li>
+</ul>
+<p>Strongly AI-Support titles (75%+ classified as AI-Support):</p>
+<ul>
+<li>AI Platform Engineer - 5 jobs (80% AI-Support)</li>
+<li>AI Data Engineer - 4 jobs (75% AI-Support)</li>
+<li>AI Infrastructure Engineer - 3 jobs (100% AI-Support)</li>
+<li>AI Sales Engineer - 3 jobs (100% AI-Support)</li>
+</ul>
+<p>Key Insight: “AI Engineer” is the most common title (97% are AI-First). But job title alone isn’t 100% reliable - always check responsibilities.</p>
+<h2 id="how-much-ml-do-ai-engineers-need-to-know" tabindex="-1"><a class="h-anchor" href="#how-much-ml-do-ai-engineers-need-to-know">#</a> How Much ML Do AI Engineers Need to Know?</h2>
+<p>64.3% of AI-First roles require some ML knowledge</p>
+<p>Most common ML skills in AI Engineer roles:</p>
+<ul>
+<li>PyTorch - 165 jobs (26.6%)</li>
+<li>Fine-tuning - 159 jobs (25.6%)</li>
+<li>TensorFlow - 93 jobs (15.0%)</li>
+<li>Embeddings - 81 jobs (13.0%)</li>
+<li>Model training - 80 jobs (12.9%)</li>
+<li>Model evaluation - 69 jobs (11.1%)</li>
+</ul>
+<p>Key findings:</p>
+<ol>
+<li>Most AI Engineers need basic ML knowledge - 64% require some ML skills</li>
+<li>Fine-tuning is the most common ML task - more common than model training from scratch</li>
+<li>PyTorch dominates - 2.6x more common than TensorFlow for GenAI roles</li>
+</ol>
+<p>Bottom Line: AI Engineers need practical ML knowledge (PyTorch basics, fine-tuning, embeddings) but don’t need deep ML expertise unless specifically working on model development.</p>
+<h2 id="what-else-besides-genai-do-ai-engineers-need" tabindex="-1"><a class="h-anchor" href="#what-else-besides-genai-do-ai-engineers-need">#</a> What Else (Besides GenAI) Do AI Engineers Need?</h2>
+<p>93.1% of AI-First roles require skills BEYOND just GenAI</p>
+<p>Skill combinations in AI Engineer roles:</p>
+<ul>
+<li>GenAI + Ops (Docker, K8s, CI/CD) - 72.0%</li>
+<li>GenAI + ML skills - 57.5%</li>
+<li>GenAI + Web skills - 49.1%</li>
+<li>GenAI + ANY other tech - 93.1%</li>
+<li>Pure GenAI (nothing else) - 1.4%</li>
+</ul>
+<h3 id="non-genai-skills-expected" tabindex="-1"><a class="h-anchor" href="#non-genai-skills-expected">#</a> Non-GenAI Skills Expected</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Skills</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloud</td>
+<td>AWS (41.7%), Azure (24.8%), GCP (22.2%)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Ops</td>
+<td>Docker (31.4%), CI/CD (27.7%), Kubernetes (26.6%)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Web</td>
+<td>React (12.9%), FastAPI (12.9%)</td>
+<td>~50% do web work</td>
+</tr>
+<tr>
+<td>Languages</td>
+<td>Python (88.6%), TypeScript (23.3%), Java (15.1%)</td>
+<td>Python mandatory</td>
+</tr>
+</tbody>
+</table>
+<p>Full-stack expectations:</p>
+<ul>
+<li>Frontend skills - 195/621 (31.4%)</li>
+<li>Backend skills - 308/621 (49.6%)</li>
+<li>Full-stack (both) - 134/621 (21.6%)</li>
+</ul>
+<p>Production/ops skills appear in 50.2% of AI-First roles. “deploy” appears in 565 of 5,694 responsibilities, “monitor” in 258.</p>
+<p>Bottom Line: AI Engineers are full-stack engineers who specialize in AI. Only 1.4% of roles expect pure GenAI work. Most need cloud deployment (AWS/Azure/GCP), containerization (Docker, K8s), CI/CD, and often web development (React, FastAPI).</p>
+<h2 id="fine-tuning-requirements" tabindex="-1"><a class="h-anchor" href="#fine-tuning-requirements">#</a> Fine-Tuning Requirements</h2>
+<p>30.8% of AI-First roles mention fine-tuning</p>
+<h3 id="depth-of-fine-tuning-expectation" tabindex="-1"><a class="h-anchor" href="#depth-of-fine-tuning-expectation">#</a> Depth of Fine-Tuning Expectation</h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Jobs</th>
+<th>%</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary FT responsibility</td>
+<td>25</td>
+<td>4.0%</td>
+<td>FT is main focus (model architecture, LoRA, PEFT)</td>
+</tr>
+<tr>
+<td>Secondary/occasional FT</td>
+<td>94</td>
+<td>15.1%</td>
+<td>FT mentioned but not core</td>
+</tr>
+<tr>
+<td>No FT mentioned</td>
+<td>502</td>
+<td>80.8%</td>
+<td>No fine-tuning expected</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fine-tuning-use-cases" tabindex="-1"><a class="h-anchor" href="#fine-tuning-use-cases">#</a> Fine-Tuning Use Cases</h3>
+<ul>
+<li>Instruction following - Agents that follow complex instructions, task execution</li>
+<li>Domain knowledge - Medical, legal, finance, industry-specific applications</li>
+<li>Style/Tone - Brand voice, personality, formatting requirements</li>
+<li>Company data - Internal documents, proprietary data</li>
+<li>Performance - Smaller/faster models, latency optimization</li>
+<li>Language - Multilingual, non-English support</li>
+<li>Privacy - On-prem, offline, secure environments</li>
+</ul>
+<p>Key findings:</p>
+<ol>
+<li>Most AI Engineers don’t fine-tune - Only ~20% have any FT expectation</li>
+<li>Primary FT roles are rare - Only 4% focus on fine-tuning as main responsibility</li>
+<li>Most common FT use case - Domain knowledge (medical, legal, finance) and instruction following for agents</li>
+<li>FT is a specialization - Not a core AI Engineer skill, more advanced</li>
+</ol>
+<p>Bottom Line</p>
+<ul>
+<li>Fine-tuning is optional for most AI Engineers.</li>
+<li>Focus on RAG and agents first.</li>
+<li>Learn fine-tuning if targeting domain-specific roles (healthcare, finance, legal), performance optimization roles, or specialized model development.</li>
+</ul>
+<h2 id="evaluation-skills" tabindex="-1"><a class="h-anchor" href="#evaluation-skills">#</a> Evaluation Skills</h2>
+<p>39.6% of AI-First roles explicitly require evaluation-related skills (model evaluation, monitoring, observability, testing, quality). Evaluation appears in 69 jobs (11.1%) as an explicit ML skill, but the real demand is broader - it shows up across responsibilities, not just skill lists.</p>
+<p>This is the emerging differentiator. RAG and agents are becoming baseline expectations. The ability to measure whether an AI system actually works - LLM-as-judge, golden datasets, hallucination detection, drift monitoring - is what separates candidates.</p>
+<h2 id="key-insight-rag-agents-70-of-use-cases" tabindex="-1"><a class="h-anchor" href="#key-insight-rag-agents-70-of-use-cases">#</a> Key Insight: RAG + Agents = 70%+ of Use Cases</h2>
+<p>The two dominant patterns are:</p>
+<ul>
+<li>RAG - Connect LLMs to your data (documents, databases)</li>
+<li>Agents - LLMs that use tools to accomplish tasks</li>
+</ul>
+<p>If you learn these two patterns deeply, you can handle most AI Engineering use cases.</p>
+<h2 id="learning-path-for-ai-engineers" tabindex="-1"><a class="h-anchor" href="#learning-path-for-ai-engineers">#</a> Learning Path for AI Engineers</h2>
+<ul>
+<li>Foundation - Python, APIs, basic web development (FastAPI/React)</li>
+<li>LLM Basics - Prompt engineering, OpenAI/Anthropic APIs</li>
+<li>RAG - Vector databases, embeddings, retrieval patterns</li>
+<li>Frameworks - LangChain or LlamaIndex</li>
+<li>Agents - LangGraph, agent orchestration</li>
+<li>Production - Docker, Kubernetes, CI/CD, monitoring</li>
+</ul>
+<p>The typical AI engineering stack:</p>
+<ul>
+<li>APPLICATION layer - React, Next.js, FastAPI</li>
+<li>AI ORCHESTRATION layer - LangChain, LangGraph, LlamaIndex</li>
+<li>LLM APIS layer - OpenAI, Anthropic, local models</li>
+<li>VECTOR DATABASES layer - Pinecone, Weaviate, pgvector</li>
+<li>INFRASTRUCTURE layer - Docker, K8s, AWS/GCP/Azure</li>
+</ul>
+</div>
+        <nav class="toc"><div class="toc-label">On this page</div><ul><li class="lvl-2"><a href="#ai-engineering-jobs-analysis">AI Engineering Jobs Analysis</a></li><li class="lvl-2"><a href="#“ai-engineering”-job-types">“AI Engineering” Job Types</a></li><li class="lvl-3"><a href="#ai-first-621-jobs-694">AI-First: 621 jobs (69.4%)</a></li><li class="lvl-3"><a href="#ai-support-255-jobs-285">AI-Support: 255 jobs (28.5%)</a></li><li class="lvl-3"><a href="#machine-learning-16-jobs-18">Machine Learning: 16 jobs (1.8%)</a></li><li class="lvl-3"><a href="#how-to-tell-the-difference">How to Tell the Difference</a></li><li class="lvl-2"><a href="#dataset-statistics">Dataset Statistics</a></li><li class="lvl-2"><a href="#skills-analysis">Skills Analysis</a></li><li class="lvl-2"><a href="#genai-framework-ecosystem">GenAI Framework Ecosystem</a></li><li class="lvl-2"><a href="#supporting-roles-what-ai-support-engineers-do">Supporting Roles: What AI-Support Engineers Do</a></li><li class="lvl-3"><a href="#skill-comparison-ai-first-vs-ai-support">Skill Comparison (AI-First vs AI-Support)</a></li><li class="lvl-2"><a href="#research-vs-applied-roles">Research vs Applied Roles</a></li><li class="lvl-3"><a href="#example-comparison">Example Comparison</a></li><li class="lvl-2"><a href="#what-other-titles-do-“ai-engineers”-go-under">What Other Titles Do “AI Engineers” Go Under?</a></li><li class="lvl-2"><a href="#how-much-ml-do-ai-engineers-need-to-know">How Much ML Do AI Engineers Need to Know?</a></li><li class="lvl-2"><a href="#what-else-besides-genai-do-ai-engineers-need">What Else (Besides GenAI) Do AI Engineers Need?</a></li><li class="lvl-3"><a href="#non-genai-skills-expected">Non-GenAI Skills Expected</a></li><li class="lvl-2"><a href="#fine-tuning-requirements">Fine-Tuning Requirements</a></li><li class="lvl-3"><a href="#depth-of-fine-tuning-expectation">Depth of Fine-Tuning Expectation</a></li><li class="lvl-3"><a href="#fine-tuning-use-cases">Fine-Tuning Use Cases</a></li><li class="lvl-2"><a href="#evaluation-skills">Evaluation Skills</a></li><li class="lvl-2"><a href="#key-insight-rag-agents-70-of-use-cases">Key Insight: RAG + Agents = 70%+ of Use Cases</a></li><li class="lvl-2"><a href="#learning-path-for-ai-engineers">Learning Path for AI Engineers</a></li></ul></nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Compiled from Obsidian · KaTeX · Mermaid</span>
+    </footer>
+  </main>
+</div>
+<script src="../_assets/app.js"></script>
+
+</body>
+</html>

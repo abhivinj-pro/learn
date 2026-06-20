@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script>
+(function(){
+  var p=new URLSearchParams(location.search);
+  var t=(p.get('theme')==='dark')?'dark':'light';
+  document.documentElement.setAttribute('data-theme',t);
+  var dark=(t==='dark');
+  // Make prefers-color-scheme follow the Vault theme so canvas/JS widgets match.
+  var real=window.matchMedia?window.matchMedia.bind(window):null;
+  window.matchMedia=function(q){
+    if(/prefers-color-scheme/i.test(q)){
+      var want=/dark/i.test(q)?dark:!dark;
+      return {matches:want,media:q,onchange:null,addListener:function(){},removeListener:function(){},
+        addEventListener:function(){},removeEventListener:function(){},dispatchEvent:function(){return false;}};
+    }
+    return real?real(q):{matches:false,media:q,addListener:function(){},removeListener:function(){},
+      addEventListener:function(){},removeEventListener:function(){}};
+  };
+})();
+</script>
+<style>
+  :root{
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+    --color-text-primary:#1c1a16; --color-text-secondary:#514c43; --color-text-tertiary:#8a8377;
+    --color-background-primary:#f3f0e9; --color-background-secondary:#ebe7dd; --color-background-tertiary:#e2ddd1;
+    --color-border-primary:#c4bdac; --color-border-secondary:#d8d2c5; --color-border-tertiary:#e0dacd;
+    --color-accent:#b4482f;
+    --color-background-success:#e4efe1; --color-text-success:#2f6b3a;
+    --color-background-warning:#f3ead3; --color-text-warning:#8a5e15;
+    --color-background-danger:#f3ded8; --color-text-danger:#a3402c;
+  }
+  [data-theme="dark"]{
+    --color-text-primary:#f0ece2; --color-text-secondary:#b3ab9b; --color-text-tertiary:#756f62;
+    --color-background-primary:#14130f; --color-background-secondary:#1b1915; --color-background-tertiary:#23211a;
+    --color-border-primary:#3a362d; --color-border-secondary:#2c2922; --color-border-tertiary:#2c2922;
+    --color-accent:#e0795c;
+    --color-background-success:#1c2b1f; --color-text-success:#7bbf86;
+    --color-background-warning:#2c2616; --color-text-warning:#d6a94e;
+    --color-background-danger:#2e1b17; --color-text-danger:#e89484;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:transparent}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--color-text-primary);padding:16px 18px;line-height:1.6}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  h1,h2,h3{font-weight:600;letter-spacing:-.01em;color:var(--color-text-primary)}
+  button{font-family:'Inter',sans-serif;font-size:13px;color:var(--color-text-primary);background:var(--color-background-secondary);
+    border:1px solid var(--color-border-primary);border-radius:8px;padding:8px 14px;cursor:pointer;transition:all .2s}
+  button:hover:not(:disabled){border-color:var(--color-accent);color:var(--color-accent)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  select{font-family:'Inter',sans-serif;font-size:13px;color:var(--color-text-primary);background:var(--color-background-secondary);
+    border:1px solid var(--color-border-primary);border-radius:8px;padding:9px 12px}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:999px;background:var(--color-border-primary);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--color-accent);cursor:pointer;border:2px solid var(--color-background-primary)}
+  input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--color-accent);cursor:pointer;border:2px solid var(--color-background-primary)}
+  a{color:var(--color-accent)}
+</style>
+</head>
+<body>
+
+<style>
+#gc{display:block;border-radius:8px;}
+.r{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:13px;color:var(--color-text-secondary);}
+.r label{min-width:108px;flex-shrink:0;}
+.r .v{min-width:54px;font-family:var(--font-mono);font-size:12px;color:var(--color-text-primary);}
+.mbox{font-family:var(--font-mono);font-size:12px;background:var(--color-background-secondary);border-radius:8px;padding:10px 16px;margin:10px 0;line-height:1.95;border:0.5px solid var(--color-border-tertiary);}
+.bk{font-size:11px;padding:2px 8px;border-radius:4px;flex-shrink:0;}
+.btns{display:flex;gap:8px;margin:10px 0;align-items:center;}
+</style>
+<h2 class="sr-only">Interactive gradient descent visualizer — a ball rolls down a loss curve as you control learning rate and starting position</h2>
+<canvas id="gc" style="width:100%;height:280px"></canvas>
+<div style="margin-top:10px">
+  <div class="r">
+    <label>Learning rate α</label>
+    <input type="range" id="lr" min="-2.3" max="-0.1" step="0.05" value="-1" style="flex:1" oninput="onLR(this.value)">
+    <span class="v" id="lr-v">0.100</span>
+    <span class="bk" id="lr-b" style="background:var(--color-background-success);color:var(--color-text-success)">good</span>
+  </div>
+  <div class="r">
+    <label>Start position</label>
+    <input type="range" id="sw" min="0" max="100" value="10" style="flex:1" oninput="onStart(this.value)">
+    <span class="v" id="sw-v">w = −3.5</span>
+  </div>
+  <div class="r">
+    <label>Loss function</label>
+    <select id="fn" style="flex:1" onchange="onFn(this.value)">
+      <option value="0">Simple bowl — one global minimum</option>
+      <option value="1">Bumpy valley — local minima trap</option>
+    </select>
+  </div>
+  <div class="btns">
+    <button onclick="doReset()">↺ Reset</button>
+    <button onclick="doStep()">Step →</button>
+    <button id="pb" onclick="doPlay()">▶ Play</button>
+    <span id="sc" style="font-size:12px;color:var(--color-text-secondary);margin-left:auto">Step 0</span>
+  </div>
+</div>
+<div class="mbox" id="md"><span style="opacity:.6">Press <strong>Step →</strong> to take one step, or <strong>▶ Play</strong> to watch gradient descent run. Try cranking the learning rate up — watch it diverge.</span></div>
+<script>
+const C=document.getElementById('gc');
+const W=680,H=280,pad={l:52,r:24,t:26,b:36};
+let wMin,wMax,lMin,lMax;
+const DK=()=>matchMedia('(prefers-color-scheme:dark)').matches;
+
+const FNS=[
+  {fn:w=>(w-2.5)**2+0.5, gd:w=>2*(w-2.5), dom:[-5,8], minima:[2.5], sr:[-4.5,6.5]},
+  {fn:w=>0.08*w**4-1.2*w**2+0.5*w+4, gd:w=>0.32*w**3-2.4*w+0.5, dom:[-4.5,4.5], minima:[-2.85,2.68], sr:[-4.2,4.2]}
+];
+
+let fi=0,lr=0.1,sw=-3.5,w=-3.5,hist=[],steps=0,div=false,playing=false,ival=null;
+
+function setupCoords(){
+  const f=FNS[fi]; wMin=f.dom[0]; wMax=f.dom[1];
+  let mn=1e9,mx=-1e9;
+  for(let i=0;i<=500;i++){const v=f.fn(wMin+(wMax-wMin)*i/500);if(isFinite(v)){mn=Math.min(mn,v);mx=Math.max(mx,v);}}
+  const py=(mx-mn)*0.18; lMin=mn-py*0.5; lMax=mx+py*1.5;
+}
+
+function wx(v){return pad.l+(v-wMin)/(wMax-wMin)*(W-pad.l-pad.r);}
+function ly(v){return pad.t+(1-(v-lMin)/(lMax-lMin))*(H-pad.t-pad.b);}
+
+function draw(){
+  const dpr=devicePixelRatio||1;
+  C.width=W*dpr; C.height=H*dpr;
+  const ctx=C.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const dk=DK();
+  const bg=dk?'#1b1b19':'#f5f4f1';
+  const gc=dk?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)';
+  const tc=dk?'rgba(194,192,182,0.55)':'rgba(61,61,58,0.5)';
+
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+  ctx.strokeStyle=gc; ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){const y=pad.t+i*(H-pad.t-pad.b)/5; ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();}
+
+  ctx.fillStyle=tc; ctx.font='11px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('parameter  w →', W/2, H-5);
+  ctx.save(); ctx.translate(13,H/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText('Loss  L(w)', 0, 0); ctx.restore();
+
+  ctx.font='10px sans-serif'; ctx.fillStyle=tc;
+  for(let v=Math.ceil(wMin);v<=Math.floor(wMax);v++){
+    if(v===0)continue;
+    ctx.textAlign='center'; ctx.fillText(v, wx(v), H-pad.b+12);
+  }
+
+  const f=FNS[fi];
+  ctx.beginPath(); ctx.strokeStyle=dk?'#5B9BD5':'#185FA5'; ctx.lineWidth=2.5;
+  let fst=true;
+  for(let i=0;i<=600;i++){
+    const wv=wMin+(wMax-wMin)*i/600, lv=f.fn(wv);
+    if(!isFinite(lv)||lv<lMin-(lMax-lMin)||lv>lMax+(lMax-lMin)){fst=true;continue;}
+    if(fst){ctx.moveTo(wx(wv),ly(lv));fst=false;}else ctx.lineTo(wx(wv),ly(lv));
+  }
+  ctx.stroke();
+
+  f.minima.forEach(m=>{
+    ctx.save(); ctx.setLineDash([4,4]);
+    ctx.strokeStyle=dk?'rgba(80,170,100,0.3)':'rgba(25,110,40,0.25)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(wx(m),pad.t); ctx.lineTo(wx(m),H-pad.b); ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle=dk?'rgba(80,190,110,0.7)':'rgba(25,130,50,0.7)';
+    ctx.font='10px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('min', wx(m), pad.t-6);
+  });
+
+  if(div){
+    ctx.fillStyle=dk?'#f09595':'#a32d2d'; ctx.font='bold 13px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('⚠ Diverged — learning rate too large, ball flew off to infinity', W/2, H/2);
+    return;
+  }
+
+  if(hist.length>0){
+    ctx.save(); ctx.setLineDash([3,3]);
+    ctx.strokeStyle=dk?'rgba(239,159,39,0.28)':'rgba(186,117,23,0.28)'; ctx.lineWidth=1;
+    ctx.beginPath();
+    hist.forEach((h,i)=>{i===0?ctx.moveTo(wx(h.w),ly(h.l)):ctx.lineTo(wx(h.w),ly(h.l));});
+    ctx.lineTo(wx(w),ly(f.fn(w))); ctx.stroke(); ctx.restore();
+    hist.forEach((h,i)=>{
+      const age=hist.length-i; const al=Math.max(0.06,0.65-age*0.07);
+      ctx.beginPath(); ctx.fillStyle=dk?`rgba(239,159,39,${al})`:`rgba(186,117,23,${al})`;
+      ctx.arc(wx(h.w),ly(h.l),3.5,0,Math.PI*2); ctx.fill();
+    });
+  }
+
+  const cl=f.fn(w), g=f.gd(w);
+  const span=(wMax-wMin)*0.1;
+  const tx1=w-span, tl1=cl+g*(tx1-w), tx2=w+span, tl2=cl+g*(tx2-w);
+  if(isFinite(tl1)&&isFinite(tl2)&&ly(tl1)>-200&&ly(tl1)<H+200&&ly(tl2)>-200&&ly(tl2)<H+200){
+    ctx.beginPath(); ctx.strokeStyle=dk?'rgba(220,95,45,0.85)':'rgba(175,55,20,0.8)';
+    ctx.lineWidth=1.5; ctx.moveTo(wx(tx1),ly(tl1)); ctx.lineTo(wx(tx2),ly(tl2)); ctx.stroke();
+  }
+
+  const nw=w-lr*g;
+  if(isFinite(nw)&&nw>=wMin&&nw<=wMax){
+    const nl=f.fn(nw);
+    ctx.save(); ctx.setLineDash([5,4]);
+    ctx.strokeStyle=dk?'rgba(85,185,110,0.65)':'rgba(25,130,60,0.55)'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(wx(w),ly(cl)); ctx.lineTo(wx(nw),ly(nl)); ctx.stroke();
+    ctx.restore();
+    ctx.beginPath(); ctx.fillStyle=dk?'rgba(85,185,110,0.45)':'rgba(25,130,60,0.3)';
+    ctx.arc(wx(nw),ly(nl),5,0,Math.PI*2); ctx.fill();
+  }
+
+  const gm=Math.min(Math.abs(g)/3,1);
+  const br=Math.round(200*gm+24*(1-gm)), bg2=Math.round(75*gm+125*(1-gm)), bb=Math.round(35*gm+215*(1-gm));
+  ctx.beginPath(); ctx.fillStyle=`rgb(${br},${bg2},${bb})`;
+  ctx.arc(wx(w),ly(cl),9,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle=dk?'rgba(255,255,255,0.25)':'rgba(0,0,0,0.18)'; ctx.lineWidth=1.5; ctx.stroke();
+
+  ctx.font='10px sans-serif'; ctx.textAlign='right';
+  const lx=W-pad.r-4;
+  ctx.fillStyle=dk?'rgba(91,155,213,0.9)':'rgba(24,95,165,0.9)'; ctx.fillText('— loss curve', lx, pad.t+10);
+  ctx.fillStyle=dk?'rgba(220,95,45,0.85)':'rgba(175,55,20,0.8)'; ctx.fillText('— gradient (tangent slope)', lx, pad.t+22);
+  ctx.fillStyle=dk?'rgba(85,185,110,0.7)':'rgba(25,130,60,0.6)'; ctx.fillText('╌ next step preview', lx, pad.t+34);
+  ctx.fillStyle=dk?'rgba(239,159,39,0.7)':'rgba(186,117,23,0.7)'; ctx.fillText('● visited positions', lx, pad.t+46);
+}
+
+function updateMD(){
+  const md=document.getElementById('md');
+  if(div){md.innerHTML='<span style="color:var(--color-text-danger)">Diverged: w flew off to ±infinity. The learning rate is so large that each step overshoots the valley so badly it ends up higher on the other side — and each overshoot is worse than the last.</span>';return;}
+  const f=FNS[fi]; const cl=f.fn(w), g=f.gd(w), nw=w-lr*g;
+  const fmt=n=>n.toFixed(5), fmt3=n=>n.toFixed(3);
+  const dk=DK();
+  const c1=dk?'#5B9BD5':'#185FA5', c2=dk?'#e06a35':'#b43c19', c3=dk?'#5ab46e':'#0F6E56';
+  const distToMin=Math.min(...FNS[fi].minima.map(m=>Math.abs(w-m)));
+  md.innerHTML=`<span style="opacity:.55">Step ${steps} &nbsp;│&nbsp; distance to nearest min: ${distToMin.toFixed(4)}</span><br>w &nbsp;&nbsp;= <b style="color:${c1}">${fmt(w)}</b><br>L(w) = <b style="color:${c1}">${fmt(cl)}</b><br>dL/dw = <b style="color:${c2}">${fmt(g)}</b> &nbsp;<span style="opacity:.5">(positive → we're left of min; negative → right of min)</span><br><br><span style="opacity:.55">Update:</span>  w_new = w − α × dL/dw<br>w_new = ${fmt3(w)} − ${fmt3(lr)} × (${fmt3(g)}) = <b style="color:${c3}">${fmt(nw)}</b>`;
+}
+
+function doStep(){
+  if(div)return;
+  const f=FNS[fi]; const g=f.gd(w);
+  hist.push({w,l:f.fn(w)});
+  if(hist.length>60)hist.shift();
+  w=w-lr*g; steps++;
+  if(!isFinite(w)||Math.abs(w)>100){div=true;stopPlay();}
+  document.getElementById('sc').textContent='Step '+steps;
+  draw(); updateMD();
+}
+
+function stopPlay(){playing=false;clearInterval(ival);ival=null;document.getElementById('pb').textContent='▶ Play';}
+
+function doPlay(){
+  if(playing){stopPlay();return;}
+  playing=true; document.getElementById('pb').textContent='⏸ Pause';
+  ival=setInterval(()=>{
+    doStep();
+    if(div||Math.abs(FNS[fi].gd(w))<0.0003){stopPlay();}
+  },90);
+}
+
+function doReset(){
+  stopPlay(); w=sw; hist=[]; div=false; steps=0;
+  document.getElementById('sc').textContent='Step 0';
+  draw();
+  document.getElementById('md').innerHTML='<span style="opacity:.55">Reset. Press Step → or ▶ Play to run gradient descent.</span>';
+}
+
+function onLR(v){
+  lr=Math.pow(10,parseFloat(v));
+  const dv=lr<0.01?lr.toExponential(1):lr.toFixed(3);
+  document.getElementById('lr-v').textContent=dv;
+  const b=document.getElementById('lr-b');
+  if(lr<0.006){b.textContent='too small';b.style.background='var(--color-background-warning)';b.style.color='var(--color-text-warning)';}
+  else if(lr<0.38){b.textContent='good';b.style.background='var(--color-background-success)';b.style.color='var(--color-text-success)';}
+  else if(lr<0.72){b.textContent='oscillating';b.style.background='var(--color-background-warning)';b.style.color='var(--color-text-warning)';}
+  else{b.textContent='will diverge';b.style.background='var(--color-background-danger)';b.style.color='var(--color-text-danger)';}
+  draw(); if(steps>0)updateMD();
+}
+
+function onStart(v){
+  const f=FNS[fi]; const t=parseFloat(v)/100;
+  sw=f.sr[0]+t*(f.sr[1]-f.sr[0]);
+  document.getElementById('sw-v').textContent='w = '+(sw<0?'−'+Math.abs(sw).toFixed(1):sw.toFixed(1));
+  doReset();
+}
+
+function onFn(v){
+  fi=parseInt(v); setupCoords();
+  const f=FNS[fi]; const t=parseFloat(document.getElementById('sw').value)/100;
+  sw=f.sr[0]+t*(f.sr[1]-f.sr[0]);
+  document.getElementById('sw-v').textContent='w = '+(sw<0?'−'+Math.abs(sw).toFixed(1):sw.toFixed(1));
+  doReset();
+}
+
+setupCoords(); draw();
+</script>
+
+<script>
+(function(){
+  function post(){
+    var b=document.body;
+    var h=Math.max(b.scrollHeight,b.offsetHeight,b.getBoundingClientRect().height);
+    if(window.parent)window.parent.postMessage({type:'vault-widget-height',h:Math.ceil(h)},'*');
+  }
+  window.addEventListener('load',function(){post();setTimeout(post,250);setTimeout(post,800);});
+  if(window.ResizeObserver){new ResizeObserver(post).observe(document.body);}
+  window.addEventListener('resize',post);
+})();
+</script>
+</body>
+</html>

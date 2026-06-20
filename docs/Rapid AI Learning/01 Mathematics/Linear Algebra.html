@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Linear Algebra — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="../../_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar"><div class="nav-home"><a href="../../index.html">⌂ &nbsp;The Vault</a></div><ul class="nav-root"><li class="nav-section is-open"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a></div><ul class="nav-children"><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/01%20Mathematics/index.html">Mathematics</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/01%20Mathematics/Calculus.html">Calculus</a></li><li class="nav-file"><a class="active" href="../../Rapid%20AI%20Learning/01%20Mathematics/Linear%20Algebra.html">Linear Algebra</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/01%20Mathematics/Probability.html">Probability</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/01%20Mathematics/Statistics.html">Statistics</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/index.html">Foundations of AI</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Basic%20Evaluation%20Metrics.html">Basic Evaluation Metrics</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Fundamental%20Concepts.html">Fundamental Concepts</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Precision%20Recall%20-%20CTR.html">Precision Recall - CTR</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/index.html">Deep Learning Fundamentals</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/Optimization.html">Optimization</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/index.html">Prompt Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/Prompt%20Engineering%20Tips.html">Prompt Engineering Tips</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/index.html">A2A</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/A2A.html">A2A</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/index.html">Context Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/References.html">References</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/index.html">MCP</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/Core%20MCP.html">Core MCP</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/MCP%20Connection.html">MCP Connection</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/index.html">Multi Agent Systems</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/PLANNER-EXECUTOR%20ARCHITECTURE.html">PLANNER-EXECUTOR ARCHITECTURE</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/References.html">References</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/Untitled.html">Untitled</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/index.html">Tool Retreival</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/ToolRetrieval.html">ToolRetrieval</a></li></ul></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/index.html">Performance Optimization</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/index.html">Caching</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Batching.html">Batching</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20in%20LLM-Based%20Agentic%20Systems.html">Prompt Caching in LLM-Based Agentic Systems</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20Intuition.html">Prompt Caching Intuition</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Quantization.html">Quantization</a></li><li class="nav-file"><a href="../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Response%20Caching.html">Response Caching</a></li></ul></li></ul></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../System%20Design%20-%20LLM%20based/index.html">System Design - LLM based</a></div><ul class="nav-children"><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/AI%20generated%20Scenarios.html">AI generated Scenarios</a></li><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/Approach%20for%20Interviews.html">Approach for Interviews</a></li><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/IndianQuestionBank.html">IndianQuestionBank</a></li><li class="nav-file"><a href="../../System%20Design%20-%20LLM%20based/Question%20Bank%20GitHub.html">Question Bank GitHub</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../AI%20Engineering/index.html">AI Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../AI%20Engineering/01%20Role%20Vision.html">Role Vision</a></li><li class="nav-file"><a href="../../AI%20Engineering/02%20Skills.html">Skills</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Resume%60/index.html">Resume`</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Resume%60/UberOrchestrator/index.html">UberOrchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/COPILOT_SDK_GUIDE.html">COPILOT_SDK_GUIDE</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/DESIGN.html">DESIGN</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/REPORTING_AGENT_DESIGN.html">REPORTING_AGENT_DESIGN</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_DESIGN.html">SESSION_PERSISTENCE_DESIGN</a></li><li class="nav-file"><a href="../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_IMPL.html">SESSION_PERSISTENCE_IMPL</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Resume%60/VL%20Orchestrator/index.html">VL Orchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/AgentContextEngineering.html">AgentContextEngineering</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/Designing%20decision-heavy%20enterprise%20AI%20systems%20without%20losing%20control.html">Designing decision-heavy enterprise AI systems without losing control</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/EvalAgent%20Dashboard.html">EvalAgent Dashboard</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/Multi%20agent%20Architectures.html">Multi agent Architectures</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/MultiAgentArchitecture.html">MultiAgentArchitecture</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/Orchestrator%20Library.html">Orchestrator Library</a></li><li class="nav-file"><a href="../../Resume%60/VL%20Orchestrator/OrchestratorGuardRails.html">OrchestratorGuardRails</a></li></ul></li><li class="nav-file"><a href="../../Resume%60/LLM%20Evaluation%20Framework.html">LLM Evaluation Framework</a></li><li class="nav-file"><a href="../../Resume%60/Math%20strategy.html">Math strategy</a></li><li class="nav-file"><a href="../../Resume%60/Preparation%20Strategy.html">Preparation Strategy</a></li><li class="nav-file"><a href="../../Resume%60/RAG%20Pipeline.html">RAG Pipeline</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../Companies/index.html">Companies</a></div><ul class="nav-children"><li class="nav-file"><a href="../../Companies/CoinBase.html">CoinBase</a></li><li class="nav-file"><a href="../../Companies/DataBricks.html">DataBricks</a></li><li class="nav-file"><a href="../../Companies/Deliveroo.html">Deliveroo</a></li><li class="nav-file"><a href="../../Companies/LeoForce.html">LeoForce</a></li><li class="nav-file"><a href="../../Companies/Sarvam%20AI.html">Sarvam AI</a></li><li class="nav-file"><a href="../../Companies/TataSons.html">TataSons</a></li></ul></li></ul></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="../../index.html">The Vault</a><span class="sep">/</span><a href="../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a><span class="sep">/</span><a href="../../Rapid%20AI%20Learning/01%20Mathematics/index.html">Mathematics</a><span class="sep">/</span><span>Linear Algebra</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Entry</div>
+        <h1 class="doc-title">Linear Algebra</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body"><h2 id="basis-vectors" tabindex="-1"><a class="h-anchor" href="#basis-vectors">#</a> Basis Vectors</h2>
+<p><strong>Definition:</strong> A set of vectors that is <strong>linearly independent</strong> and <strong>spans</strong> the vector space.</p>
+<ul>
+<li>Minimum set needed to represent every vector in the space</li>
+<li>Basis is <strong>not unique</strong>; standard basis is just the most common choice</li>
+<li>Number of basis vectors = <strong>dimension</strong> of the space</li>
+</ul>
+<p><strong>Standard basis in ℝⁿ:</strong> e₁=(1,0,…,0), e₂=(0,1,…,0), …, eₙ=(0,0,…,1)</p>
+<p>Any vector <strong>x</strong> ∈ ℝⁿ can be written uniquely as: <section><eqn><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.9291em;vertical-align:-1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></eqn></section></p>
+<h2 id="span-of-vectors" tabindex="-1"><a class="h-anchor" href="#span-of-vectors">#</a> Span of Vectors</h2>
+<p><strong>Definition:</strong> The span of a set of vectors {v₁, v₂, …, vₙ} is the set of all possible linear combinations:</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">span</span></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.0277em;vertical-align:-1.2777em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathbb">R</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">}</span></span></span></span></span></span></span></eqn></section><ul>
+<li>Geometrically: the subspace “reachable” by scaling and adding those vectors</li>
+<li>span of 1 vector = line; 2 non-collinear vectors = plane; etc.</li>
+</ul>
+<h2 id="linear-transformations-and-matrices" tabindex="-1"><a class="h-anchor" href="#linear-transformations-and-matrices">#</a> Linear Transformations and Matrices</h2>
+<ul>
+<li>A <strong>linear transformation</strong> maps vectors to vectors, preserving addition and scalar multiplication</li>
+<li>Every linear transformation can be represented by a matrix</li>
+<li>Columns of the matrix = where basis vectors <strong>î</strong>, <strong>ĵ</strong> land after transformation</li>
+<li>Types: rotation, shear, scaling, projection, reflection</li>
+</ul>
+<hr>
+<h2 id="matrix-multiplication-as-composition" tabindex="-1"><a class="h-anchor" href="#matrix-multiplication-as-composition">#</a> Matrix Multiplication as Composition</h2>
+<ul>
+<li><strong>AB</strong> = apply B first, then A (right-to-left order)</li>
+<li>Not commutative: AB ≠ BA in general</li>
+<li>Associative: (AB)C = A(BC)</li>
+<li>Each output column = matrix A applied to corresponding column of B</li>
+</ul>
+<h3 id="formula-—-general-element-core-rule" tabindex="-1"><a class="h-anchor" href="#formula-—-general-element-core-rule">#</a> Formula — general element (core rule)</h3>
+<pre><code>(AB)ᵢⱼ = Σₖ Aᵢₖ · Bₖⱼ  =  row i of A  ·  col j of B
+</code></pre>
+<ul>
+<li>A is (m×p), B is (p×n) → AB is (m×n). Inner dims must match.</li>
+</ul>
+<h3 id="2×2-explicit-expansion" tabindex="-1"><a class="h-anchor" href="#2×2-explicit-expansion">#</a> 2×2 explicit expansion</h3>
+<pre><code>| a  b | | e  f |   | ae+bg  af+bh |
+| c  d | | g  h | = | ce+dg  cf+dh |
+</code></pre>
+<h3 id="complexity" tabindex="-1"><a class="h-anchor" href="#complexity">#</a> Complexity</h3>
+<pre><code>O(m · p · n) multiplications for (m×p)(p×n)
+</code></pre>
+<ul>
+<li>Naive. Strassen: O(n^2.807). Practical: use BLAS/cuBLAS.</li>
+</ul>
+<hr>
+<h2 id="dot-product" tabindex="-1"><a class="h-anchor" href="#dot-product">#</a> Dot Product</h2>
+<h3 id="algebraic-component-wise" tabindex="-1"><a class="h-anchor" href="#algebraic-component-wise">#</a> Algebraic (component-wise)</h3>
+<pre><code>a · b = Σᵢ aᵢbᵢ = a₁b₁ + a₂b₂ + ··· + aₙbₙ
+</code></pre>
+<ul>
+<li>Result is a scalar. Order doesn’t matter: <strong>a·b = b·a</strong></li>
+</ul>
+<h3 id="geometric-angle-based" tabindex="-1"><a class="h-anchor" href="#geometric-angle-based">#</a> Geometric (angle-based)</h3>
+<pre><code>a · b = |a| |b| cos θ
+</code></pre>
+<ul>
+<li>θ = angle between vectors. Zero when perpendicular (orthogonal).</li>
+</ul>
+<h3 id="matrix-form" tabindex="-1"><a class="h-anchor" href="#matrix-form">#</a> Matrix form</h3>
+<pre><code>a · b = aᵀb
+</code></pre>
+<ul>
+<li>Row vector × column vector → (1×n)(n×1) = scalar</li>
+<li>Relevance: attention scores = QKᵀ is a batch of dot products → similarity measurement</li>
+</ul>
+<hr>
+<h2 id="inverse-matrices-column-space-and-null-space" tabindex="-1"><a class="h-anchor" href="#inverse-matrices-column-space-and-null-space">#</a> Inverse Matrices, Column Space and Null Space</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inverse</strong> A⁻¹</td>
+<td>AA⁻¹ = I; exists only if det(A) ≠ 0</td>
+</tr>
+<tr>
+<td><strong>Column space</strong></td>
+<td>Span of all possible outputs Ax (range)</td>
+</tr>
+<tr>
+<td><strong>Null space / Kernel</strong></td>
+<td>All x where Ax = 0</td>
+</tr>
+<tr>
+<td><strong>Rank</strong></td>
+<td>Dimension of column space</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Rank-nullity theorem</strong>: rank(A) + nullity(A) = n (number of columns)</li>
+</ul>
+<h3 id="inverse-—-definition" tabindex="-1"><a class="h-anchor" href="#inverse-—-definition">#</a> Inverse — definition</h3>
+<pre><code>A A⁻¹ = A⁻¹ A = I
+</code></pre>
+<p>Exists iff det(A) ≠ 0 (A is square and full rank).</p>
+<h3 id="2×2-closed-form" tabindex="-1"><a class="h-anchor" href="#2×2-closed-form">#</a> 2×2 closed form</h3>
+<pre><code>| a  b |⁻¹       1      |  d  -b |
+| c  d |   =  ———————— · | -c   a |
+               ad - bc
+</code></pre>
+<h3 id="product-rule" tabindex="-1"><a class="h-anchor" href="#product-rule">#</a> Product rule</h3>
+<pre><code>(AB)⁻¹ = B⁻¹A⁻¹
+</code></pre>
+<p>Order reverses — same rule as transpose: (AB)ᵀ = BᵀAᵀ</p>
+<h3 id="column-space-range" tabindex="-1"><a class="h-anchor" href="#column-space-range">#</a> Column space / range</h3>
+<pre><code>Col(A) = { Ax | x ∈ ℝⁿ }
+</code></pre>
+<p>Span of all outputs. dim = rank(A).</p>
+<h3 id="null-space-kernel" tabindex="-1"><a class="h-anchor" href="#null-space-kernel">#</a> Null space / kernel</h3>
+<pre><code>Null(A) = { x | Ax = 0 }
+</code></pre>
+<p>dim = nullity(A). Non-trivial when rank &lt; n.</p>
+<hr>
+<h2 id="nonsquare-matrices-as-transformations-between-dimensions" tabindex="-1"><a class="h-anchor" href="#nonsquare-matrices-as-transformations-between-dimensions">#</a> Nonsquare Matrices as Transformations Between Dimensions</h2>
+<ul>
+<li>m×n matrix: transforms from <strong>ℝⁿ → ℝᵐ</strong></li>
+<li>n &gt; m → dimension reduction (e.g., embeddings)</li>
+<li>n &lt; m → maps into higher-dimensional space</li>
+<li>Can never be invertible (no square inverse exists)</li>
+</ul>
+<hr>
+<h2 id="determinant" tabindex="-1"><a class="h-anchor" href="#determinant">#</a> Determinant</h2>
+<h3 id="2×2" tabindex="-1"><a class="h-anchor" href="#2×2">#</a> 2×2</h3>
+<pre><code>det | a  b | = ad - bc
+    | c  d |
+</code></pre>
+<h3 id="3×3-cofactor-expansion" tabindex="-1"><a class="h-anchor" href="#3×3-cofactor-expansion">#</a> 3×3 (cofactor expansion)</h3>
+<pre><code>det(A) = a₁₁(a₂₂a₃₃ - a₂₃a₃₂)
+       - a₁₂(a₂₁a₃₃ - a₂₃a₃₁)
+       + a₁₃(a₂₁a₃₂ - a₂₂a₃₁)
+</code></pre>
+<h3 id="key-identities" tabindex="-1"><a class="h-anchor" href="#key-identities">#</a> Key identities</h3>
+<pre><code>det(AB) = det(A) · det(B)
+det(Aᵀ) = det(A)
+</code></pre>
+<ul>
+<li>det = signed volume scaling factor of the transformation</li>
+</ul>
+<hr>
+<h2 id="dot-products-and-duality" tabindex="-1"><a class="h-anchor" href="#dot-products-and-duality">#</a> Dot Products and Duality</h2>
+<ul>
+<li><strong>a · b</strong> = |a||b|cos θ = Σaᵢbᵢ</li>
+<li>Geometric meaning: projection of b onto a, scaled by |a|</li>
+<li><strong>Duality</strong>: a 1×n matrix (row vector) is the “dual” of a column vector — dot product = matrix-vector multiplication</li>
+<li>Relevance: attention scores = QKᵀ is a batch of dot products → similarity measurement</li>
+</ul>
+<hr>
+<h2 id="eigenvectors-and-eigenvalues" tabindex="-1"><a class="h-anchor" href="#eigenvectors-and-eigenvalues">#</a> Eigenvectors and Eigenvalues</h2>
+<p><strong>Definition</strong>: Av = λv — vector v only scales (doesn’t rotate) under A</p>
+<h3 id="key-formulas" tabindex="-1"><a class="h-anchor" href="#key-formulas">#</a> Key formulas</h3>
+<pre><code>det(A − λI) = 0          ← solve for eigenvalues λ
+(A − λI)v = 0            ← plug λ back in to solve for eigenvectors v
+</code></pre>
+<h3 id="trace-determinant-identities" tabindex="-1"><a class="h-anchor" href="#trace-determinant-identities">#</a> Trace &amp; determinant identities</h3>
+<pre><code>tr(A)   = Σᵢ λᵢ          ← sum of eigenvalues
+det(A)  = Πᵢ λᵢ          ← product of eigenvalues
+</code></pre>
+<h3 id="diagonalization" tabindex="-1"><a class="h-anchor" href="#diagonalization">#</a> Diagonalization</h3>
+<pre><code>A = P Λ P⁻¹
+</code></pre>
+<ul>
+<li>P = eigenvector columns, Λ = diagonal eigenvalue matrix</li>
+<li>Requires n independent eigenvectors</li>
+</ul>
+<h3 id="properties" tabindex="-1"><a class="h-anchor" href="#properties">#</a> Properties</h3>
+<ul>
+<li>Symmetric matrices → always real eigenvalues, orthogonal eigenvectors</li>
+<li>Diagonal matrix → eigenvalues are the diagonal entries</li>
+<li>det(A) = product of eigenvalues; tr(A) = sum of eigenvalues</li>
+</ul>
+<h3 id="ml-relevance" tabindex="-1"><a class="h-anchor" href="#ml-relevance">#</a> ML relevance</h3>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Role of Eigenvectors/values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCA</td>
+<td>Eigenvectors of covariance matrix = principal components</td>
+</tr>
+<tr>
+<td>SVD</td>
+<td>U, Vᵀ columns are eigenvectors of AAᵀ, AᵀA</td>
+</tr>
+<tr>
+<td>Graph NNs</td>
+<td>Laplacian eigenvectors define graph structure</td>
+</tr>
+<tr>
+<td>PageRank</td>
+<td>Dominant eigenvector of adjacency matrix</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="rank–nullity-subspaces" tabindex="-1"><a class="h-anchor" href="#rank–nullity-subspaces">#</a> Rank–Nullity &amp; Subspaces</h2>
+<h3 id="rank–nullity-theorem" tabindex="-1"><a class="h-anchor" href="#rank–nullity-theorem">#</a> Rank–nullity theorem</h3>
+<pre><code>rank(A) + nullity(A) = n     (n = number of columns of A)
+</code></pre>
+<hr>
+<h2 id="norms" tabindex="-1"><a class="h-anchor" href="#norms">#</a> Norms</h2>
+<h3 id="vector-norms" tabindex="-1"><a class="h-anchor" href="#vector-norms">#</a> Vector norms</h3>
+<pre><code>‖x‖₂ = √(Σ xᵢ²)           ← L2 / Euclidean
+‖x‖₁ = Σ |xᵢ|              ← L1 / Manhattan
+‖x‖∞ = max |xᵢ|            ← L∞ / Chebyshev
+</code></pre>
+<h3 id="frobenius-norm-matrix" tabindex="-1"><a class="h-anchor" href="#frobenius-norm-matrix">#</a> Frobenius norm (matrix)</h3>
+<pre><code>‖A‖_F = √(Σᵢⱼ aᵢⱼ²) = √(tr(AᵀA))
+</code></pre>
+<p>Most common matrix norm in ML (e.g. weight regularization).</p>
+<hr>
+<h2 id="tricky-interview-facts" tabindex="-1"><a class="h-anchor" href="#tricky-interview-facts">#</a> Tricky Interview Facts</h2>
+<ol>
+<li>A matrix can have <strong>complex</strong> eigenvalues even with all real entries (e.g., rotation matrix)</li>
+<li>Eigenvectors are <strong>not unique</strong> — any scalar multiple is also an eigenvector; only the direction matters</li>
+<li>In PCA, you sort by <strong>largest</strong> eigenvalue, not smallest — variance explained is proportional to λ, not 1/λ</li>
+<li>Matrix multiplication is <strong>not commutative</strong>: AB ≠ BA in general, but it is associative</li>
+<li>A non-square matrix <strong>can never be invertible</strong> — no square inverse exists</li>
+<li>det = 0 means the transformation <strong>collapses</strong> space into a lower dimension (rank-deficient)</li>
+<li>Dot product = 0 means <strong>orthogonality</strong>, not that either vector is zero</li>
+</ol>
+</div>
+        <nav class="toc"><div class="toc-label">On this page</div><ul><li class="lvl-2"><a href="#basis-vectors">Basis Vectors</a></li><li class="lvl-2"><a href="#span-of-vectors">Span of Vectors</a></li><li class="lvl-2"><a href="#linear-transformations-and-matrices">Linear Transformations and Matrices</a></li><li class="lvl-2"><a href="#matrix-multiplication-as-composition">Matrix Multiplication as Composition</a></li><li class="lvl-3"><a href="#formula-—-general-element-core-rule">Formula — general element (core rule)</a></li><li class="lvl-3"><a href="#2×2-explicit-expansion">2×2 explicit expansion</a></li><li class="lvl-3"><a href="#complexity">Complexity</a></li><li class="lvl-2"><a href="#dot-product">Dot Product</a></li><li class="lvl-3"><a href="#algebraic-component-wise">Algebraic (component-wise)</a></li><li class="lvl-3"><a href="#geometric-angle-based">Geometric (angle-based)</a></li><li class="lvl-3"><a href="#matrix-form">Matrix form</a></li><li class="lvl-2"><a href="#inverse-matrices-column-space-and-null-space">Inverse Matrices, Column Space and Null Space</a></li><li class="lvl-3"><a href="#inverse-—-definition">Inverse — definition</a></li><li class="lvl-3"><a href="#2×2-closed-form">2×2 closed form</a></li><li class="lvl-3"><a href="#product-rule">Product rule</a></li><li class="lvl-3"><a href="#column-space-range">Column space / range</a></li><li class="lvl-3"><a href="#null-space-kernel">Null space / kernel</a></li><li class="lvl-2"><a href="#nonsquare-matrices-as-transformations-between-dimensions">Nonsquare Matrices as Transformations Between Dimensions</a></li><li class="lvl-2"><a href="#determinant">Determinant</a></li><li class="lvl-3"><a href="#2×2">2×2</a></li><li class="lvl-3"><a href="#3×3-cofactor-expansion">3×3 (cofactor expansion)</a></li><li class="lvl-3"><a href="#key-identities">Key identities</a></li><li class="lvl-2"><a href="#dot-products-and-duality">Dot Products and Duality</a></li><li class="lvl-2"><a href="#eigenvectors-and-eigenvalues">Eigenvectors and Eigenvalues</a></li><li class="lvl-3"><a href="#key-formulas">Key formulas</a></li><li class="lvl-3"><a href="#trace-determinant-identities">Trace &amp; determinant identities</a></li><li class="lvl-3"><a href="#diagonalization">Diagonalization</a></li><li class="lvl-3"><a href="#properties">Properties</a></li><li class="lvl-3"><a href="#ml-relevance">ML relevance</a></li><li class="lvl-2"><a href="#rank–nullity-subspaces">Rank–Nullity &amp; Subspaces</a></li><li class="lvl-3"><a href="#rank–nullity-theorem">Rank–nullity theorem</a></li><li class="lvl-2"><a href="#norms">Norms</a></li><li class="lvl-3"><a href="#vector-norms">Vector norms</a></li><li class="lvl-3"><a href="#frobenius-norm-matrix">Frobenius norm (matrix)</a></li><li class="lvl-2"><a href="#tricky-interview-facts">Tricky Interview Facts</a></li></ul></nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Compiled from Obsidian · KaTeX · Mermaid</span>
+    </footer>
+  </main>
+</div>
+<script src="../../_assets/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ToolRetrieval — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="../../../_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar"><div class="nav-home"><a href="../../../index.html">⌂ &nbsp;The Vault</a></div><ul class="nav-root"><li class="nav-section is-open"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/index.html">Mathematics</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Calculus.html">Calculus</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Linear%20Algebra.html">Linear Algebra</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Probability.html">Probability</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Statistics.html">Statistics</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/index.html">Foundations of AI</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Basic%20Evaluation%20Metrics.html">Basic Evaluation Metrics</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Fundamental%20Concepts.html">Fundamental Concepts</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Precision%20Recall%20-%20CTR.html">Precision Recall - CTR</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/index.html">Deep Learning Fundamentals</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/Optimization.html">Optimization</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/index.html">Prompt Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/Prompt%20Engineering%20Tips.html">Prompt Engineering Tips</a></li></ul></li><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/index.html">A2A</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/A2A.html">A2A</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/index.html">Context Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/References.html">References</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/index.html">MCP</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/Core%20MCP.html">Core MCP</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/MCP%20Connection.html">MCP Connection</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/index.html">Multi Agent Systems</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/PLANNER-EXECUTOR%20ARCHITECTURE.html">PLANNER-EXECUTOR ARCHITECTURE</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/References.html">References</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/Untitled.html">Untitled</a></li></ul></li><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/index.html">Tool Retreival</a></div><ul class="nav-children"><li class="nav-file"><a class="active" href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/ToolRetrieval.html">ToolRetrieval</a></li></ul></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/index.html">Performance Optimization</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/index.html">Caching</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Batching.html">Batching</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20in%20LLM-Based%20Agentic%20Systems.html">Prompt Caching in LLM-Based Agentic Systems</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20Intuition.html">Prompt Caching Intuition</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Quantization.html">Quantization</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Response%20Caching.html">Response Caching</a></li></ul></li></ul></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../System%20Design%20-%20LLM%20based/index.html">System Design - LLM based</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/AI%20generated%20Scenarios.html">AI generated Scenarios</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/Approach%20for%20Interviews.html">Approach for Interviews</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/IndianQuestionBank.html">IndianQuestionBank</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/Question%20Bank%20GitHub.html">Question Bank GitHub</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../AI%20Engineering/index.html">AI Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../AI%20Engineering/01%20Role%20Vision.html">Role Vision</a></li><li class="nav-file"><a href="../../../AI%20Engineering/02%20Skills.html">Skills</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/index.html">Resume`</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/UberOrchestrator/index.html">UberOrchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/COPILOT_SDK_GUIDE.html">COPILOT_SDK_GUIDE</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/DESIGN.html">DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/REPORTING_AGENT_DESIGN.html">REPORTING_AGENT_DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_DESIGN.html">SESSION_PERSISTENCE_DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_IMPL.html">SESSION_PERSISTENCE_IMPL</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/VL%20Orchestrator/index.html">VL Orchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/AgentContextEngineering.html">AgentContextEngineering</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Designing%20decision-heavy%20enterprise%20AI%20systems%20without%20losing%20control.html">Designing decision-heavy enterprise AI systems without losing control</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/EvalAgent%20Dashboard.html">EvalAgent Dashboard</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Multi%20agent%20Architectures.html">Multi agent Architectures</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/MultiAgentArchitecture.html">MultiAgentArchitecture</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Orchestrator%20Library.html">Orchestrator Library</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/OrchestratorGuardRails.html">OrchestratorGuardRails</a></li></ul></li><li class="nav-file"><a href="../../../Resume%60/LLM%20Evaluation%20Framework.html">LLM Evaluation Framework</a></li><li class="nav-file"><a href="../../../Resume%60/Math%20strategy.html">Math strategy</a></li><li class="nav-file"><a href="../../../Resume%60/Preparation%20Strategy.html">Preparation Strategy</a></li><li class="nav-file"><a href="../../../Resume%60/RAG%20Pipeline.html">RAG Pipeline</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Companies/index.html">Companies</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Companies/CoinBase.html">CoinBase</a></li><li class="nav-file"><a href="../../../Companies/DataBricks.html">DataBricks</a></li><li class="nav-file"><a href="../../../Companies/Deliveroo.html">Deliveroo</a></li><li class="nav-file"><a href="../../../Companies/LeoForce.html">LeoForce</a></li><li class="nav-file"><a href="../../../Companies/Sarvam%20AI.html">Sarvam AI</a></li><li class="nav-file"><a href="../../../Companies/TataSons.html">TataSons</a></li></ul></li></ul></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="../../../index.html">The Vault</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/index.html">Tool Retreival</a><span class="sep">/</span><span>ToolRetrieval</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Entry</div>
+        <h1 class="doc-title">ToolRetrieval</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body"><h1 id="tool-retrieval-overview" tabindex="-1"><a class="h-anchor" href="#tool-retrieval-overview">#</a> Tool Retrieval Overview</h1>
+<h2 id="high-level-purpose" tabindex="-1"><a class="h-anchor" href="#high-level-purpose">#</a> High-Level Purpose</h2>
+<p>This code selects the most relevant tools from a toolbox based on what the user is asking for. Think of it like a smart assistant that, given a user’s question, figures out which tools or functions are most useful to answer it.</p>
+<p>Referenced file:</p>
+<ul>
+<li><code>CustomToolRetriever.py</code></li>
+</ul>
+<h2 id="classes" tabindex="-1"><a class="h-anchor" href="#classes">#</a> Classes</h2>
+<h3 id="1-reinvoketoolretriever-abstract-base-class" tabindex="-1"><a class="h-anchor" href="#1-reinvoketoolretriever-abstract-base-class">#</a> 1. <code>ReInvoke_ToolRetriever</code> (Abstract Base Class)</h3>
+<p>This is a template class that:</p>
+<ul>
+<li>Stores an LLM (<code>self.model</code>) and a system prompt.</li>
+<li>Defines <code>get_intent()</code>, which extracts what the user wants from chat history.</li>
+<li>Declares an abstract <code>retrieve()</code> method that child classes must implement.</li>
+</ul>
+<h3 id="2-maxsimcrossencodertoolretriever-concrete-implementation" tabindex="-1"><a class="h-anchor" href="#2-maxsimcrossencodertoolretriever-concrete-implementation">#</a> 2. <code>MaxSim_CrossEncoder_ToolRetriever</code> (Concrete Implementation)</h3>
+<p>This is the main class that implements the actual tool retrieval logic using a Cross-Encoder model.</p>
+<hr>
+<p><img src="https://onenote.officeapps.live.com/o/GetImage.ashx?&amp;WOPIsrc=https%3A%2F%2Fmicrosoftapc%2Dmy%2Esharepoint%2Ecom%2Fpersonal%2Fabhivinj%5Fmicrosoft%5Fcom%2F%5Fvti%5Fbin%2Fwopi%2Eashx%2Ffiles%2Fdbeb434be01448878abb9f5335613ab6&amp;access_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjE0QzBBRTM2MkMwMDNBM0IwMTA1QjEzMzYzREUwQ0FFOEJDRUMwMDEiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJGTUN1Tml3QU9qc0JCYkV6WTk0TXJvdk93QUUifQ%2EeyJuYW1laWQiOiIwIy5mfG1lbWJlcnNoaXB8YWJoaXZpbmpAbWljcm9zb2Z0LmNvbSIsIm5paSI6Im1pY3Jvc29mdC5zaGFyZXBvaW50IiwiaXN1c2VyIjoidHJ1ZSIsImNhY2hla2V5IjoiMGguZnxtZW1iZXJzaGlwfDEwMDMzZmZmYWNiOGM2NDFAbGl2ZS5jb20iLCJzaGFyaW5naWQiOiIwMDMxNzgyYS0xMDVjLTU1MTctOGYzZi05ODE1MTg2ODFmMjEiLCJzaWduaW5fc3RhdGUiOiJbXCJkdmNfY21wXCJdIiwiY29udHJvbHMiOiJbXCJhcHBfcmVzXCJdIiwidXRpIjoid3FWSzAzazRhVUN0c1hmYUtuRU9BQSIsInhtc19jYyI6IltcIkNQMVwiXSIsInhtc19zc20iOiIxIiwib2lkIjoiM2RhMGE4NmEtZGE2Ny00OGJiLWFiZDAtOGJiMjUyM2QyNzEzIiwiaXNsb29wYmFjayI6IlRydWUiLCJhcHBjdHgiOiJkYmViNDM0YmUwMTQ0ODg3OGFiYjlmNTMzNTYxM2FiNjt2WGptRmVFamxzanhNMVp5MzFPZkVWaUpBRTA9O0RlZmF1bHQ7OzdGRkZGRkZGRkZGQkZGRkY7VHJ1ZTs7OzEzMzM4Mjg7OGE1NTA0YTItZTBjOS01MDAwLTMxNzAtN2RhNDc0NmNjZTMyIiwiZmlkIjoiMTk3MDc5IiwiaXNzIjoiMDAwMDAwMDMtMDAwMC0wZmYxLWNlMDAtMDAwMDAwMDAwMDAwQDkwMTQwMTIyLTg1MTYtMTFlMS04ZWZmLTQ5MzA0OTI0MDE5YiIsImF1ZCI6IndvcGkvbWljcm9zb2Z0YXBjLW15LnNoYXJlcG9pbnQuY29tQDcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsIm5iZiI6IjE3NzQ2ODAwMDQiLCJleHAiOiIxNzc0NzE2MDA0In0%2EpX5hB6q95cyyadAT%2DpgE2UvMGGSjnqlU%5F8MVRl%2DAmEudIfn4iF7xBI4GDAVK8LYPTfejBruoCIq5wuBzOOHvujCueB2k%2Dtq0Hk8VLoRy4ekgoRpFpS6S4jKcrNBW77m1WGVAQGWBRQlWGH1SyKpKkFB%2DBcMZHdLFsN76MuAC%5F8IQptEfjirvKKUO0h09nKzm8UY8MXm2Rt8pMEELUqlFM2zM3Ld3KVlaviCFdkdcmom%2DhBgw762Ajwip6qPITYsHXIiZozsjz6i8T%2DARTEsXkb7aoWQG4eMIZLZiwK1xuxguwdjPgnzCYHrIGjB4uAhr7tmBmDcgLn7qDNN9EKsyzw&amp;access_token_ttl=1774716004044&amp;ObjectDataBlobId=%7Bc02a2ecd-896d-06ad-15aa-e80632f38c3d%7D%7B1%7D&amp;usid=e6af45e2-89d2-855b-d4ba-49b9d74eb600&amp;build=16.0.19908.41001&amp;waccluster=PSG3&amp;wdwacuseragent=MSWACONSync" alt=""></p>
+<h2 id="walkthrough-with-example" tabindex="-1"><a class="h-anchor" href="#walkthrough-with-example">#</a> Walkthrough with Example</h2>
+<p>Assume the following:</p>
+<ul>
+<li>User’s question: “Can you find the price of product X and also check inventory?”</li>
+<li>Available tools: <code>[PriceLookupTool, InventoryTool, ShippingTool, CustomerSupportTool, ReportTool]</code></li>
+<li><code>top_k = 3</code>, meaning we want the top 3 most relevant tools.</li>
+</ul>
+<h3 id="step-1-initialization-init" tabindex="-1"><a class="h-anchor" href="#step-1-initialization-init">#</a> Step 1: Initialization (<code>__init__</code>)</h3>
+<pre><code class="language-python">tool_retriever = MaxSim_CrossEncoder_ToolRetriever(
+	model=llm_model,
+	system_prompt=&quot;You are a helpful assistant...&quot;,
+	dependency_dict={&quot;PriceLookupTool&quot;: [&quot;InventoryTool&quot;]},  # dependencies
+	cross_encoder_model_name=&quot;cross-encoder/ms-marco-MiniLM-L-6-v2&quot;,
+	local=True,
+)
+</code></pre>
+<p>What happens:</p>
+<ol>
+<li>Stores the LLM model and system prompt inherited from the parent.</li>
+<li>Stores a <code>dependency_dict</code>. If tool A needs tool B to work, this tracks that dependency.</li>
+<li>Loads the Cross-Encoder model only once and caches it in <code>_initialized_models</code>.</li>
+</ol>
+<h3 id="ml-concept-what-is-a-cross-encoder" tabindex="-1"><a class="h-anchor" href="#ml-concept-what-is-a-cross-encoder">#</a> ML Concept: What Is a Cross-Encoder?</h3>
+<p>A Cross-Encoder is a type of neural network model, usually based on BERT or Transformers, that:</p>
+<ul>
+<li>Takes two texts as input simultaneously, for example a query and a document.</li>
+<li>Outputs a single relevance score between them.</li>
+</ul>
+<p>Why Cross-Encoder vs. Bi-Encoder?</p>
+<ul>
+<li>Bi-Encoder: encodes each text separately, then compares embeddings. Fast, but less accurate.</li>
+<li>Cross-Encoder: encodes both texts together, allowing deep interaction between them. Slower, but more accurate for ranking tasks.</li>
+</ul>
+<p>The model <code>ms-marco-MiniLM-L-6-v2</code> was trained on the MS MARCO dataset, a large-scale question-answering dataset from Microsoft, to predict how relevant a passage is to a query.</p>
+<h3 id="step-2-calling-retrieve" tabindex="-1"><a class="h-anchor" href="#step-2-calling-retrieve">#</a> Step 2: Calling <code>retrieve()</code></h3>
+<pre><code class="language-python">selected_tools = tool_retriever.retrieve(
+	chat_history=chat_history,
+	tools=tools,
+	top_k=3,
+	retriever_additional_context=retriever_additional_context,
+)
+</code></pre>
+<p>Now trace what happens inside <code>retrieve()</code>.</p>
+<h3 id="step-3-intent-extraction-getintent" tabindex="-1"><a class="h-anchor" href="#step-3-intent-extraction-getintent">#</a> Step 3: Intent Extraction (<code>get_intent</code>)</h3>
+<pre><code class="language-python">intent = self.get_intent(chat_history)
+</code></pre>
+<p>The code takes the chat history, separates the current message from previous messages, and asks the LLM:</p>
+<blockquote>
+<p>Given this conversation, what are the user’s intents for tool usage?</p>
+</blockquote>
+<p>Example output:</p>
+<pre><code class="language-text">1. Look up the price of product X
+2. Check inventory levels
+</code></pre>
+<p>The intent is then split by newlines into <code>sub_intents</code>:</p>
+<pre><code class="language-python">sub_intents = [
+	&quot;1. Look up the price of product X&quot;,
+	&quot;2. Check inventory levels&quot;,
+]
+</code></pre>
+<p>Why extract intents?</p>
+<p>A single user message might require multiple tools. Breaking it into sub-intents allows the system to match each intent to the best tool.</p>
+<h3 id="step-4-building-query-tool-pairs" tabindex="-1"><a class="h-anchor" href="#step-4-building-query-tool-pairs">#</a> Step 4: Building Query-Tool Pairs</h3>
+<pre><code class="language-python">pairs = []
+
+for sub_intent in sub_intents:
+	pairs.extend([
+		(sub_intent, tool.documentation or tool.description)
+		for tool in tools
+	])
+</code></pre>
+<p>For this example, the code creates:</p>
+<pre><code class="language-python">pairs = [
+	(&quot;1. Look up the price of product X&quot;, &quot;PriceLookupTool: Finds product prices...&quot;),
+	(&quot;1. Look up the price of product X&quot;, &quot;InventoryTool: Checks stock levels...&quot;),
+	(&quot;1. Look up the price of product X&quot;, &quot;ShippingTool: Calculates shipping...&quot;),
+	(&quot;1. Look up the price of product X&quot;, &quot;CustomerSupportTool: Handles support...&quot;),
+	(&quot;1. Look up the price of product X&quot;, &quot;ReportTool: Generates reports...&quot;),
+	(&quot;2. Check inventory levels&quot;, &quot;PriceLookupTool: Finds product prices...&quot;),
+	(&quot;2. Check inventory levels&quot;, &quot;InventoryTool: Checks stock levels...&quot;),
+	...,
+]
+</code></pre>
+<p>Total pairs:</p>
+<pre><code class="language-text">num_sub_intents × num_tools = 2 × 5 = 10
+</code></pre>
+<h3 id="step-5-cross-encoder-scoring" tabindex="-1"><a class="h-anchor" href="#step-5-cross-encoder-scoring">#</a> Step 5: Cross-Encoder Scoring</h3>
+<pre><code class="language-python">if self.local:
+	all_scores = cross_encoder.predict(pairs)
+else:
+	all_scores = self.request(pairs, aad_token=aad_token)
+</code></pre>
+<p>The Cross-Encoder processes all pairs and returns a relevance score for each:</p>
+<pre><code class="language-python">all_scores = [
+	0.92, 0.15, 0.05, 0.10, 0.08,  # Scores for intent 1 vs all tools
+	0.12, 0.95, 0.06, 0.11, 0.07,  # Scores for intent 2 vs all tools
+]
+</code></pre>
+<p>Higher score means more relevant.</p>
+<h3 id="ml-concept-how-cross-encoder-works-internally" tabindex="-1"><a class="h-anchor" href="#ml-concept-how-cross-encoder-works-internally">#</a> ML Concept: How Cross-Encoder Works Internally</h3>
+<ol>
+<li>The two texts are concatenated with special tokens: <code>[CLS] intent [SEP] tool_description [SEP]</code>.</li>
+<li>This goes through a Transformer, typically a BERT-like architecture.</li>
+<li>The <code>[CLS]</code> token output is passed through a linear layer to get a single score.</li>
+<li>The model is trained to output high scores for relevant pairs and low scores for irrelevant ones.</li>
+</ol>
+<h3 id="step-6-softmax-normalization" tabindex="-1"><a class="h-anchor" href="#step-6-softmax-normalization">#</a> Step 6: Softmax Normalization</h3>
+<pre><code class="language-python">sub_intent_tool_scores = softmax(sub_intent_tool_scores)
+</code></pre>
+<p>The <code>softmax</code> function at the top of the file:</p>
+<pre><code class="language-python">def softmax(x):
+	e_x = np.exp(x - np.max(x))  # Subtract max for numerical stability
+	return e_x / e_x.sum(axis=0)
+</code></pre>
+<h3 id="ml-concept-what-is-softmax" tabindex="-1"><a class="h-anchor" href="#ml-concept-what-is-softmax">#</a> ML Concept: What Is Softmax?</h3>
+<p>Softmax converts raw scores into probabilities that sum to 1:</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathrm">softmax</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4632em;vertical-align:-1.1218em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3414em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.162em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4358em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6065em;"><span style="top:-3.0051em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2819em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1218em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section><p>Example:</p>
+<ul>
+<li>Raw scores: <code>[0.92, 0.15, 0.05, 0.10, 0.08]</code></li>
+<li>After softmax: <code>[0.52, 0.24, 0.11, 0.08, 0.05]</code> approximately</li>
+</ul>
+<p>Why subtract max?</p>
+<p>For numerical stability. Without it, <code>exp()</code> of large numbers can overflow.</p>
+<p>Why use softmax here?</p>
+<p>It normalizes scores so they are comparable across different sub-intents and emphasizes the differences between tools.</p>
+<h3 id="step-7-tool-selection-logic" tabindex="-1"><a class="h-anchor" href="#step-7-tool-selection-logic">#</a> Step 7: Tool Selection Logic</h3>
+<p>For each sub-intent:</p>
+<pre><code class="language-python">max_score_index = np.argmax(sub_intent_tool_scores)
+
+if tools[max_score_index].name not in relevant_tools:
+	relevant_tools.append(tools[max_score_index].name)
+
+sub_intent_tool_scores[max_score_index] -= 100.0  # Effectively remove from consideration
+</code></pre>
+<p>What is happening:</p>
+<ol>
+<li>Find the tool with the highest score for this sub-intent.</li>
+<li>Add it to <code>relevant_tools</code> if it is not already present.</li>
+<li>Subtract 100 from its score as a simple way to remove it from later max selection.</li>
+</ol>
+<p>For this example:</p>
+<ul>
+<li>Intent 1 -&gt; best tool: <code>PriceLookupTool</code></li>
+<li>Intent 2 -&gt; best tool: <code>InventoryTool</code></li>
+</ul>
+<pre><code class="language-python">relevant_tools = [&quot;PriceLookupTool&quot;, &quot;InventoryTool&quot;]
+</code></pre>
+<h3 id="step-8-track-maximum-scores-per-tool" tabindex="-1"><a class="h-anchor" href="#step-8-track-maximum-scores-per-tool">#</a> Step 8: Track Maximum Scores per Tool</h3>
+<pre><code class="language-python">for tool_index, tool in enumerate(tools):
+	tool_name = tools[tool_index].name
+	final_tool_scores[tool_name] = max(
+		final_tool_scores[tool_name],
+		sub_intent_tool_scores[tool_index],
+	)
+</code></pre>
+<p>This keeps track of the best score each tool received across all sub-intents. This is the “MaxSim” or maximum similarity part of the class name.</p>
+<h3 id="ml-concept-why-max-similarity" tabindex="-1"><a class="h-anchor" href="#ml-concept-why-max-similarity">#</a> ML Concept: Why Max Similarity?</h3>
+<p>When a tool is relevant to any sub-intent, that should count. Taking the maximum instead of the average ensures that a tool that is highly relevant to one intent is not penalized for being irrelevant to others.</p>
+<h3 id="step-9-fill-remaining-slots" tabindex="-1"><a class="h-anchor" href="#step-9-fill-remaining-slots">#</a> Step 9: Fill Remaining Slots</h3>
+<pre><code class="language-python">sorted_tools = sorted(final_tool_scores.items(), key=lambda x: x[1], reverse=True)
+
+for tool in sorted_tools:
+	if len(relevant_tools) &gt;= top_k:
+		break
+	if tool[0] not in relevant_tools:
+		relevant_tools.append(tool[0])
+</code></pre>
+<p>If the list has not reached <code>top_k</code> yet, the remaining slots are filled with the next highest-scoring tools.</p>
+<p>Example:</p>
+<p>If <code>top_k = 3</code> and you currently have 2 tools, the code adds the next best tool, perhaps <code>CustomerSupportTool</code>.</p>
+<h3 id="step-10-add-dependencies" tabindex="-1"><a class="h-anchor" href="#step-10-add-dependencies">#</a> Step 10: Add Dependencies</h3>
+<pre><code class="language-python">for tool in relevant_tools:
+	for dep_tool in self.dependency_dict.get(tool, []):
+		if dep_tool not in relevant_tools and dep_tool in [t.name for t in tools]:
+			relevant_tools.append(dep_tool)
+</code></pre>
+<p>If <code>PriceLookupTool</code> depends on <code>InventoryTool</code> through <code>dependency_dict</code>, this step ensures <code>InventoryTool</code> is included.</p>
+<h2 id="final-output" tabindex="-1"><a class="h-anchor" href="#final-output">#</a> Final Output</h2>
+<pre><code class="language-python">return relevant_tools
+
+# Returns: [&quot;PriceLookupTool&quot;, &quot;InventoryTool&quot;, &quot;CustomerSupportTool&quot;]
+</code></pre>
+<h2 id="summary-flow-diagram" tabindex="-1"><a class="h-anchor" href="#summary-flow-diagram">#</a> Summary Flow Diagram</h2>
+<div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+	A[User Query]
+	B[LLM extracts sub-intents&lt;br/&gt;Price lookup + Inventory]
+	C[Create intent-tool pairs for all combinations]
+	D[Cross-Encoder scores each pair for relevance]
+	E[Softmax normalizes scores per sub-intent]
+	F[Select best tool per intent and fill remaining top_k slots]
+	G[Add dependent tools]
+	H[Return selected tools]
+
+	A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G --&gt; H
+</pre></div>
+<h2 id="why-this-architecture" tabindex="-1"><a class="h-anchor" href="#why-this-architecture">#</a> Why This Architecture?</h2>
+<ol>
+<li>Two-stage approach: the LLM understands complex language and breaks down intents, while the Cross-Encoder ranks tools for those intents.</li>
+<li>Cross-Encoder for ranking: this is more accurate than basic embedding similarity for tool matching.</li>
+<li>Thread-safe model caching: <code>_lock</code> and <code>_initialized_models</code> avoid loading expensive ML models more than once in multi-threaded environments.</li>
+<li>Local vs. remote execution: the Cross-Encoder can run locally for lower latency or through an API when local inference is not practical.</li>
+</ol>
+</div>
+        <nav class="toc"><div class="toc-label">On this page</div><ul><li class="lvl-2"><a href="#high-level-purpose">High-Level Purpose</a></li><li class="lvl-2"><a href="#classes">Classes</a></li><li class="lvl-3"><a href="#1-reinvoketoolretriever-abstract-base-class">1. ReInvoke_ToolRetriever (Abstract Base Class)</a></li><li class="lvl-3"><a href="#2-maxsimcrossencodertoolretriever-concrete-implementation">2. MaxSim_CrossEncoder_ToolRetriever (Concrete Implementation)</a></li><li class="lvl-2"><a href="#walkthrough-with-example">Walkthrough with Example</a></li><li class="lvl-3"><a href="#step-1-initialization-init">Step 1: Initialization (__init__)</a></li><li class="lvl-3"><a href="#ml-concept-what-is-a-cross-encoder">ML Concept: What Is a Cross-Encoder?</a></li><li class="lvl-3"><a href="#step-2-calling-retrieve">Step 2: Calling retrieve()</a></li><li class="lvl-3"><a href="#step-3-intent-extraction-getintent">Step 3: Intent Extraction (get_intent)</a></li><li class="lvl-3"><a href="#step-4-building-query-tool-pairs">Step 4: Building Query-Tool Pairs</a></li><li class="lvl-3"><a href="#step-5-cross-encoder-scoring">Step 5: Cross-Encoder Scoring</a></li><li class="lvl-3"><a href="#ml-concept-how-cross-encoder-works-internally">ML Concept: How Cross-Encoder Works Internally</a></li><li class="lvl-3"><a href="#step-6-softmax-normalization">Step 6: Softmax Normalization</a></li><li class="lvl-3"><a href="#ml-concept-what-is-softmax">ML Concept: What Is Softmax?</a></li><li class="lvl-3"><a href="#step-7-tool-selection-logic">Step 7: Tool Selection Logic</a></li><li class="lvl-3"><a href="#step-8-track-maximum-scores-per-tool">Step 8: Track Maximum Scores per Tool</a></li><li class="lvl-3"><a href="#ml-concept-why-max-similarity">ML Concept: Why Max Similarity?</a></li><li class="lvl-3"><a href="#step-9-fill-remaining-slots">Step 9: Fill Remaining Slots</a></li><li class="lvl-3"><a href="#step-10-add-dependencies">Step 10: Add Dependencies</a></li><li class="lvl-2"><a href="#final-output">Final Output</a></li><li class="lvl-2"><a href="#summary-flow-diagram">Summary Flow Diagram</a></li><li class="lvl-2"><a href="#why-this-architecture">Why This Architecture?</a></li></ul></nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Compiled from Obsidian · KaTeX · Mermaid</span>
+    </footer>
+  </main>
+</div>
+<script src="../../../_assets/app.js"></script>
+<script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        const root = document.documentElement;
+        const dark = root.getAttribute('data-theme') === 'dark';
+        const cs = getComputedStyle(root);
+        const vget = (n) => cs.getPropertyValue(n).trim();
+        const palette = ['--c1','--c2','--c3','--c4','--c5','--c6'].map(vget);
+        const ink = vget('--ink');
+        const line = vget('--line-strong');
+        const tint = dark ? '2e' : '24';          // node fill alpha
+        const clusterTint = dark ? '17' : '12';    // subgraph fill alpha
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          fontFamily: 'Inter, sans-serif',
+          securityLevel: 'loose',
+          flowchart: { curve: 'basis', htmlLabels: true, padding: 14, nodeSpacing: 48, rankSpacing: 56, useMaxWidth: true },
+          themeVariables: {
+            background: 'transparent',
+            primaryColor: palette[0] + tint,
+            primaryBorderColor: palette[0],
+            primaryTextColor: ink,
+            secondaryColor: palette[2] + tint,
+            tertiaryColor: palette[3] + tint,
+            lineColor: line,
+            titleColor: ink,
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '14px'
+          }
+        });
+        const colorize = () => {
+          document.querySelectorAll('.mermaid svg').forEach((svg) => {
+            svg.querySelectorAll('g.node').forEach((node, i) => {
+              const c = palette[i % palette.length];
+              node.querySelectorAll('rect, polygon, circle, ellipse, path').forEach((sh) => {
+                sh.style.setProperty('fill', c + tint, 'important');
+                sh.style.setProperty('stroke', c, 'important');
+                sh.style.setProperty('stroke-width', '1.5px', 'important');
+              });
+              node.querySelectorAll('.nodeLabel, .label, span, p, foreignObject div').forEach((t) => {
+                t.style.setProperty('color', ink, 'important');
+              });
+            });
+            svg.querySelectorAll('g.cluster rect').forEach((r, i) => {
+              const c = palette[(i + 1) % palette.length];
+              r.style.setProperty('fill', c + clusterTint, 'important');
+              r.style.setProperty('stroke', c, 'important');
+            });
+            // sequence-diagram actor boxes (top + bottom kept in sync by order)
+            ['.actor-top', '.actor-bottom'].forEach((sel) => {
+              const boxes = svg.querySelectorAll('rect' + sel);
+              const list = boxes.length ? boxes : (sel === '.actor-top' ? svg.querySelectorAll('rect.actor') : []);
+              list.forEach((r, i) => {
+                const c = palette[i % palette.length];
+                r.style.setProperty('fill', c + tint, 'important');
+                r.style.setProperty('stroke', c, 'important');
+              });
+            });
+            svg.querySelectorAll('text.actor, .actor > tspan').forEach((t) => {
+              t.style.setProperty('fill', ink, 'important');
+            });
+          });
+        };
+        await mermaid.run({ querySelector: '.mermaid' });
+        colorize();
+        window.__mermaid = mermaid;
+      </script>
+</body>
+</html>

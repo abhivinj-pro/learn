@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MCP Connection — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="../../../_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar"><div class="nav-home"><a href="../../../index.html">⌂ &nbsp;The Vault</a></div><ul class="nav-root"><li class="nav-section is-open"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/index.html">Mathematics</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Calculus.html">Calculus</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Linear%20Algebra.html">Linear Algebra</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Probability.html">Probability</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/01%20Mathematics/Statistics.html">Statistics</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/index.html">Foundations of AI</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Basic%20Evaluation%20Metrics.html">Basic Evaluation Metrics</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Fundamental%20Concepts.html">Fundamental Concepts</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/02%20Foundations%20of%20AI/Precision%20Recall%20-%20CTR.html">Precision Recall - CTR</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/index.html">Deep Learning Fundamentals</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/03%20Deep%20Learning%20Fundamentals/Optimization.html">Optimization</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/index.html">Prompt Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/07%20Prompt%20Engineering/Prompt%20Engineering%20Tips.html">Prompt Engineering Tips</a></li></ul></li><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/index.html">A2A</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/A2A/A2A.html">A2A</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/index.html">Context Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Context%20Engineering/References.html">References</a></li></ul></li><li class="nav-folder is-open"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/index.html">MCP</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/Core%20MCP.html">Core MCP</a></li><li class="nav-file"><a class="active" href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/MCP%20Connection.html">MCP Connection</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/index.html">Multi Agent Systems</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/PLANNER-EXECUTOR%20ARCHITECTURE.html">PLANNER-EXECUTOR ARCHITECTURE</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/References.html">References</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Multi%20Agent%20Systems/Untitled.html">Untitled</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/index.html">Tool Retreival</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/Tool%20Retreival/ToolRetrieval.html">ToolRetrieval</a></li></ul></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/index.html">Performance Optimization</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/index.html">Caching</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Batching.html">Batching</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20in%20LLM-Based%20Agentic%20Systems.html">Prompt Caching in LLM-Based Agentic Systems</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Prompt%20Caching%20Intuition.html">Prompt Caching Intuition</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Quantization.html">Quantization</a></li><li class="nav-file"><a href="../../../Rapid%20AI%20Learning/10%20Performance%20Optimization/Caching/Response%20Caching.html">Response Caching</a></li></ul></li></ul></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../System%20Design%20-%20LLM%20based/index.html">System Design - LLM based</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/AI%20generated%20Scenarios.html">AI generated Scenarios</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/Approach%20for%20Interviews.html">Approach for Interviews</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/IndianQuestionBank.html">IndianQuestionBank</a></li><li class="nav-file"><a href="../../../System%20Design%20-%20LLM%20based/Question%20Bank%20GitHub.html">Question Bank GitHub</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../AI%20Engineering/index.html">AI Engineering</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../AI%20Engineering/01%20Role%20Vision.html">Role Vision</a></li><li class="nav-file"><a href="../../../AI%20Engineering/02%20Skills.html">Skills</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/index.html">Resume`</a></div><ul class="nav-children"><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/UberOrchestrator/index.html">UberOrchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/COPILOT_SDK_GUIDE.html">COPILOT_SDK_GUIDE</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/DESIGN.html">DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/REPORTING_AGENT_DESIGN.html">REPORTING_AGENT_DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_DESIGN.html">SESSION_PERSISTENCE_DESIGN</a></li><li class="nav-file"><a href="../../../Resume%60/UberOrchestrator/SESSION_PERSISTENCE_IMPL.html">SESSION_PERSISTENCE_IMPL</a></li></ul></li><li class="nav-folder"><div class="nav-folder-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Resume%60/VL%20Orchestrator/index.html">VL Orchestrator</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/AgentContextEngineering.html">AgentContextEngineering</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Designing%20decision-heavy%20enterprise%20AI%20systems%20without%20losing%20control.html">Designing decision-heavy enterprise AI systems without losing control</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/EvalAgent%20Dashboard.html">EvalAgent Dashboard</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Multi%20agent%20Architectures.html">Multi agent Architectures</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/MultiAgentArchitecture.html">MultiAgentArchitecture</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/Orchestrator%20Library.html">Orchestrator Library</a></li><li class="nav-file"><a href="../../../Resume%60/VL%20Orchestrator/OrchestratorGuardRails.html">OrchestratorGuardRails</a></li></ul></li><li class="nav-file"><a href="../../../Resume%60/LLM%20Evaluation%20Framework.html">LLM Evaluation Framework</a></li><li class="nav-file"><a href="../../../Resume%60/Math%20strategy.html">Math strategy</a></li><li class="nav-file"><a href="../../../Resume%60/Preparation%20Strategy.html">Preparation Strategy</a></li><li class="nav-file"><a href="../../../Resume%60/RAG%20Pipeline.html">RAG Pipeline</a></li></ul></li><li class="nav-section"><div class="nav-folder-head nav-section-head"><button class="nav-caret" aria-label="toggle">▸</button><a href="../../../Companies/index.html">Companies</a></div><ul class="nav-children"><li class="nav-file"><a href="../../../Companies/CoinBase.html">CoinBase</a></li><li class="nav-file"><a href="../../../Companies/DataBricks.html">DataBricks</a></li><li class="nav-file"><a href="../../../Companies/Deliveroo.html">Deliveroo</a></li><li class="nav-file"><a href="../../../Companies/LeoForce.html">LeoForce</a></li><li class="nav-file"><a href="../../../Companies/Sarvam%20AI.html">Sarvam AI</a></li><li class="nav-file"><a href="../../../Companies/TataSons.html">TataSons</a></li></ul></li></ul></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="../../../index.html">The Vault</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/index.html">AI Agents &amp; Tools</a><span class="sep">/</span><a href="../../../Rapid%20AI%20Learning/09%20AI%20Agents%20%26%20Tools/MCP/index.html">MCP</a><span class="sep">/</span><span>MCP Connection</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Entry</div>
+        <h1 class="doc-title">MCP Connection</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body"><h2 id="mcp-connection-—-deep-dive" tabindex="-1"><a class="h-anchor" href="#mcp-connection-—-deep-dive">#</a> MCP Connection — Deep Dive</h2>
+<h3 id="json-rpc-over-the-wire" tabindex="-1"><a class="h-anchor" href="#json-rpc-over-the-wire">#</a> JSON-RPC Over the Wire</h3>
+<p>MCP uses <strong>JSON-RPC 2.0</strong> as its message format — a lightweight spec where every message is structured as:</p>
+<pre><code class="language-json">// Request (client → server)
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: &quot;abc-123&quot;,          // used to correlate response
+  &quot;method&quot;: &quot;tools/call&quot;,
+  &quot;params&quot;: {
+    &quot;name&quot;: &quot;db_query&quot;,
+    &quot;arguments&quot;: { &quot;user_ids&quot;: [12, 45] }
+  }
+}
+
+// Response (server → client)
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: &quot;abc-123&quot;,          // same id — client matches this to the request
+  &quot;result&quot;: {
+    &quot;content&quot;: [{ &quot;type&quot;: &quot;text&quot;, &quot;text&quot;: &quot;...&quot; }],
+    &quot;isError&quot;: false
+  }
+}
+</code></pre>
+<p>JSON-RPC itself says nothing about transport — it’s just a message envelope. MCP layers it on top of <code>stdio</code> or <code>SSE</code>.</p>
+<hr>
+<h3 id="mcp-vs-rest-—-the-core-difference" tabindex="-1"><a class="h-anchor" href="#mcp-vs-rest-—-the-core-difference">#</a> MCP vs REST — The Core Difference</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>REST API</th>
+<th>MCP (SSE transport)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connection</td>
+<td><strong>New TCP connection per request</strong></td>
+<td><strong>One persistent HTTP connection, kept open</strong></td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Client pulls only</td>
+<td>Server can <strong>push</strong> messages to client without a request</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>HTTP request/response</td>
+<td>HTTP + SSE stream (uni-directional push) + HTTP POST (client sends)</td>
+</tr>
+<tr>
+<td>Session state</td>
+<td>Stateless by design</td>
+<td><strong>Stateful</strong> — server tracks the session</td>
+</tr>
+<tr>
+<td>Multiplexing</td>
+<td>Each call is independent</td>
+<td>Multiple JSON-RPC calls in-flight over same connection, matched by <code>id</code></td>
+</tr>
+</tbody>
+</table>
+<p>With REST, every <code>GET /tools/call</code> opens a socket, gets a response, closes. With MCP over SSE:</p>
+<div class="mermaid-wrap"><pre class="mermaid">sequenceDiagram
+  participant C as Client
+  participant S as MCP Server
+  C-&gt;&gt;S: GET /sse
+  S--&gt;&gt;C: 200 OK, Content-Type text/event-stream
+  S--&gt;&gt;C: event endpoint, data /messages
+  Note over C,S: connection stays open
+  C-&gt;&gt;S: POST /messages (tools/list)
+  S--&gt;&gt;C: event message, data {result...}
+  C-&gt;&gt;S: POST /messages (tools/call)
+  S--&gt;&gt;C: event message, data {result...}
+</pre></div>
+<p><strong>Key insight:</strong> The client sends via HTTP POST, but receives via the already-open SSE stream. Two channels, one logical session. This is why the <code>async with</code> block must stay open — closing it tears down the SSE stream, so there’s nowhere to receive <code>tools/call</code> results.</p>
+<hr>
+<h3 id="stdio-transport-—-even-simpler" tabindex="-1"><a class="h-anchor" href="#stdio-transport-—-even-simpler">#</a> <code>stdio</code> Transport — Even Simpler</h3>
+<p>When using <code>stdio</code>, there’s no HTTP at all:</p>
+<div class="mermaid-wrap"><pre class="mermaid">flowchart LR
+  o[&quot;Orchestrator Process&quot;] --&gt;|&quot;spawns subprocess&quot;| m[&quot;MCP Server Process&quot;]
+  o --&gt;|&quot;writes JSON-RPC to stdin&quot;| m
+  m --&gt;|&quot;reads JSON-RPC from stdout&quot;| o
+</pre></div>
+<p>Fully synchronous, same machine, zero network. The “connection” is literally two OS pipes. This is why it’s only viable for local tools — you can’t share it across processes or machines.</p>
+<hr>
+<h3 id="how-multiple-clients-connect-to-the-same-sse-server" tabindex="-1"><a class="h-anchor" href="#how-multiple-clients-connect-to-the-same-sse-server">#</a> How Multiple Clients Connect to the Same SSE Server</h3>
+<p>This is where it gets important for production. Each client opening <code>GET /sse</code> gets its <strong>own isolated SSE stream</strong> — the server assigns a unique session ID per connection:</p>
+<div class="mermaid-wrap"><pre class="mermaid">flowchart LR
+  a[&quot;Client A&quot;] --&gt;|&quot;GET /sse&quot;| s1[&quot;Server · session s1&quot;]
+  b[&quot;Client B&quot;] --&gt;|&quot;GET /sse&quot;| s2[&quot;Server · session s2&quot;]
+  c[&quot;Client C&quot;] --&gt;|&quot;GET /sse&quot;| s3[&quot;Server · session s3&quot;]
+  s1 -.-&gt;|&quot;tools/call results&quot;| a
+  s2 -.-&gt;|&quot;tools/call results&quot;| b
+  s3 -.-&gt;|&quot;tools/call results&quot;| c
+</pre></div>
+<p>When Client A does <code>POST /messages</code>, it includes its session ID so the server routes the response back to Client A’s SSE stream only. Sessions are fully isolated — one client’s tool calls don’t bleed into another’s.</p>
+<p><strong>Concurrency model on the server side</strong> depends on implementation:</p>
+<ul>
+<li><strong>Single-process async</strong> (e.g., FastAPI + asyncio): handles many SSE connections concurrently in one process — works well for I/O-bound tools</li>
+<li><strong>Multi-process/threaded</strong>: needed if tools are CPU-bound or block the event loop</li>
+<li><strong>Stateless server with external session store</strong>: session state (active tools, auth context) stored in Redis/DB — allows horizontal scaling across multiple server replicas</li>
+</ul>
+<hr>
+<h3 id="why-this-matters-for-agent-design" tabindex="-1"><a class="h-anchor" href="#why-this-matters-for-agent-design">#</a> Why This Matters for Agent Design</h3>
+<pre><code># This is NOT just &quot;calling an API&quot;
+# It's maintaining a stateful session where:
+#   - the server knows WHO you are (session)
+#   - in-flight requests are multiplexed (matched by JSON-RPC id)
+#   - the server can theoretically push unsolicited events (notifications)
+
+# MCP spec defines server→client notifications too, e.g.:
+# notifications/tools/list_changed  ← server tells client its tools changed
+# notifications/resources/updated   ← server pushes a resource update
+</code></pre>
+<p>This notification capability is something REST literally cannot do without polling or webhooks — the persistent connection earns its cost here. A future-proof MCP client should handle <code>notifications/tools/list_changed</code> to dynamically re-bind tools mid-session without a reconnect.</p>
+</div>
+        <nav class="toc"><div class="toc-label">On this page</div><ul><li class="lvl-2"><a href="#mcp-connection-—-deep-dive">MCP Connection — Deep Dive</a></li><li class="lvl-3"><a href="#json-rpc-over-the-wire">JSON-RPC Over the Wire</a></li><li class="lvl-3"><a href="#mcp-vs-rest-—-the-core-difference">MCP vs REST — The Core Difference</a></li><li class="lvl-3"><a href="#stdio-transport-—-even-simpler">stdio Transport — Even Simpler</a></li><li class="lvl-3"><a href="#how-multiple-clients-connect-to-the-same-sse-server">How Multiple Clients Connect to the Same SSE Server</a></li><li class="lvl-3"><a href="#why-this-matters-for-agent-design">Why This Matters for Agent Design</a></li></ul></nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Compiled from Obsidian · KaTeX · Mermaid</span>
+    </footer>
+  </main>
+</div>
+<script src="../../../_assets/app.js"></script>
+<script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        const root = document.documentElement;
+        const dark = root.getAttribute('data-theme') === 'dark';
+        const cs = getComputedStyle(root);
+        const vget = (n) => cs.getPropertyValue(n).trim();
+        const palette = ['--c1','--c2','--c3','--c4','--c5','--c6'].map(vget);
+        const ink = vget('--ink');
+        const line = vget('--line-strong');
+        const tint = dark ? '2e' : '24';          // node fill alpha
+        const clusterTint = dark ? '17' : '12';    // subgraph fill alpha
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          fontFamily: 'Inter, sans-serif',
+          securityLevel: 'loose',
+          flowchart: { curve: 'basis', htmlLabels: true, padding: 14, nodeSpacing: 48, rankSpacing: 56, useMaxWidth: true },
+          themeVariables: {
+            background: 'transparent',
+            primaryColor: palette[0] + tint,
+            primaryBorderColor: palette[0],
+            primaryTextColor: ink,
+            secondaryColor: palette[2] + tint,
+            tertiaryColor: palette[3] + tint,
+            lineColor: line,
+            titleColor: ink,
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '14px'
+          }
+        });
+        const colorize = () => {
+          document.querySelectorAll('.mermaid svg').forEach((svg) => {
+            svg.querySelectorAll('g.node').forEach((node, i) => {
+              const c = palette[i % palette.length];
+              node.querySelectorAll('rect, polygon, circle, ellipse, path').forEach((sh) => {
+                sh.style.setProperty('fill', c + tint, 'important');
+                sh.style.setProperty('stroke', c, 'important');
+                sh.style.setProperty('stroke-width', '1.5px', 'important');
+              });
+              node.querySelectorAll('.nodeLabel, .label, span, p, foreignObject div').forEach((t) => {
+                t.style.setProperty('color', ink, 'important');
+              });
+            });
+            svg.querySelectorAll('g.cluster rect').forEach((r, i) => {
+              const c = palette[(i + 1) % palette.length];
+              r.style.setProperty('fill', c + clusterTint, 'important');
+              r.style.setProperty('stroke', c, 'important');
+            });
+            // sequence-diagram actor boxes (top + bottom kept in sync by order)
+            ['.actor-top', '.actor-bottom'].forEach((sel) => {
+              const boxes = svg.querySelectorAll('rect' + sel);
+              const list = boxes.length ? boxes : (sel === '.actor-top' ? svg.querySelectorAll('rect.actor') : []);
+              list.forEach((r, i) => {
+                const c = palette[i % palette.length];
+                r.style.setProperty('fill', c + tint, 'important');
+                r.style.setProperty('stroke', c, 'important');
+              });
+            });
+            svg.querySelectorAll('text.actor, .actor > tspan').forEach((t) => {
+              t.style.setProperty('fill', ink, 'important');
+            });
+          });
+        };
+        await mermaid.run({ querySelector: '.mermaid' });
+        colorize();
+        window.__mermaid = mermaid;
+      </script>
+</body>
+</html>
