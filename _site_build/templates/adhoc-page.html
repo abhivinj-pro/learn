@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+  ════════════════════════════════════════════════════════════════════════
+  AD-HOC PAGE TEMPLATE  ·  v1  ·  The Vault design system
+  ════════════════════════════════════════════════════════════════════════
+
+  Use this skeleton for a hand-authored or externally-generated HTML page that
+  should look native to the site and self-register in the sidebar.
+
+  HOW TO USE
+  ----------
+  1. Copy this file into docs/<Section>/.../<YourPage>.html
+     (any depth under an existing top-level Section folder).
+  2. Replace the THREE placeholders:
+       {{ROOT}}      relative path back to docs/ root, e.g. "../../" for a page
+                     two folders deep. (count the folders between your file and
+                     docs/, that many "../").
+       {{PAGE_REL}}  this page's own root-relative, URL-encoded href, e.g.
+                     "Resume%60/UberOrchestrator/A2A_Uber.html". This is how the
+                     sidebar highlights the active entry. Encode spaces as %20,
+                     backtick as %60, & as %26, etc.
+       {{TITLE}}     plain-text page title (also used in the doc head).
+  3. PRIVATE sections only (Resume`/Companies): add data-nav to #sidebar so it
+     loads the full (gitignored) nav instead of the public one:
+         data-nav="_assets/nav.full.html"
+     Public-section pages: leave data-nav off (defaults to _assets/nav.html).
+  4. Put your content inside <div class="doc-body"> using the shared component
+     classes (.card, .grid c2/c3, .note key/tip/warn, .steps, .badge, .kvs,
+     .chip, .tbl-wrap, .pill-legend, .file, <figure>, and <pre> with .c/.k/.s/
+     .f/.n syntax spans). All component CSS lives in _assets/style.css — do NOT
+     paste a page-specific <style> block.
+  5. Run the build (node build.mjs). The page is auto-discovered and added to
+     the nav + its folder index. The renderer never overwrites ad-hoc HTML.
+
+  STYLING vs NAV (why "unstyled in other folders")
+  ------------------------------------------------
+  - The page only looks native when it sits UNDER docs/ at the right depth,
+    because it loads docs/_assets/style.css + app.js via {{ROOT}}. Those assets
+    are already built/committed, so styling works the moment the file is in the
+    docs tree with a correct {{ROOT}} — you do NOT need a rebuild just to style.
+  - A rebuild is only needed to REGISTER the page in the sidebar + folder index
+    (auto-discovery regenerates nav.html / nav.full.html).
+  - Open it over HTTP (e.g. a local static server), not file://, or the sidebar
+    fetch is blocked by the browser and the nav stays empty (styling still OK).
+
+  WHAT MAKES IT WORK
+  ------------------
+  - The sidebar is intentionally EMPTY here. _assets/app.js fetches the shared
+    nav partial (data-nav, default _assets/nav.html) at runtime and injects it,
+    then highlights the entry whose href matches data-page. One nav, every
+    page, zero duplication.
+  - Because the nav is not inlined, adding a note never rewrites this file.
+  ════════════════════════════════════════════════════════════════════════
+-->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{TITLE}} — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{{ROOT}}_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="{{ROOT}}_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <!-- private sections: add  data-nav="_assets/nav.full.html" -->
+  <aside class="sidebar" id="sidebar" data-root="{{ROOT}}" data-page="{{PAGE_REL}}" aria-busy="true"></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="{{ROOT}}index.html">The Vault</a><span class="sep">/</span><span>{{TITLE}}</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Reference</div>
+        <h1 class="doc-title">{{TITLE}}</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body">
+          <!-- ─── your content goes here ─── -->
+          <p class="intro-sub">Replace this with your page content.</p>
+        </div>
+        <nav class="toc">
+          <div class="toc-label">On this page</div>
+          <ul><!-- <li class="lvl-2"><a href="#section-id">Section</a></li> --></ul>
+        </nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Compiled from Obsidian · KaTeX · Mermaid</span>
+    </footer>
+  </main>
+</div>
+<script src="{{ROOT}}_assets/app.js"></script>
+</body>
+</html>

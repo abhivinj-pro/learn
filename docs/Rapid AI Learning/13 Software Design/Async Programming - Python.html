@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Async Programming - Python — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_assets/katex/katex.min.css" />
+<link rel="stylesheet" href="../../_assets/style.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menu">☰</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar" data-root="../../" data-page="Rapid%20AI%20Learning/13%20Software%20Design/Async%20Programming%20-%20Python.html" aria-busy="true"></aside>
+  <div class="sidebar-scrim" id="scrim"></div>
+  <main class="content">
+    <div class="topbar">
+      <nav class="crumbs"><a href="../../index.html">The Vault</a><span class="sep">/</span><a href="../../Rapid%20AI%20Learning/index.html">Rapid AI Learning</a><span class="sep">/</span><a href="../../Rapid%20AI%20Learning/13%20Software%20Design/index.html">Software Design</a><span class="sep">/</span><span>Async Programming - Python</span></nav>
+      <div class="topbar-actions">
+        <button class="act-btn" id="focusBtn" aria-label="Toggle focus mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4"/></svg><span id="focusLbl">Focus</span></button>
+        <button class="toggle" id="themeBtn" aria-label="Toggle colour scheme"><span class="sw"></span><span id="themeLbl">Light</span></button>
+      </div>
+    </div>
+    <article class="doc">
+      <header class="doc-head">
+        <div class="kicker"><span class="kicker-line"></span>Async · Concurrency · Event Loop</div>
+        <h1 class="doc-title">Async Programming - Python</h1>
+      </header>
+      <div class="doc-grid">
+        <div class="doc-body">
+
+          <p class="intro-sub">A friendly, experiment-driven guide to <code>async</code>/<code>await</code>. Every idea comes with a tiny program you can actually run — watch the output, tweak it, break it, and the concept sticks for good. No memorizing; just seeing.</p>
+
+          <div class="note key">
+            <strong>How to use this guide.</strong> Keep a terminal open. Every <strong>🧪 Experiment</strong> is a complete, copy-paste-runnable file — save it as <code>x.py</code> and run <code>python x.py</code> (Python 3.11+). The <em>predicted output</em> is shown right below each one. The real learning happens when you do the <strong>Try this</strong> tweaks and check whether reality matches your prediction.
+          </div>
+
+          <!-- ============================================================ -->
+          <section id="mental-model">
+            <h2>1. The Core Mental Model</h2>
+
+            <div class="note key"><strong>One sentence to anchor everything:</strong> Async Python is <em>one worker</em> who is very good at <em>never standing around waiting</em>. While one job is stuck waiting (for the network, a file, a timer), the worker quietly goes and makes progress on another job — but it only ever does <em>one thing at a time</em>.</div>
+
+            <h3>The coffee-shop barista (your mental picture)</h3>
+            <p>Picture a single barista. A customer orders a pour-over that needs 3 minutes to drip. Two ways to run the shop:</p>
+            <ul>
+              <li><strong>Synchronous barista</strong>: starts the pour-over, then <em>stares at it dripping for 3 minutes</em> while 10 people queue. Useless waiting.</li>
+              <li><strong>Async barista</strong>: starts the pour-over, and the moment it's "just dripping on its own" (a waiting step), turns to take the next order, start a second drip, ring up a muffin… When a drip finishes, they come back and hand it over.</li>
+            </ul>
+            <p>Same one barista. Same two hands. No clones. They just refuse to stand idle. <strong>That</strong> is async: not more workers, just zero wasted waiting.</p>
+
+            <h3>Let's prove it — your first experiment</h3>
+            <p>Below, <code>boil_water</code> "takes" 2 seconds. We do it three times. Run the sync version, then the async version, and look at the wall-clock time.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 1 — the same work, two speeds</div>
+<pre><code>import asyncio, time
+
+async def boil_water(name):
+    print(f"{name}: put kettle on")
+    await asyncio.sleep(2)          # the "waiting" step — water boils on its own
+    print(f"{name}: {name} is ready!")
+
+# --- Version A: one after another (we await immediately) ---
+async def sequential():
+    start = time.perf_counter()
+    await boil_water("kettle-1")
+    await boil_water("kettle-2")
+    await boil_water("kettle-3")
+    print(f"sequential took {time.perf_counter() - start:.1f}s\n")
+
+# --- Version B: all three kettles at once ---
+async def concurrent():
+    start = time.perf_counter()
+    await asyncio.gather(
+        boil_water("kettle-1"),
+        boil_water("kettle-2"),
+        boil_water("kettle-3"),
+    )
+    print(f"concurrent took {time.perf_counter() - start:.1f}s")
+
+asyncio.run(sequential())
+asyncio.run(concurrent())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>kettle-1: put kettle on
+kettle-1: kettle-1 is ready!
+kettle-2: put kettle on
+kettle-2: kettle-2 is ready!
+kettle-3: put kettle on
+kettle-3: kettle-3 is ready!
+sequential took 6.0s
+
+kettle-1: put kettle on
+kettle-2: put kettle on
+kettle-3: put kettle on
+kettle-1: kettle-1 is ready!
+kettle-2: kettle-2 is ready!
+kettle-3: kettle-3 is ready!
+concurrent took 2.0s</code></pre>
+            </div>
+
+            <p><strong>Look closely at the order of the lines.</strong> In the sequential run, each kettle fully finishes before the next starts. In the concurrent run, all three "put kettle on" lines print <em>first</em> — the barista started all three drips — and only then do the "ready" lines come back. Three 2-second waits <em>overlapped</em> into a single 2 seconds.</p>
+
+            <div class="note tip"><strong>The click:</strong> Nothing ran <em>faster</em>. <code>asyncio.sleep(2)</code> still took 2 seconds every time. We just stopped doing those waits <em>one at a time</em>. Async didn't add speed — it removed idle waiting.</div>
+
+            <div class="note tip"><strong>Try this and predict first:</strong>
+              <ul>
+                <li>Change <code>asyncio.sleep(2)</code> to <code>time.sleep(2)</code> (the blocking, non-async version) in <code>boil_water</code> and re-run the concurrent version. What happens to the time? (Spoiler explored in §11 — this is the single most important gotcha.)</li>
+                <li>Add a 4th and 5th kettle to <code>concurrent()</code>. Does the total time change?</li>
+              </ul>
+            </div>
+
+            <h3>The four intuitions everything else is built on</h3>
+            <ol>
+              <li><strong>Async is "better waiting," not "faster doing."</strong> The win is purely from overlapping <em>idle</em> time. If there's no waiting, async does nothing for you.</li>
+              <li><strong>You switch <em>away</em>, you're never yanked away.</strong> Control only changes hands at an <code>await</code>. Between two <code>await</code>s, your code has the whole stage to itself — guaranteed.</li>
+              <li><strong>Calling an async function doesn't run it.</strong> It hands you a "coroutine object" — a job ticket. Someone has to <em>await</em> it or schedule it for anything to happen (we'll see this in §5).</li>
+              <li><strong>Async is contagious.</strong> To <code>await</code> something you must be inside an <code>async def</code>. So async tends to spread up the call stack — the "function color" idea.</li>
+            </ol>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="concurrency-vs-parallelism">
+            <h2>2. Concurrency vs Parallelism vs Async</h2>
+
+            <p>People throw these three words around as if they're the same. They're not, and once you feel the difference you'll never confuse them again. Here's the plain-English version:</p>
+
+            <ul>
+              <li><strong>Concurrency</strong> = <em>juggling</em>. One juggler, several balls in the air. At any instant exactly one ball is in the hand, but all of them are "in progress." It's about <em>structure</em> — dealing with many things at once.</li>
+              <li><strong>Parallelism</strong> = <em>several jugglers</em>, each with their own ball, all moving at the same physical instant. It's about <em>hardware</em> — doing many things at once on many CPU cores.</li>
+              <li><strong>Async</strong> = <em>a specific juggling technique</em>: one juggler who only switches balls at the exact moment a ball is mid-air (waiting). Cooperative, single-threaded concurrency.</li>
+            </ul>
+
+            <p>Rob Pike's famous line nails it: <em>"Concurrency is dealing with lots of things at once. Parallelism is doing lots of things at once."</em> Async is a way to <strong>deal with</strong>, never a way to <strong>do</strong>.</p>
+
+            <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Concept</th><th>Plain meaning</th><th>Python tool</th><th>Wins at</th></tr></thead>
+              <tbody>
+                <tr><td>Concurrency</td><td>Structure your program as many independent in-progress tasks.</td><td><code>asyncio</code>, threads</td><td>Modeling many things: connections, requests, agents</td></tr>
+                <tr><td>Parallelism</td><td>Actually run instructions simultaneously on many cores.</td><td><code>multiprocessing</code>, NumPy/PyTorch, C extensions</td><td>CPU-bound work: math, parsing, encoding</td></tr>
+                <tr><td>Async I/O</td><td>Cooperative, single-thread concurrency driven by an event loop.</td><td><code>asyncio</code>, <code>trio</code>, <code>anyio</code></td><td>I/O-bound work: network, disk, DB, LLM APIs</td></tr>
+              </tbody>
+            </table>
+            </div>
+
+            <h3>Feel the difference: when does async actually help?</h3>
+            <p>This is the experiment that settles every argument. We run two kinds of "work": one that <em>waits</em> (I/O-bound, simulated with <code>asyncio.sleep</code>) and one that <em>computes</em> (CPU-bound, a real number crunch). Watch which one async speeds up.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 2 — async helps waiting, not computing</div>
+<pre><code>import asyncio, time
+
+# I/O-bound: mostly waiting
+async def io_task(n):
+    await asyncio.sleep(1)      # pretend: a network call
+    return n
+
+# CPU-bound: mostly computing (no awaiting anywhere)
+async def cpu_task(n):
+    total = 0
+    for i in range(10_000_000):
+        total += i * i
+    return n
+
+async def run(label, task):
+    start = time.perf_counter()
+    await asyncio.gather(*(task(i) for i in range(4)))
+    print(f"{label}: {time.perf_counter() - start:.2f}s")
+
+async def main():
+    await run("4x IO  (await sleep)", io_task)   # 4 one-second waits
+    await run("4x CPU (number crunch)", cpu_task) # 4 heavy loops
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Typical output</div>
+<pre><code>4x IO  (await sleep):   1.00s   ← 4 seconds of waiting collapsed into 1
+4x CPU (number crunch): 2.80s   ← no speedup; they ran one-after-another anyway</code></pre>
+            </div>
+
+            <div class="note tip"><strong>The click:</strong> The 4 I/O tasks overlapped (4s → 1s) because each one <em>paused at <code>await</code></em> and let the others run. The 4 CPU tasks did <strong>not</strong> overlap — they never hit an <code>await</code>, so the single worker ground through them back-to-back. For CPU work you need real parallelism (processes), which we cover in §11.</div>
+
+            <div class="note tip"><strong>Try this:</strong> swap the CPU loop for <code>multiprocessing</code> or wrap it in <code>asyncio.to_thread</code> (§11) and watch whether the CPU number drops. It won't drop with threads (the GIL!), but will with processes.</div>
+
+            <div class="grid c2">
+              <div class="card">
+                <h4>Reach for async when…</h4>
+                <ul>
+                  <li>You're <em>waiting</em> on the network — LLM APIs, vector DBs, HTTP, gRPC.</li>
+                  <li>You need thousands of live connections (WebSocket, SSE).</li>
+                  <li>You want simple, predictable interleaving with few locks.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h4>Reach for processes/threads when…</h4>
+                <ul>
+                  <li>CPU-bound: tokenizing, parsing megabytes, image preprocessing → <code>multiprocessing</code>.</li>
+                  <li>You're stuck with a blocking library → wrap it in <code>asyncio.to_thread</code>.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="event-loop">
+            <h2>3. The Event Loop, Demystified</h2>
+
+            <p>"Event loop" sounds mystical. It isn't. It's a <strong>to-do list manager</strong> running in a <code>while True</code>. It keeps a list of jobs that are "ready to run right now" and a list of jobs that are "parked, waiting for something." On every spin it does three boringly simple things:</p>
+
+<pre><code>while there_is_work:
+    # 1. Run every job that is READY, one at a time, until each one
+    #    either finishes or hits an `await` and parks itself.
+    run_all_ready_jobs()
+
+    # 2. Ask the operating system, in ONE syscall:
+    #    "Out of these 10,000 sockets/timers I'm watching, which are done?"
+    ready_now = os_wait_for_any(parked_jobs)   # epoll / kqueue / IOCP
+
+    # 3. Move those finished ones from "parked" back to "ready".
+    wake_up(ready_now)</code></pre>
+
+            <p>That step 2 is the whole trick. The OS gives you <em>one</em> call that means "sleep until <em>any</em> of these thousands of things is ready." So a single worker can babysit tens of thousands of connections without polling each one.</p>
+
+            <h3>Watch the loop juggle (see the interleaving with your own eyes)</h3>
+            <p>Each task announces every step it takes. The <code>await asyncio.sleep(...)</code> is the moment a task says "I'm parking myself — loop, go run someone else."</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 3 — three tasks taking turns</div>
+<pre><code>import asyncio
+
+async def task(name, naps):
+    for i in range(naps):
+        print(f"  {name} step {i}  (now I'll await → loop can switch)")
+        await asyncio.sleep(0.1)   # park here; let others run
+    print(f"  {name} DONE")
+
+async def main():
+    await asyncio.gather(
+        task("A", 3),
+        task("B", 2),
+        task("C", 1),
+    )
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output (note the round-robin)</div>
+<pre><code>  A step 0  (now I'll await → loop can switch)
+  B step 0  (now I'll await → loop can switch)
+  C step 0  (now I'll await → loop can switch)
+  A step 1  (now I'll await → loop can switch)
+  B step 1  (now I'll await → loop can switch)
+  C DONE
+  A step 2  (now I'll await → loop can switch)
+  B DONE
+  A DONE</code></pre>
+            </div>
+
+            <p>Read it top to bottom: A runs one step and parks, B runs one step and parks, C runs one step and parks, then the loop comes back around to A. They <em>take turns at the <code>await</code> points</em>. C finishes first (only 1 nap), then B, then A. This round-robin is the event loop doing its job.</p>
+
+            <div class="note tip"><strong>The click:</strong> The event loop never "interrupts" a task. Each task runs uninterrupted until it <em>voluntarily</em> hits <code>await</code> and parks itself. The loop simply picks whoever is ready next. Cooperative, not forced.</div>
+
+            <div class="note tip"><strong>Try this:</strong> Replace <code>await asyncio.sleep(0.1)</code> with nothing (delete that line). Now each task runs all its steps before yielding — A fully finishes, then B, then C. No <code>await</code> = no turn-taking. That one change <em>is</em> the entire lesson.</div>
+
+            <h3>Why this design is so cheap</h3>
+            <ul>
+              <li><strong>Switching tasks is almost free</strong> — it's just the loop picking the next item off a list (~100 nanoseconds). Switching OS threads costs 10–100× more.</li>
+              <li><strong>You rarely need locks</strong> — between two <code>await</code>s nobody else can touch your data. (More in §10.)</li>
+              <li><strong>Tasks are tiny</strong> — a parked coroutine is ~1 KB of memory; an OS thread reserves megabytes of stack.</li>
+            </ul>
+
+            <div class="note warn"><strong>The one rule that matters:</strong> the loop runs <em>in your single thread</em>. If a task never reaches <code>await</code> — or calls a blocking function like <code>time.sleep()</code>, <code>requests.get()</code>, or a giant <code>json.loads()</code> — it hogs the worker and <em>every other task freezes</em>. This is the #1 cause of "why is my async app slow?" We'll see it live in §11.</div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="generators">
+            <h2>4. Generators — the Engine Under Coroutines</h2>
+            <p class="intro-sub">This is the missing puzzle piece. Once generators click, coroutines stop feeling magical — because a coroutine literally <em>is</em> a generator with a few extra powers.</p>
+
+            <p>Here's a question that trips everyone up: why does calling an async function return a "coroutine object" instead of just running and giving you an answer? The honest answer is: <strong>because async borrowed that behavior from generators</strong>, a feature Python has had since 2001. So let's master the simple thing first, and the async thing will fall into place.</p>
+
+            <h3>What a generator actually is</h3>
+            <p>A normal function uses <code>return</code> and hands back <em>one</em> value, then forgets everything. A <strong>generator</strong> is a function that uses <code>yield</code> instead. The magic of <code>yield</code>: it hands back a value <em>and pauses the function in place</em>, remembering every local variable, ready to continue from that exact spot next time you ask. It's a function that can be paused and resumed.</p>
+
+            <p>The catch that confuses people: <strong>calling a generator function runs none of its body.</strong> It just builds and hands you a "generator object" — a remote control. The code only runs when you <em>drive</em> the remote control by iterating.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 4 — calling it runs nothing; you must drive it</div>
+<pre><code>def count_up_to(n):
+    print("  &gt;&gt; generator body STARTS now")
+    i = 1
+    while i &lt;= n:
+        print(f"  &gt;&gt; about to yield {i}")
+        yield i                       # pause here, hand out i
+        print(f"  &gt;&gt; resumed after yielding {i}")
+        i += 1
+    print("  &gt;&gt; generator body ENDS")
+
+print("1. calling count_up_to(3) ...")
+gen = count_up_to(3)                  # builds a generator — runs NOTHING
+print(f"2. got a {type(gen).__name__}; no body output above this line")
+
+print("3. calling next(gen) the first time:")
+print("   ->", next(gen))             # runs up to the first yield
+print("4. calling next(gen) again:")
+print("   ->", next(gen))             # resumes, runs to next yield</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>1. calling count_up_to(3) ...
+2. got a generator; no body output above this line
+3. calling next(gen) the first time:
+  &gt;&gt; generator body STARTS now
+  &gt;&gt; about to yield 1
+   -> 1
+4. calling next(gen) again:
+  &gt;&gt; resumed after yielding 1
+  &gt;&gt; about to yield 2
+   -> 2</code></pre>
+            </div>
+
+            <div class="note tip"><strong>The click:</strong> Look at step 2 — calling <code>count_up_to(3)</code> printed <em>nothing</em> from the body. The function didn't run; it became a paused object. Each <code>next()</code> presses "play" until the next <code>yield</code>, then pauses again. That pause-and-remember is <em>exactly</em> what <code>await</code> does for coroutines.</div>
+
+            <h3>Why you "have to do <code>for i in gen()</code>"</h3>
+            <p>You noticed that the result doesn't appear until you write <code>for i in something()</code>. Now you know why: the <code>for</code> loop is just calling <code>next()</code> for you over and over until the generator is exhausted. <code>for</code> is the "press play repeatedly until it's done" button.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 5 — <code>for</code> is just automatic <code>next()</code></div>
+<pre><code>def squares(n):
+    for i in range(1, n + 1):
+        yield i * i
+
+gen = squares(5)
+print("the object:", gen)            # &lt;generator object ...&gt; — not the values!
+
+# Option A: drive it with a for-loop (the usual way)
+for value in squares(5):
+    print("got", value)
+
+# Option B: force ALL values at once by materializing into a list
+print("as a list:", list(squares(5)))</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>the object: &lt;generator object squares at 0x...&gt;
+got 1
+got 4
+got 9
+got 16
+got 25
+as a list: [1, 4, 9, 16, 25]</code></pre>
+            </div>
+
+            <p>Printing the generator object shows <code>&lt;generator object ...&gt;</code> — proof it's a remote control, not the values. To get values you either loop over it, call <code>next()</code> by hand, or slurp them all with <code>list()</code>.</p>
+
+            <h3>Why generators are worth having: laziness</h3>
+            <p>Because a generator computes values <em>on demand</em>, one at a time, it never has to hold them all in memory. That lets you represent huge — even infinite — sequences for free, and stop early without wasting work.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 6 — an infinite sequence that costs almost no memory</div>
+<pre><code>def naturals():            # infinite! this would be impossible with a list
+    i = 0
+    while True:
+        yield i
+        i += 1
+
+gen = naturals()
+# Take just the first 5 — the generator only computes those 5, then pauses forever.
+first_five = [next(gen) for _ in range(5)]
+print(first_five)
+
+# A list version, list(range(10_000_000)), would allocate 10M ints up front.
+# The generator holds ONE int at a time. That's the whole point of laziness.</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>[0, 1, 2, 3, 4]</code></pre>
+            </div>
+
+            <div class="note tip"><strong>Try this:</strong> replace <code>[next(gen) for _ in range(5)]</code> with <code>list(naturals())</code> and run it. It hangs forever (or crashes on memory) because <code>list()</code> tries to pull <em>every</em> value from an infinite generator. That contrast is the clearest demonstration of lazy vs eager.</div>
+
+            <h3>The bridge: a coroutine is a generator the event loop drives</h3>
+            <p>Now the payoff. Compare the two side by side — they are the <em>same idea</em>:</p>
+
+            <div class="tbl-wrap">
+            <table>
+              <thead><tr><th></th><th>Generator</th><th>Coroutine (async)</th></tr></thead>
+              <tbody>
+                <tr><td>You define it with</td><td><code>def</code> + <code>yield</code></td><td><code>async def</code> + <code>await</code></td></tr>
+                <tr><td>Calling it returns</td><td>a <em>generator object</em> (nothing runs)</td><td>a <em>coroutine object</em> (nothing runs)</td></tr>
+                <tr><td>It pauses at</td><td><code>yield</code></td><td><code>await</code></td></tr>
+                <tr><td>Who presses "play"</td><td>you, via <code>for</code> / <code>next()</code></td><td>the event loop, via <code>await</code> / <code>asyncio.run</code></td></tr>
+                <tr><td>It resumes</td><td>where it left off, locals intact</td><td>where it left off, locals intact</td></tr>
+              </tbody>
+            </table>
+            </div>
+
+            <p>That's not an analogy — it's the actual implementation. Under the hood <code>await</code> is a type-checked <code>yield</code>, and the event loop is the "for-loop" that keeps pressing play on thousands of paused coroutines. When you saw in §1 that <code>greet("A")</code> printed nothing until awaited, that's identical to <code>count_up_to(3)</code> printing nothing until you call <code>next()</code>.</p>
+
+            <div class="note warn"><strong>Untangle the three "for/await" forms</strong> — this is the exact spot people mix up:
+              <ul>
+                <li><strong>Generator</strong> → <code>for x in gen():</code> &nbsp;(synchronous, you drive it)</li>
+                <li><strong>Coroutine</strong> → <code>await coro()</code> &nbsp;(you do <em>not</em> loop over it; you <code>await</code> the single result)</li>
+                <li><strong>Async generator</strong> → <code>async for x in agen():</code> &nbsp;(a generator that also <code>await</code>s between yields — covered in §12)</li>
+              </ul>
+              So "<code>for i in coroutine()</code>" is actually a mistake — that's the generator pattern. A plain coroutine is awaited; only an <em>async generator</em> is looped over, and with <code>async for</code>.</div>
+
+            <div class="note tip"><strong>The one-sentence takeaway:</strong> a generator is a pausable function you drive with <code>next()</code>/<code>for</code>; a coroutine is the same pausable function, but the event loop drives it and the pause keyword is <code>await</code>. Calling either one builds an object and runs nothing — something has to <em>drive</em> it.</div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="coroutines">
+            <h2>5. Coroutines, Tasks, and Futures</h2>
+
+            <p>Three words that sound interchangeable but aren't. The simplest way to keep them straight:</p>
+            <ul>
+              <li>A <strong>coroutine</strong> is a <em>job ticket</em>. You get one by calling an <code>async def</code> function. Holding a ticket does nothing — the work hasn't started.</li>
+              <li>A <strong>Task</strong> is a job ticket you <em>handed to the loop</em> and said "start working on this in the background." It runs alongside everything else.</li>
+              <li>A <strong>Future</strong> is a low-level "I promise a value will show up here later" box. A <code>Task</code> is just a fancy <code>Future</code>. You rarely make one yourself.</li>
+            </ul>
+
+            <h3>Prove it: calling an async function runs nothing</h3>
+            <p>This surprises everyone the first time. Calling <code>greet()</code> below does <strong>not</strong> print anything — it just builds a coroutine object. Only <code>await</code> (or scheduling) makes it run.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 7 — the ticket vs. the work</div>
+<pre><code>import asyncio
+
+async def greet(name):
+    print(f"Hello, {name}!")
+    return f"done-{name}"
+
+async def main():
+    print("1. calling greet('A') ...")
+    ticket = greet("A")          # builds a coroutine — prints NOTHING yet
+    print(f"2. got a {type(ticket).__name__}; still no greeting printed")
+
+    print("3. now awaiting it ...")
+    result = await ticket        # NOW greet actually runs
+    print(f"4. it returned: {result}")
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>1. calling greet('A') ...
+2. got a coroutine; still no greeting printed
+3. now awaiting it ...
+Hello, A!
+4. it returned: done-A</code></pre>
+            </div>
+
+            <div class="note tip"><strong>The click:</strong> <code>greet("A")</code> is like writing an order on a slip — the kitchen hasn't seen it. <code>await</code> (or <code>create_task</code>) is handing the slip in. If you ever see <em><code>RuntimeWarning: coroutine 'greet' was never awaited</code></em>, it means you made a ticket and threw it in the bin without handing it in.</div>
+
+            <h3>The difference that makes or breaks performance</h3>
+            <p>This is the single most common "I added async and nothing got faster" bug. <code>await coro</code> runs it <em>now, inline</em> (you wait for it before moving on). <code>create_task(coro)</code> starts it <em>in the background</em> so several can run at once.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 8 — inline await vs. background task</div>
+<pre><code>import asyncio, time
+
+async def work(n):
+    await asyncio.sleep(1)
+    return n * 10
+
+async def the_slow_way():           # awaiting immediately = sequential
+    start = time.perf_counter()
+    results = []
+    for n in range(3):
+        results.append(await work(n))   # wait fully before next loop
+    print(f"slow: {results} in {time.perf_counter()-start:.1f}s")
+
+async def the_fast_way():           # schedule all, THEN await = concurrent
+    start = time.perf_counter()
+    tasks = [asyncio.create_task(work(n)) for n in range(3)]  # all start now
+    results = [await t for t in tasks]                        # collect later
+    print(f"fast: {results} in {time.perf_counter()-start:.1f}s")
+
+async def main():
+    await the_slow_way()
+    await the_fast_way()
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>slow: [0, 10, 20] in 3.0s
+fast: [0, 10, 20] in 1.0s</code></pre>
+            </div>
+
+            <p>Same results, same code shape — but the fast way <code>create_task</code>s all three <em>before</em> awaiting any of them, so the three 1-second waits overlap. The slow way awaits inside the loop, finishing each before starting the next.</p>
+
+            <div class="note tip"><strong>Try this:</strong> In <code>the_fast_way</code>, change the two lines to a single <code>results = await asyncio.gather(*(work(n) for n in range(3)))</code>. Same 1-second result — <code>gather</code> is just the shortcut for "schedule all, then wait for all."</div>
+
+            <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>You write…</th><th>What happens</th><th>Use when</th></tr></thead>
+              <tbody>
+                <tr><td><code>coro = f()</code></td><td>Builds a coroutine; nothing runs.</td><td>Almost never on its own.</td></tr>
+                <tr><td><code>await f()</code></td><td>Runs it now, inline; you wait for the result.</td><td>You need the result before continuing.</td></tr>
+                <tr><td><code>t = asyncio.create_task(f())</code></td><td>Starts it in the background; returns a Task.</td><td>You want it running <em>alongside</em> other work.</td></tr>
+                <tr><td><code>await asyncio.gather(*coros)</code></td><td>Schedules all, waits for all, returns results in order.</td><td>Fan out many calls at once.</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="await-deep">
+            <h2>6. What <code>await</code> Actually Does</h2>
+
+            <p>If async has ever felt like a magic word, this section dissolves the magic. <code>await</code> does exactly one conceptual thing: <strong>it's a "pause point" where your function says to the loop, "I'm about to wait — go do something useful and wake me when my thing is ready."</strong></p>
+
+            <p>Step by step, when Python reaches <code>await something</code>:</p>
+            <ol>
+              <li>It looks at <code>something</code> (must be "awaitable" — a coroutine, Task, or Future).</li>
+              <li>It <strong>freezes your function</strong> exactly where it is — local variables, the line you're on, everything — and stores that frozen state.</li>
+              <li>It hands control back to the event loop with a note: "wake me when <code>something</code> finishes."</li>
+              <li>The loop is now free to run other ready tasks.</li>
+              <li>When <code>something</code> is done, the loop <strong>thaws your function</strong> and continues from right after the <code>await</code>, with the result dropped in where <code>await something</code> was.</li>
+            </ol>
+
+            <h3>See the freeze-and-thaw happen</h3>
+            <p>Two tasks, each printing before and after its <code>await</code>. The interleaving proves that <code>await</code> is where one function freezes and another gets a turn.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 9 — freeze here, resume there</div>
+<pre><code>import asyncio
+
+async def job(name):
+    print(f"{name}: BEFORE await (running)")
+    await asyncio.sleep(0)        # freeze point — hand control to the loop
+    print(f"{name}: AFTER await (resumed)")
+
+async def main():
+    await asyncio.gather(job("X"), job("Y"))
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>X: BEFORE await (running)
+Y: BEFORE await (running)
+X: AFTER await (resumed)
+Y: AFTER await (resumed)</code></pre>
+            </div>
+
+            <p>Notice both "BEFORE" lines print before either "AFTER." X runs up to its <code>await</code> and freezes; Y then runs up to its <code>await</code> and freezes; then the loop thaws X, then Y. The <code>await</code> is the seam where control changes hands.</p>
+
+            <div class="note tip"><strong>The click:</strong> <code>await asyncio.sleep(0)</code> waits for <em>zero</em> seconds — so why use it? Because the <em>act of awaiting</em> is itself the yield. It means "I have nothing to wait for, but I'll politely give someone else a turn." It's the cleanest way to see (and create) a switch point.</div>
+
+            <h3>The flip side: no <code>await</code> means no one else runs</h3>
+            <p>Because switching only happens at <code>await</code>, a function with no <code>await</code> in its hot path monopolizes the worker. This is the trap that makes "async" code behave synchronously.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 10 — the task that never yields</div>
+<pre><code>import asyncio
+
+async def hog():
+    print("hog: starting a long loop with NO await")
+    total = 0
+    for i in range(50_000_000):   # heavy, and never awaits
+        total += i
+    print("hog: finally done")
+
+async def chatty():
+    for i in range(5):
+        print(f"chatty: tick {i}")
+        await asyncio.sleep(0.2)
+
+async def main():
+    await asyncio.gather(hog(), chatty())
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output — chatty is frozen out until hog finishes</div>
+<pre><code>hog: starting a long loop with NO await
+hog: finally done
+chatty: tick 0
+chatty: tick 1
+chatty: tick 2
+chatty: tick 3
+chatty: tick 4</code></pre>
+            </div>
+
+            <p><code>chatty</code> wanted to tick every 0.2s, but it couldn't print a single tick until <code>hog</code> completely finished — because <code>hog</code> never reached an <code>await</code> to release the worker.</p>
+
+            <div class="note tip"><strong>Try this:</strong> add <code>await asyncio.sleep(0)</code> inside <code>hog</code>'s loop (say, every million iterations: <code>if i % 1_000_000 == 0: await asyncio.sleep(0)</code>). Re-run — now <code>chatty</code>'s ticks interleave with the loop. You just made a greedy task <em>cooperative</em>. That's the whole idea of cooperative multitasking.</div>
+
+            <p><strong>Under the hood (nice to know, not need to know):</strong> coroutines are built on Python's generator machinery — <code>await</code> is essentially a type-checked <code>yield from</code>. That's why async stack traces look like nested dolls: each frozen frame is a paused generator waiting to resume.</p>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="patterns">
+            <h2>7. Core Concurrency Patterns</h2>
+            <p class="intro-sub">These five tools cover ~90% of real async code. Each one answers a different "I have many things to run — how do I coordinate them?" question.</p>
+
+            <h3>7.1 <code>gather</code> — "run all of these, give me all the results"</h3>
+            <p>The workhorse. Schedules everything at once, waits for all, returns results <em>in the order you passed them</em> (not the order they finished).</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 11 — gather keeps input order</div>
+<pre><code>import asyncio
+
+async def fetch(name, delay):
+    await asyncio.sleep(delay)
+    print(f"  {name} finished (took {delay}s)")
+    return name.upper()
+
+async def main():
+    results = await asyncio.gather(
+        fetch("slow", 0.3),
+        fetch("fast", 0.1),
+        fetch("medium", 0.2),
+    )
+    print("results:", results)   # order matches the call order, not finish order
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>  fast finished (took 0.1s)
+  medium finished (took 0.2s)
+  slow finished (took 0.3s)
+results: ['SLOW', 'FAST', 'MEDIUM']</code></pre>
+            </div>
+            <div class="note warn"><strong>The famous gather footgun:</strong> if one coroutine raises, <code>gather</code> re-raises that error immediately — but the <em>other</em> tasks keep running in the background, now untracked. Pass <code>return_exceptions=True</code> to instead collect errors as values: <code>await asyncio.gather(*coros, return_exceptions=True)</code> returns a mix of results and exception objects, nothing is lost. (For automatic cancel-the-siblings behavior, use <code>TaskGroup</code> in §8.)</div>
+
+            <h3>7.2 <code>as_completed</code> — "give me results the instant each one is ready"</h3>
+            <p>Same fan-out, but you process each result <em>as it arrives</em> instead of waiting for the slowest. Perfect for streaming progress to a user.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 12 — fastest-first delivery</div>
+<pre><code>import asyncio
+
+async def fetch(name, delay):
+    await asyncio.sleep(delay)
+    return f"{name} (after {delay}s)"
+
+async def main():
+    coros = [fetch("slow", 0.3), fetch("fast", 0.1), fetch("medium", 0.2)]
+    for coro in asyncio.as_completed(coros):
+        result = await coro      # arrives in COMPLETION order
+        print("got:", result)
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output — fastest first</div>
+<pre><code>got: fast (after 0.1s)
+got: medium (after 0.2s)
+got: slow (after 0.3s)</code></pre>
+            </div>
+            <p>Compare with Experiment 11: same tasks, but here you act on each result the moment it lands. Great for "show me search hits as they come back."</p>
+
+            <h3>7.3 <code>wait_for</code> — "but give up after N seconds"</h3>
+            <p>Wraps a single awaitable with a deadline. If it doesn't finish in time, it's cancelled and you get a <code>TimeoutError</code>.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 13 — a timeout with a fallback</div>
+<pre><code>import asyncio
+
+async def slow_api():
+    await asyncio.sleep(5)
+    return "real answer"
+
+async def main():
+    try:
+        answer = await asyncio.wait_for(slow_api(), timeout=1.0)
+    except asyncio.TimeoutError:
+        answer = "fallback (api too slow)"
+    print(answer)
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output (after ~1 second)</div>
+<pre><code>fallback (api too slow)</code></pre>
+            </div>
+
+            <h3>7.4 <code>wait</code> — "wake me when the first one finishes (or on any condition)"</h3>
+<pre><code>done, pending = await asyncio.wait(
+    tasks,
+    timeout=5,
+    return_when=asyncio.FIRST_COMPLETED,   # or FIRST_EXCEPTION, ALL_COMPLETED
+)
+for p in pending:
+    p.cancel()                              # tidy up the losers</code></pre>
+            <p>Lower-level than <code>gather</code>: it hands you two sets — what finished and what's still pending — and lets <em>you</em> decide what to do next. The classic use is "race several options, take the first, cancel the rest" (see §13.3).</p>
+
+            <h3>7.5 <code>Queue</code> — "producers and consumers at different speeds"</h3>
+            <p>A thread-safe-for-the-loop mailbox. Producers <code>put</code> items in; consumers <code>get</code> them out. A <strong>bounded</strong> queue (<code>maxsize</code>) gives you <em>backpressure</em> for free: if consumers fall behind, <code>put</code> politely blocks so producers slow down instead of blowing up memory.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 14 — one producer, two consumers</div>
+<pre><code>import asyncio
+
+async def producer(q, n):
+    for i in range(n):
+        await q.put(i)
+        print(f"produced {i}")
+    await q.put(None); await q.put(None)   # one sentinel per consumer
+
+async def consumer(q, name):
+    while (item := await q.get()) is not None:
+        await asyncio.sleep(0.1)           # pretend processing
+        print(f"  {name} handled {item}")
+
+async def main():
+    q = asyncio.Queue(maxsize=3)           # bounded → backpressure
+    await asyncio.gather(
+        producer(q, 6),
+        consumer(q, "C1"),
+        consumer(q, "C2"),
+    )
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Sample output (two consumers share the work)</div>
+<pre><code>produced 0
+produced 1
+produced 2
+  C1 handled 0
+  C2 handled 1
+produced 3
+produced 4
+  C1 handled 2
+  ...</code></pre>
+            </div>
+            <div class="note tip"><strong>Try this:</strong> drop <code>maxsize</code> to unbounded (remove it) and make the consumers much slower than the producer. With a bound, the producer naturally waits; unbounded, it races ahead and the queue grows without limit. This is exactly how you protect a streaming server's memory.</div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="taskgroups">
+            <h2>8. TaskGroups &amp; Structured Concurrency (3.11+)</h2>
+
+            <p>"Structured concurrency" is a fancy name for a homely, sensible rule: <strong>work you start inside a block must finish before you leave the block.</strong> No tasks sneaking off to run (and fail silently) after the function that spawned them has returned. It's the same discipline <code>with</code> brought to files — open inside, guaranteed closed on exit.</p>
+
+            <div class="note key"><strong>The deal a <code>TaskGroup</code> makes you:</strong> "Start as many child tasks as you like inside my <code>async with</code> block. When the block ends, I guarantee they're all done. And if any one of them fails, I'll cancel the others and report every error — no leaks, no surprises."</div>
+
+<pre><code>async def handle_request(req):
+    async with asyncio.TaskGroup() as tg:
+        t1 = tg.create_task(fetch_user(req.user_id))
+        t2 = tg.create_task(fetch_history(req.user_id))
+        t3 = tg.create_task(call_llm(req.prompt))
+    # We only get here once ALL three are done.
+    return assemble(t1.result(), t2.result(), t3.result())</code></pre>
+
+            <h3>See the auto-cancel in action</h3>
+            <p>Three tasks start. One fails fast. Watch the TaskGroup cancel the survivors instead of leaving them running.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 15 — one fails, siblings get cancelled</div>
+<pre><code>import asyncio
+
+async def good(name, secs):
+    try:
+        await asyncio.sleep(secs)
+        print(f"{name}: finished")
+    except asyncio.CancelledError:
+        print(f"{name}: CANCELLED (a sibling failed)")
+        raise
+
+async def bad():
+    await asyncio.sleep(0.2)
+    raise ValueError("bad task exploded")
+
+async def main():
+    try:
+        async with asyncio.TaskGroup() as tg:
+            tg.create_task(good("A", 1.0))
+            tg.create_task(good("B", 1.0))
+            tg.create_task(bad())
+    except* ValueError as eg:        # note the `except*` for ExceptionGroups
+        print("caught group:", [str(e) for e in eg.exceptions])
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>A: CANCELLED (a sibling failed)
+B: CANCELLED (a sibling failed)
+caught group: ['bad task exploded']</code></pre>
+            </div>
+
+            <div class="note tip"><strong>The click:</strong> With plain <code>gather</code>, A and B would have kept running in the background after <code>bad()</code> exploded — orphaned work burning resources. The TaskGroup treats the three as a <em>family</em>: if one dies, the others are cancelled, and you get a clean <code>ExceptionGroup</code> instead of a half-finished mess.</div>
+
+            <h3>Why prefer it over <code>gather</code></h3>
+            <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>When…</th><th><code>gather</code></th><th><code>TaskGroup</code></th></tr></thead>
+              <tbody>
+                <tr><td>one task fails</td><td>others keep running, untracked</td><td>siblings cancelled automatically</td></tr>
+                <tr><td>caller is cancelled</td><td>children may leak</td><td>children cancelled deterministically</td></tr>
+                <tr><td>multiple failures</td><td>you see only the first</td><td>all collected in an <code>ExceptionGroup</code></td></tr>
+                <tr><td>reasoning</td><td>"where did that task go?"</td><td>lexically scoped — it's right there in the block</td></tr>
+              </tbody>
+            </table>
+            </div>
+
+            <p>The <code>except*</code> syntax (PEP 654) is how you handle an <code>ExceptionGroup</code> by type — each <code>except*</code> peels off the matching errors and re-raises the rest:</p>
+<pre><code>try:
+    async with asyncio.TaskGroup() as tg: ...
+except* TimeoutError as eg:
+    log.warning("some calls timed out: %d", len(eg.exceptions))
+except* HTTPError as eg:
+    log.error("upstream failures: %s", eg.exceptions)</code></pre>
+
+            <div class="note tip"><strong>Try this:</strong> change <code>bad()</code> to also just <code>await asyncio.sleep(2)</code> and finish normally. Now all three complete and the <code>except*</code> never fires. Then make <em>two</em> of them raise different exception types and watch the <code>ExceptionGroup</code> carry both.</div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="cancellation">
+            <h2>9. Cancellation, Timeouts, Shielding</h2>
+
+            <p>Cancelling an async task is <em>polite</em>, not violent. <code>task.cancel()</code> doesn't kill anything on the spot. It leaves a note that says: "the next time you hit an <code>await</code>, raise <code>CancelledError</code> there." The task gets a chance to clean up — close files, roll back, log — before it actually stops.</p>
+
+            <h3>Watch a cancellation land at the next <code>await</code></h3>
+            <div class="card">
+              <div class="badge">🧪 Experiment 16 — cancel, clean up, stop</div>
+<pre><code>import asyncio
+
+async def worker():
+    print("worker: starting")
+    try:
+        for i in range(10):
+            print(f"worker: step {i}")
+            await asyncio.sleep(0.2)     # cancellation will strike here
+    except asyncio.CancelledError:
+        print("worker: got cancel → cleaning up")
+        await asyncio.sleep(0.1)         # cleanup can itself await
+        print("worker: cleanup done")
+        raise                            # ALWAYS re-raise
+
+async def main():
+    t = asyncio.create_task(worker())
+    await asyncio.sleep(0.5)             # let it run a couple steps
+    print("main: cancelling worker")
+    t.cancel()
+    try:
+        await t
+    except asyncio.CancelledError:
+        print("main: worker is fully cancelled")
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>worker: starting
+worker: step 0
+worker: step 1
+worker: step 2
+main: cancelling worker
+worker: got cancel → cleaning up
+worker: cleanup done
+main: worker is fully cancelled</code></pre>
+            </div>
+
+            <div class="note warn"><strong>The golden rule:</strong> catch <code>CancelledError</code> only to clean up, then <strong>re-raise it</strong>. If you swallow it (<code>except asyncio.CancelledError: pass</code>), the loop thinks the task refused to die, and structured concurrency / TaskGroups break in confusing ways. Use <code>try/finally</code> for cleanup that must always run.</div>
+
+            <h3>Timeouts the modern way (3.11+)</h3>
+            <p><code>asyncio.timeout</code> is a context manager that cancels whatever's inside if it overruns — cleaner than wrapping every call in <code>wait_for</code>.</p>
+<pre><code>async with asyncio.timeout(5):
+    result = await call_llm(prompt)      # cancelled + TimeoutError if &gt; 5s</code></pre>
+            <p>Mentally: it starts a 5-second fuse; if the block isn't done when the fuse burns out, it cancels the current task (so cleanup runs) and raises <code>TimeoutError</code> outward.</p>
+
+            <h3>Shielding: "cancel me, but not <em>this</em> part"</h3>
+            <p>Sometimes a piece of work must finish even if the caller gives up — committing a payment, flushing a write. Wrap it in <code>asyncio.shield</code> so cancellation can't interrupt it.</p>
+<pre><code># Even if our caller cancels us, the DB commit runs to completion.
+await asyncio.shield(commit_to_db(record))</code></pre>
+
+            <div class="note tip"><strong>Try this:</strong> in Experiment 16, remove the <code>raise</code> at the end of the <code>except</code> block. Re-run — <code>main</code> now prints "worker is fully cancelled" is replaced by the task appearing to <em>complete normally</em>. You've just seen why swallowing <code>CancelledError</code> is dangerous: the cancellation silently vanished.</div>
+
+            <p><strong>3.11 niceties:</strong> you can attach a reason — <code>task.cancel("user pressed stop")</code> — and read it from the error's <code>args</code>. <code>Task.uncancel()</code> lets advanced code (like a retry layer) say "I've handled that cancellation, it's safe to keep going."</p>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="sync-primitives">
+            <h2>10. Locks, Semaphores, Queues, Events</h2>
+
+            <p>Here's the reassuring part: in async you need <em>far less</em> locking than in threads. Why? Because your code can only be interrupted at an <code>await</code>. Any stretch of code <em>without</em> an <code>await</code> runs start-to-finish with nobody else butting in. So you only need synchronization when shared state is touched <em>across</em> an <code>await</code>.</p>
+
+            <h3>First, prove a race condition CAN happen across an await</h3>
+            <p>Two tasks do "read counter → await → write counter+1." Because they both read the same old value before either writes, updates get lost.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 17 — a lost update across <code>await</code></div>
+<pre><code>import asyncio
+
+counter = 0
+
+async def increment_unsafe():
+    global counter
+    tmp = counter            # read
+    await asyncio.sleep(0)   # ← yield! the other task sneaks in here
+    counter = tmp + 1        # write a stale value
+
+async def main():
+    global counter
+    counter = 0
+    await asyncio.gather(*(increment_unsafe() for _ in range(1000)))
+    print("unsafe counter:", counter)   # NOT 1000
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Typical output — updates were lost</div>
+<pre><code>unsafe counter: 2     (or some small number, not 1000)</code></pre>
+            </div>
+
+            <p>Now wrap the read-modify-write in a <code>Lock</code> so only one task is inside the critical section at a time:</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 18 — a Lock fixes it</div>
+<pre><code>import asyncio
+
+counter = 0
+lock = asyncio.Lock()
+
+async def increment_safe():
+    global counter
+    async with lock:             # only one task in here at a time
+        tmp = counter
+        await asyncio.sleep(0)
+        counter = tmp + 1
+
+async def main():
+    global counter
+    counter = 0
+    await asyncio.gather(*(increment_safe() for _ in range(1000)))
+    print("safe counter:", counter)   # exactly 1000
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>safe counter: 1000</code></pre>
+            </div>
+
+            <div class="note tip"><strong>The click:</strong> the bug only exists because there's an <code>await</code> <em>between</em> the read and the write. Remove that <code>await</code> and the unsafe version is actually correct — proof that in async you guard <em>across await boundaries</em>, nothing more.</div>
+
+            <h3>The semaphore — your most-used async tool in practice</h3>
+            <p>A <code>Semaphore(N)</code> is a bouncer that lets at most <strong>N</strong> tasks into the club at once; the rest wait at the door. This is how you fan out 10,000 jobs but only hammer an API with, say, 5 at a time.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 19 — cap concurrency at 3</div>
+<pre><code>import asyncio
+
+active = 0
+sem = asyncio.Semaphore(3)      # at most 3 inside at once
+
+async def call_api(i):
+    global active
+    async with sem:
+        active += 1
+        print(f"task {i:2d} running   (active now = {active})")
+        await asyncio.sleep(0.5)
+        active -= 1
+
+async def main():
+    await asyncio.gather(*(call_api(i) for i in range(10)))
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output — 'active' never exceeds 3</div>
+<pre><code>task  0 running   (active now = 1)
+task  1 running   (active now = 2)
+task  2 running   (active now = 3)
+task  3 running   (active now = 3)
+task  4 running   (active now = 3)
+...   (10 tasks total, but never more than 3 at the same time)</code></pre>
+            </div>
+
+            <div class="note tip"><strong>Try this:</strong> change <code>Semaphore(3)</code> to <code>Semaphore(10)</code> — now all ten run at once and finish in one 0.5s wave. Set it to <code>Semaphore(1)</code> and you've turned concurrency back into a sequential queue. The number <em>is</em> your concurrency dial.</div>
+
+            <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Primitive</th><th>Plain-English job</th></tr></thead>
+              <tbody>
+                <tr><td><code>asyncio.Lock</code></td><td>"Only one task in this critical section at a time" (e.g., refreshing a shared token).</td></tr>
+                <tr><td><code>asyncio.Semaphore(N)</code></td><td>"At most N at once" — the concurrency throttle for API calls.</td></tr>
+                <tr><td><code>asyncio.Event</code></td><td>"Everyone wait until I flip this switch" (model loaded, shutdown requested).</td></tr>
+                <tr><td><code>asyncio.Condition</code></td><td>"Wait until some predicate becomes true" — rare; a Queue is usually nicer.</td></tr>
+                <tr><td><code>asyncio.Queue</code></td><td>Producer/consumer hand-off with optional backpressure.</td></tr>
+              </tbody>
+            </table>
+            </div>
+
+            <div class="note key"><strong>Remember:</strong> never fan out 10,000 raw API calls with a bare <code>gather</code>. Always put a <code>Semaphore</code> in front, or you'll flood the provider, trip rate limits, and exhaust file descriptors in seconds.</div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="blocking">
+            <h2>11. Blocking Code, the GIL, and Escape Hatches</h2>
+
+            <p>This is the section that fixes 90% of "my async app is mysteriously slow" problems. The whole event loop lives in <em>one thread</em>. If any task calls something that blocks that thread — and doesn't <code>await</code> — the entire app freezes until it returns. Async can't save you from code that won't yield.</p>
+
+            <h3>Feel the freeze: <code>time.sleep</code> vs <code>asyncio.sleep</code></h3>
+            <p>They look like twins. One is a polite "park me and run others"; the other is "everybody stop, I'm holding the thread hostage."</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 20 — the impostor that freezes everything</div>
+<pre><code>import asyncio, time
+
+async def heartbeat():
+    for i in range(10):
+        print(f"  ❤ beat {i}")
+        await asyncio.sleep(0.1)
+
+async def blocking_call():
+    print("blocking: about to time.sleep(0.5) — NOT awaited")
+    time.sleep(0.5)            # ☠ blocks the WHOLE loop
+    print("blocking: done")
+
+async def main():
+    await asyncio.gather(heartbeat(), blocking_call())
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output — the heartbeat stalls for 0.5s</div>
+<pre><code>  ❤ beat 0
+blocking: about to time.sleep(0.5) — NOT awaited
+blocking: done            ← everything froze here for half a second
+  ❤ beat 1
+  ❤ beat 2
+  ...</code></pre>
+            </div>
+
+            <p>The heartbeat wanted to beat every 0.1s. But <code>time.sleep(0.5)</code> held the only thread, so beats 1–4 couldn't fire until it returned. Now swap in the fix:</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 21 — offload the blocking call to a thread</div>
+<pre><code>import asyncio, time
+
+async def heartbeat():
+    for i in range(10):
+        print(f"  ❤ beat {i}")
+        await asyncio.sleep(0.1)
+
+async def offloaded_call():
+    print("offloaded: running time.sleep in a worker thread")
+    await asyncio.to_thread(time.sleep, 0.5)   # ✅ loop stays free
+    print("offloaded: done")
+
+async def main():
+    await asyncio.gather(heartbeat(), offloaded_call())
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output — heartbeat keeps beating</div>
+<pre><code>  ❤ beat 0
+offloaded: running time.sleep in a worker thread
+  ❤ beat 1
+  ❤ beat 2
+  ❤ beat 3
+  ❤ beat 4
+offloaded: done
+  ❤ beat 5
+  ...</code></pre>
+            </div>
+
+            <div class="note tip"><strong>The click:</strong> <code>asyncio.to_thread(fn, *args)</code> shoves a blocking function onto a background OS thread and hands you an awaitable. The event loop is free again, the heartbeat keeps ticking, and you collect the result when it's done. This is your escape hatch for any stubborn blocking library (legacy <code>requests</code>, sync DB drivers, file reads).</div>
+
+            <h3>Two escape hatches, and when to use which</h3>
+<pre><code># For blocking I/O (sync HTTP, file reads, legacy DB drivers):
+data = await asyncio.to_thread(requests.get, url)
+
+# For heavy CPU work that must use multiple cores:
+from concurrent.futures import ProcessPoolExecutor
+loop = asyncio.get_running_loop()
+with ProcessPoolExecutor() as pool:
+    result = await loop.run_in_executor(pool, cpu_heavy_fn, big_input)</code></pre>
+            <p>Rule of thumb: <strong>threads for blocking I/O, processes for CPU.</strong> Why not threads for CPU? Because of the GIL — next.</p>
+
+            <h3>The GIL, in plain words</h3>
+            <p>The Global Interpreter Lock is a single "talking stick" inside the Python process: only the thread holding it may run Python bytecode at any instant. Consequences:</p>
+            <ul>
+              <li><strong>Threads don't speed up pure-Python CPU work</strong> — they take turns holding the stick, so two CPU-bound Python threads aren't faster than one. Use <em>processes</em> (each has its own GIL) for that.</li>
+              <li><strong>Threads still help with blocking I/O</strong> — because the stick is <em>released</em> during blocking C calls (socket reads, file ops, NumPy crunching). That's why <code>to_thread</code> works for I/O.</li>
+              <li><strong>Async doesn't fight the GIL at all</strong> — it's single-threaded by design. Its concurrency comes from overlapping <em>waiting</em>, which doesn't need the stick.</li>
+              <li><strong>Python 3.13+</strong> ships an experimental free-threaded ("no-GIL") build that removes this limitation, but it's still maturing.</li>
+            </ul>
+
+            <div class="note warn"><strong>The classic question:</strong> "If Python has a GIL, why is async useful?" → Because async never tries to run Python on two cores at once. It overlaps <em>idle waiting</em> (network, disk), and the GIL is happily released during all that waiting. Different problem, no conflict.</div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="async-gen">
+            <h2>12. Async Generators &amp; Context Managers</h2>
+
+            <p>So far our async functions <em>returned</em> one value. But what if a result arrives in <em>pieces</em> over time — like an LLM streaming tokens, or rows trickling from a database cursor? That's what async generators are for: a function that <code>yield</code>s values one at a time, pausing at <code>await</code> between them, and you consume it with <code>async for</code>.</p>
+
+            <h3>Build a token streamer you can actually run</h3>
+            <p>No network needed — we fake an LLM dripping out one word at a time. Notice the consumer prints each token the instant it's produced, not after all of them are ready.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 22 — streaming tokens with <code>async for</code></div>
+<pre><code>import asyncio
+
+async def stream_tokens(sentence):
+    for word in sentence.split():
+        await asyncio.sleep(0.2)     # pretend each token comes from the network
+        yield word                   # hand it out the moment it's ready
+
+async def main():
+    async for token in stream_tokens("async makes streaming feel natural"):
+        print(token, end=" ", flush=True)   # appears one word at a time
+    print()
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Output — words appear one-by-one, 0.2s apart</div>
+<pre><code>async makes streaming feel natural</code></pre>
+            </div>
+
+            <p>That's the entire engine behind "ChatGPT typing in front of you." The real version just swaps the fake loop for a live HTTP stream:</p>
+<pre><code>async def stream_tokens(prompt):
+    async with httpx.AsyncClient() as client:
+        async with client.stream("POST", LLM_URL, json={"prompt": prompt}) as r:
+            async for line in r.aiter_lines():
+                yield parse(line)        # suspends on each network read, resumes on bytes</code></pre>
+
+            <h3>Async context managers — guaranteed setup &amp; teardown</h3>
+            <p>You already know <code>with open(...) as f:</code> guarantees the file closes. The async version, <code>async with</code>, does the same for things whose open/close themselves need to <code>await</code> — database connections, HTTP clients, tracing spans.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 23 — async with, the easy way</div>
+<pre><code>import asyncio
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def db_connection(name):
+    print(f"open {name}")          # __aenter__
+    await asyncio.sleep(0.1)       # connecting can await
+    try:
+        yield f"&lt;conn {name}&gt;"      # this is what `as conn` receives
+    finally:
+        print(f"close {name}")     # __aexit__ — always runs, even on error
+        await asyncio.sleep(0.1)
+
+async def main():
+    async with db_connection("primary") as conn:
+        print("using", conn)
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>open primary
+using &lt;conn primary&gt;
+close primary</code></pre>
+            </div>
+
+            <div class="note tip"><strong>Try this:</strong> raise an exception inside the <code>async with</code> body (<code>raise RuntimeError("boom")</code>). Notice <code>close primary</code> still prints — the <code>finally</code> in the context manager guarantees cleanup even when things blow up. That's the whole reason to use it.</div>
+
+            <h3>The async protocol cheat-sheet</h3>
+            <ul>
+              <li><code>async for</code> drives <code>__aiter__</code> / <code>__anext__</code> (async generators implement these for you).</li>
+              <li><code>async with</code> drives <code>__aenter__</code> / <code>__aexit__</code> (the decorator above writes them for you).</li>
+              <li>Async comprehensions exist too: <code>[x async for x in gen() if await keep(x)]</code>.</li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="ai-patterns">
+            <h2>13. Patterns Every AI Engineer Should Own</h2>
+            <p class="intro-sub">These are the recipes you'll actually reach for when wiring LLMs, embeddings, and agents. Each is just the primitives from §7–§10 combined.</p>
+
+            <h3>13.1 Bounded fan-out for batch inference</h3>
+            <p>"Embed 50,000 documents" — but the API allows only N concurrent calls. Fan out everything, throttle with a semaphore (exactly Experiment 19, applied for real).</p>
+<pre><code>async def embed_all(texts, concurrency=20):
+    sem = asyncio.Semaphore(concurrency)
+    async def one(t):
+        async with sem:                       # throttle to `concurrency` at a time
+            return await client.embeddings.create(input=t, model="text-embedding-3-small")
+    return await asyncio.gather(*(one(t) for t in texts))</code></pre>
+
+            <h3>13.2 Retry with exponential backoff &amp; jitter</h3>
+            <p>APIs return <code>429 Too Many Requests</code> under load. Don't hammer — back off, doubling the wait each time, plus a little randomness ("jitter") so a thousand clients don't all retry on the same beat.</p>
+<pre><code>import random
+async def with_retry(coro_fn, attempts=5, base=0.5):
+    for i in range(attempts):
+        try:
+            return await coro_fn()
+        except (RateLimitError, httpx.TimeoutException):
+            if i == attempts - 1:
+                raise
+            delay = base * (2 ** i) + random.uniform(0, base)   # 0.5s, 1s, 2s, 4s …
+            await asyncio.sleep(delay)</code></pre>
+
+            <h3>13.3 Race two providers, take the first to answer</h3>
+            <p>Send the same prompt to two providers; return whichever responds first; cancel the loser so you stop paying for it.</p>
+<pre><code>async def race(*coros):
+    tasks = [asyncio.create_task(c) for c in coros]
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+    for p in pending:
+        p.cancel()
+    return done.pop().result()
+
+answer = await race(openai_call(p), anthropic_call(p))</code></pre>
+
+            <h3>See a realistic pipeline run end to end</h3>
+            <p>This self-contained experiment combines <strong>fan-out + semaphore throttle + retry-on-flaky-failure</strong> — the shape of a real batch-inference job. Some "API calls" randomly fail once and succeed on retry.</p>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 24 — throttled, retrying batch job</div>
+<pre><code>import asyncio, random, time
+
+sem = asyncio.Semaphore(3)            # max 3 concurrent "API calls"
+
+async def flaky_api(doc):
+    # fails ~40% of the time on first try
+    if random.random() &lt; 0.4:
+        raise RuntimeError("429 rate limited")
+    await asyncio.sleep(0.3)
+    return f"embedding({doc})"
+
+async def call_with_retry(doc, attempts=4):
+    for i in range(attempts):
+        try:
+            async with sem:                   # throttle
+                return await flaky_api(doc)
+        except RuntimeError:
+            if i == attempts - 1:
+                raise
+            await asyncio.sleep(0.1 * 2 ** i)  # backoff
+            print(f"  retry {doc} (attempt {i+2})")
+
+async def main():
+    docs = [f"doc{i}" for i in range(6)]
+    start = time.perf_counter()
+    results = await asyncio.gather(*(call_with_retry(d) for d in docs))
+    print("results:", results)
+    print(f"done in {time.perf_counter()-start:.1f}s")
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Sample output (varies — retries are random)</div>
+<pre><code>  retry doc1 (attempt 2)
+  retry doc4 (attempt 2)
+results: ['embedding(doc0)', 'embedding(doc1)', ... 'embedding(doc5)']
+done in 1.1s</code></pre>
+            </div>
+
+            <div class="note tip"><strong>Try this:</strong> bump the failure rate to <code>0.8</code> and watch more retry lines appear — yet all six still succeed (until attempts run out). Then drop the semaphore to <code>Semaphore(1)</code> and see the total time climb as concurrency disappears.</div>
+
+            <h3>13.4 Streaming with backpressure</h3>
+            <p>Wrap a token stream in a <em>bounded</em> <code>Queue</code>. If the downstream consumer (e.g. SSE to a slow browser) falls behind, the producer naturally pauses on <code>put</code> instead of buffering unbounded tokens in memory. Essential for high-traffic chat servers.</p>
+
+            <h3>13.5 Agent loops with concurrent tool calls</h3>
+            <p>The LLM plans several independent tool calls; run them together in a <code>TaskGroup</code> so they overlap, then synthesize.</p>
+<pre><code>async def agent_step(state):
+    plan = await llm.plan(state)
+    async with asyncio.TaskGroup() as tg:                 # all tool calls overlap
+        results = {name: tg.create_task(tools[name](args))
+                   for name, args in plan.tool_calls}
+    return llm.synthesize(state, {n: t.result() for n, t in results.items()})</code></pre>
+
+            <h3>13.6 Server frameworks</h3>
+            <p>FastAPI/Starlette/aiohttp endpoints are coroutines running on a shared loop. <strong>Never</strong> call <code>time.sleep</code>, <code>requests</code>, or a sync DB driver inside an <code>async def</code> endpoint — it freezes the whole server (Experiment 20!). Use <code>asyncio.to_thread</code> or the async-native libs (<code>httpx</code>, <code>asyncpg</code>, <code>aiomysql</code>, <code>motor</code>).</p>
+
+            <h3>13.7 Graceful shutdown</h3>
+<pre><code>stop = asyncio.Event()
+loop.add_signal_handler(signal.SIGTERM, stop.set)
+
+async def main():
+    server = await start_server()
+    await stop.wait()                    # block until SIGTERM flips the Event
+    await server.drain(timeout=30)       # let in-flight requests finish</code></pre>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="anti-patterns">
+            <h2>14. Anti-Patterns &amp; Footguns</h2>
+            <p class="intro-sub">Every one of these is a real bug people ship. You've now seen the experiments behind most of them — here they are as a quick "don't do this" checklist.</p>
+
+            <div class="note warn"><strong>1. Forgetting <code>await</code>.</strong> <code>fetch(url)</code> returns a coroutine that <em>never runs</em> (Experiment 7). Python warns: <code>RuntimeWarning: coroutine 'fetch' was never awaited</code>.</div>
+
+            <div class="note warn"><strong>2. Blocking the loop.</strong> <code>time.sleep</code>, <code>requests</code>, <code>open().read()</code> on big files, <code>json.loads</code> on huge payloads, regex with catastrophic backtracking, CPU-heavy <code>pydantic</code> validation. Profile with <code>asyncio</code>'s slow-callback warning: set <code>loop.slow_callback_duration = 0.1</code> in dev.</div>
+
+            <div class="note warn"><strong>3. Bare <code>create_task</code> without holding a reference.</strong> The loop only holds <em>weak refs</em> to tasks. A "fire and forget" task can be garbage-collected mid-flight. Either await it, store it in a set, or use a TaskGroup.</div>
+
+            <div class="note warn"><strong>4. Swallowing <code>CancelledError</code>.</strong> Always re-raise. Use <code>try/finally</code> for cleanup, not <code>except: pass</code>.</div>
+
+            <div class="note warn"><strong>5. <code>asyncio.run</code> inside an already-running loop.</strong> Raises <code>RuntimeError</code>. Common when calling library code from Jupyter (which already has a loop). Use <code>await</code> directly or <code>nest_asyncio</code> as a last resort.</div>
+
+            <div class="note warn"><strong>6. Sharing one HTTP client across event loops.</strong> Connections are bound to their loop. Create one client per loop; in FastAPI, manage it via lifespan/startup events.</div>
+
+            <div class="note warn"><strong>7. Unbounded <code>gather</code>.</strong> 100k coroutines = 100k open sockets = file-descriptor exhaustion + provider rate-limit explosion. Use a semaphore.</div>
+
+            <div class="note warn"><strong>8. CPU work in a coroutine "because async is fast."</strong> Async won't make matrix multiplication faster; it will only hide the latency of <em>waiting</em>. Use a process pool.</div>
+
+            <div class="note warn"><strong>9. <code>async</code> generator + <code>asyncio.gather</code> confusion.</strong> You can't <code>gather</code> a generator; you must materialize tasks first.</div>
+
+            <div class="note warn"><strong>10. Mutating shared state across awaits without a lock.</strong> Code is atomic <em>between</em> awaits, not <em>across</em> them. Two coroutines can interleave at any <code>await</code> point and corrupt shared mutable state.</div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="debugging">
+            <h2>15. Debugging &amp; Observability</h2>
+
+            <ul>
+              <li><strong>Debug mode</strong>: <code>asyncio.run(main(), debug=True)</code> or env <code>PYTHONASYNCIODEBUG=1</code>. Warns about slow callbacks, never-awaited coroutines, sync calls.</li>
+              <li><strong>Slow callback detection</strong>: <code>loop.slow_callback_duration = 0.05</code> logs any callback exceeding 50ms.</li>
+              <li><strong>Inspect tasks</strong>: <code>asyncio.all_tasks()</code> and <code>task.get_stack()</code> to see where every task is suspended.</li>
+              <li><strong>Tracebacks</strong>: ExceptionGroups (3.11) make multi-failure stacks readable.</li>
+              <li><strong>Tracing</strong>: OpenTelemetry's <code>opentelemetry-instrumentation-asyncio</code> spans across <code>await</code> points; contextvars propagate context automatically.</li>
+              <li><strong>Profiling</strong>: <code>py-spy</code> works on async (it samples the call stack). For per-coroutine timing, instrument with decorators that record <code>time.perf_counter()</code> deltas across awaits.</li>
+            </ul>
+
+            <div class="card">
+              <div class="badge">🧪 Experiment 25 — X-ray your running tasks</div>
+<pre><code>import asyncio
+
+async def worker(name, secs):
+    await asyncio.sleep(secs)          # each worker is suspended here
+    return name
+
+async def inspector():
+    await asyncio.sleep(0.1)           # let the workers start & suspend
+    tasks = asyncio.all_tasks()        # every task alive right now
+    print(f"live tasks: {len(tasks)}")
+    for t in sorted(tasks, key=lambda t: t.get_name()):
+        stack = t.get_stack()
+        where = stack[-1].f_code.co_name if stack else "?"
+        print(f"  {t.get_name():12} done={t.done()} suspended in -> {where}")
+
+async def main():
+    async with asyncio.TaskGroup() as tg:
+        tg.create_task(worker("alpha", 0.3), name="alpha")
+        tg.create_task(worker("beta", 0.3), name="beta")
+        tg.create_task(inspector(), name="inspector")
+
+asyncio.run(main())</code></pre>
+              <div class="badge">Predicted output</div>
+<pre><code>live tasks: 3
+  Task-1       done=False suspended in -> main
+  alpha        done=False suspended in -> worker
+  beta         done=False suspended in -> worker
+  inspector    done=False suspended in -> inspector</code></pre>
+            </div>
+
+            <div class="note tip"><strong>The click:</strong> <code>asyncio.all_tasks()</code> + <code>task.get_stack()</code> is your live debugger for "what is everyone waiting on right now?" When an app hangs, dumping this tells you exactly which coroutine is stuck and at which line.</div>
+
+            <div class="note tip"><strong>Try this:</strong> run the whole program with <code>asyncio.run(main(), debug=True)</code> and add a <code>time.sleep(0.2)</code> (the blocking kind!) inside one worker. Debug mode prints an <code>Executing &lt;Task ...&gt; took 0.200 seconds</code> warning — that's how you catch accidental blocking calls in the wild.</div>
+
+            <h3>Context variables — the underused trick</h3>
+<pre><code>from contextvars import ContextVar
+request_id: ContextVar[str] = ContextVar("request_id")
+
+async def handler(req):
+    request_id.set(req.id)
+    await downstream()   # `request_id` is propagated through every await
+
+async def downstream():
+    log.info("processing", extra={"req": request_id.get()})</code></pre>
+            <p>Unlike thread-locals, <code>contextvars</code> are copied per-Task, so concurrent requests never bleed context.</p>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="qa">
+            <h2>16. Q&amp;A Appendix</h2>
+
+            <details class="card">
+              <summary>What's the difference between concurrency and parallelism, and where does async fit?</summary>
+              <div class="answer">Concurrency is a <em>structuring technique</em> — composing a program as independent tasks that may interleave. Parallelism is <em>simultaneous execution</em> on multiple cores. Async is a <em>style of concurrency</em>: cooperative, single-threaded, event-loop driven, ideal for I/O-bound work where most time is spent waiting. Async gives you concurrency without parallelism — exactly what you want for fanning out 1,000 LLM API calls.</div>
+            </details>
+
+            <details class="card">
+              <summary>Generators vs. coroutines vs. async generators — when do I loop, and when do I await?</summary>
+              <div class="answer">All three are <em>pausable</em> functions that build an object and run nothing until driven. <strong>Generator</strong> (<code>def</code> + <code>yield</code>): calling it returns a generator object; drive it with <code>for x in gen()</code> or <code>next(gen)</code>. <strong>Coroutine</strong> (<code>async def</code> + <code>await</code>): calling it returns a coroutine object; you do <em>not</em> loop over it — you <code>await coro()</code> (or schedule it with <code>create_task</code>). Writing <code>for i in coro()</code> is a category error: a plain coroutine isn't iterable. <strong>Async generator</strong> (<code>async def</code> + <code>yield</code>): the hybrid — it yields multiple values <em>and</em> awaits between them, so you drive it with <code>async for x in agen()</code>. Rule of thumb: one value → <code>await</code>; a stream of values → <code>async for</code>; a sync stream → plain <code>for</code>.</div>
+            </details>
+
+            <details class="card">
+              <summary>Walk me through what happens, step-by-step, when Python hits an <code>await</code>.</summary>
+              <div class="answer">The expression after <code>await</code> is evaluated to an awaitable. The current coroutine's frame is saved. Control returns to the event loop with a registration "wake me when this awaitable completes." The loop runs other ready tasks and calls <code>selector.select()</code> to wait on OS-level events (epoll/kqueue/IOCP). When the awaited operation completes, the loop puts our coroutine back on the ready queue and resumes it right after the <code>await</code>, with the result substituted in. Mechanically this rides on the generator protocol — coroutines are essentially typed generators driven by the loop.</div>
+            </details>
+
+            <details class="card">
+              <summary>If Python has a GIL, why is asyncio useful at all?</summary>
+              <div class="answer">The GIL serializes Python bytecode but is released during blocking C calls — including socket I/O. Async doesn't try to run Python on multiple cores; it overlaps <em>waiting</em>. While one coroutine is blocked on a socket read inside the kernel, the loop runs others. So the GIL is irrelevant: async's win comes from doing one syscall (<code>epoll_wait</code>) to monitor thousands of sockets, with effectively zero per-task overhead. For CPU-bound work async doesn't help — you need processes or native code.</div>
+            </details>
+
+            <details class="card">
+              <summary>What's the difference between <code>await coro</code>, <code>create_task(coro)</code>, and <code>gather(*coros)</code>?</summary>
+              <div class="answer"><code>await coro</code> runs the coroutine inline — sequential. <code>create_task</code> schedules it on the loop so it runs concurrently with whoever called it; you can <code>await</code> the returned Task later to join. <code>gather</code> is a convenience that wraps multiple awaitables, schedules them concurrently, and returns when all are done (or one fails). In modern code prefer <code>TaskGroup</code> over <code>gather</code> for structured cancellation and ExceptionGroup error handling.</div>
+            </details>
+
+            <details class="card">
+              <summary>Explain structured concurrency and why TaskGroup is preferred over <code>gather</code>.</summary>
+              <div class="answer">Structured concurrency: any concurrent work spawned inside a scope must finish before that scope exits. <code>TaskGroup</code> enforces this with a context manager — if any child task raises, all siblings are cancelled and errors are collected into an <code>ExceptionGroup</code>. With plain <code>gather</code>, a first-exception failure leaves the other tasks running in the background (leaks), and cancellation of the parent doesn't reliably propagate. TaskGroup gives lexical scoping for concurrency, the same way <code>with</code> gave it to resources.</div>
+            </details>
+
+            <details class="card">
+              <summary>How does cancellation work, and what are the pitfalls?</summary>
+              <div class="answer">Cancellation is cooperative: <code>task.cancel()</code> schedules a <code>CancelledError</code> to be raised at the task's next <code>await</code>. The task can catch it for cleanup but should re-raise. Pitfalls: swallowing <code>CancelledError</code> breaks structured concurrency; long CPU loops with no await are uncancellable; shielded sections with <code>asyncio.shield</code> intentionally survive cancellation (use for atomic commits). Python 3.11 added <code>asyncio.timeout</code> and <code>Task.uncancel</code> for clean composability.</div>
+            </details>
+
+            <details class="card">
+              <summary>You added <code>async</code> everywhere but the app got slower. What would you check?</summary>
+              <div class="answer">Top suspects, in order: (1) Blocking calls inside coroutines — <code>requests</code>, <code>time.sleep</code>, sync DB drivers, heavy JSON parsing — freeze the loop. Enable <code>debug=True</code> and <code>slow_callback_duration</code>. (2) Sequential <code>await</code>s in a loop instead of <code>gather</code>/<code>TaskGroup</code>. (3) Unbounded concurrency causing rate-limiting or socket exhaustion — add a semaphore. (4) Creating a new HTTP client per call, losing connection pooling. (5) CPU-bound work that needs a process pool. (6) Calling <code>asyncio.run</code> in a hot path, creating and tearing down a loop each invocation.</div>
+            </details>
+
+            <details class="card">
+              <summary>How do you bound concurrency when calling an LLM API for 50,000 documents?</summary>
+              <div class="answer">A bounded semaphore around each call, plus retry with jittered exponential backoff for 429s, plus an outer <code>TaskGroup</code> for structured cancellation. Optionally a token-bucket rate limiter to respect TPM/RPM quotas. Stream results out via an <code>asyncio.Queue</code> so memory doesn't balloon — backpressure naturally pauses producers when consumers (or a writer to disk/Parquet) fall behind. Persist progress checkpoints so a crash doesn't lose work.</div>
+            </details>
+
+            <details class="card">
+              <summary>What is the function color problem?</summary>
+              <div class="answer">"Async colors a function" — to <code>await</code> something you must be inside an <code>async def</code>, which means every caller up the stack must also be <code>async</code>. Sync and async APIs don't compose without bridging (<code>asyncio.run</code>, <code>to_thread</code>, <code>asgiref.sync_to_async</code>). This is a real cost: libraries duplicate APIs (e.g., <code>requests</code> vs <code>httpx</code>; <code>psycopg2</code> vs <code>asyncpg</code>) and migrations are viral.</div>
+            </details>
+
+            <details class="card">
+              <summary>How do <code>contextvars</code> work, and why are they better than thread-locals in async code?</summary>
+              <div class="answer"><code>contextvars.ContextVar</code> stores values per <em>Context</em>, and each Task runs in its own copy of the parent's Context. So values like request IDs, tenant IDs, or tracing spans propagate correctly through every <code>await</code> and into spawned tasks without leaking between concurrent requests. Thread-locals fail in async because many tasks share the same OS thread — they'd see each other's data.</div>
+            </details>
+
+            <details class="card">
+              <summary>How does asyncio actually wait on thousands of sockets in a single thread?</summary>
+              <div class="answer">It uses a kernel-level event-notification mechanism: <code>epoll</code> on Linux, <code>kqueue</code> on BSD/macOS, IOCP on Windows. A single <code>epoll_wait</code> syscall blocks until any of the registered file descriptors becomes readable/writable, then returns the set of ready FDs. Asyncio's selectors module abstracts this. So "10,000 concurrent connections" is really "one syscall watching 10,000 FDs."</div>
+            </details>
+
+            <details class="card">
+              <summary>How do you race two LLM providers and take the first response?</summary>
+              <div class="answer">Create a task per provider; use <code>asyncio.wait(..., return_when=FIRST_COMPLETED)</code>; cancel the loser. Wrap in <code>asyncio.shield</code> the parts you don't want cancelled mid-write. Be careful with billing — both providers will be charged for at least the request initiation. For LLMs you can also race streaming: read the first token from each, commit to whichever streams first, cancel the other.</div>
+            </details>
+
+            <details class="card">
+              <summary>You see <code>RuntimeWarning: coroutine 'foo' was never awaited</code>. What does that mean and how do you fix it?</summary>
+              <div class="answer">You called an <code>async def</code> function but never awaited or scheduled the returned coroutine, so it never executed and was garbage-collected. Fix by either <code>await foo()</code> if you need its result, or <code>asyncio.create_task(foo())</code> if you want it to run concurrently — and hold a reference (or use a TaskGroup) so it isn't GC'd.</div>
+            </details>
+
+            <details class="card">
+              <summary>What's <code>asyncio.to_thread</code> for and when shouldn't you use it?</summary>
+              <div class="answer">It runs a sync function in the default thread pool and returns an awaitable, so you can call blocking I/O from async code without freezing the loop. Don't use it for CPU-bound Python — the GIL serializes execution and you'll just clog the thread pool. For CPU work, use <code>run_in_executor</code> with a <code>ProcessPoolExecutor</code>. Also don't over-use it as an escape hatch; native async libraries (httpx, asyncpg) are dramatically more efficient.</div>
+            </details>
+
+            <details class="card">
+              <summary>Streaming an LLM response to a browser via SSE — describe the async design.</summary>
+              <div class="answer">An async generator wraps the provider's stream (<code>httpx.AsyncClient.stream</code> or the SDK's async iterator). The web framework (FastAPI's <code>StreamingResponse</code>) drives <code>async for</code> over it, writing each chunk to the client. Add: a bounded queue if you want to decouple producer and consumer rates, an <code>asyncio.timeout</code> per chunk to detect stalls, a cancellation handler (client disconnect → cancel upstream call to stop billing), and a final <code>finally</code> block that closes the upstream connection. Wrap the whole handler in a try/except for <code>CancelledError</code> to log clean disconnects.</div>
+            </details>
+
+            <details class="card">
+              <summary>Why might <code>await asyncio.sleep(0)</code> appear in production code?</summary>
+              <div class="answer">It's a cooperative yield — it suspends the current task and immediately re-schedules it, giving every other ready task a chance to run. Useful inside a tight loop that has no other awaits (rare in production) or to break up a burst of synchronous-ish work into chunks. In well-designed async code it's a code smell; you should usually be awaiting real I/O.</div>
+            </details>
+
+            <details class="card">
+              <summary>What's the difference between <code>asyncio</code>, <code>trio</code>, and <code>anyio</code>?</summary>
+              <div class="answer"><code>asyncio</code> is stdlib; battle-tested, large ecosystem, historically loose around cancellation. <code>trio</code> pioneered structured concurrency (nurseries) with a strict, principled design — cancellation just works. <code>anyio</code> is a compatibility layer that gives you trio-style APIs running on either backend, which is why FastAPI/Starlette use it. For new code, <code>asyncio</code> + <code>TaskGroup</code> (3.11+) covers most needs; <code>anyio</code> is great for library authors who want backend-agnostic code.</div>
+            </details>
+
+            <details class="card">
+              <summary>How would you implement a token-bucket rate limiter in asyncio?</summary>
+              <div class="answer">An async class holding <code>tokens: float</code> and <code>last_refill: float</code>. An <code>acquire(n=1)</code> coroutine computes elapsed time, refills tokens at <code>rate</code> per second up to <code>capacity</code>, and if there aren't enough tokens, <code>await asyncio.sleep(needed/rate)</code> and retries. Protect the state with an <code>asyncio.Lock</code> if multiple tasks call concurrently. Combine with a semaphore for hard concurrency caps. Production: persist counters to Redis for multi-process.</div>
+            </details>
+
+            <details class="card">
+              <summary>You have an async function that occasionally hangs forever. How do you debug it?</summary>
+              <div class="answer">Enable debug mode (<code>PYTHONASYNCIODEBUG=1</code>). Dump live tasks: <code>for t in asyncio.all_tasks(): t.print_stack()</code> — this shows exactly which <code>await</code> each task is parked at. Wrap suspect calls in <code>asyncio.timeout</code> to convert hangs into errors. Use <code>py-spy dump</code> on the live process for a thread-level view. Look for missing timeouts on network calls, deadlocks on locks held across awaits, and tasks awaiting events that are never set. Add structured logging with contextvars to correlate.</div>
+            </details>
+
+            <details class="card">
+              <summary>How does FastAPI decide whether to run an endpoint in the event loop or a thread?</summary>
+              <div class="answer">If the endpoint is <code>async def</code>, it's awaited directly on the event loop. If it's a plain <code>def</code>, FastAPI runs it in a thread pool (via anyio) so a blocking call inside doesn't freeze the loop. Implication: never put blocking I/O inside an <code>async def</code> endpoint without <code>to_thread</code> — you'll silently kneecap the entire process. If the endpoint mostly does blocking work, leave it sync and let the framework handle the offload.</div>
+            </details>
+
+            <details class="card">
+              <summary>What's the deal with <code>ExceptionGroup</code> and <code>except*</code>?</summary>
+              <div class="answer">PEP 654 (3.11). A <code>TaskGroup</code> can fail with multiple errors simultaneously — collecting them into a single exception was awkward. <code>ExceptionGroup</code> wraps them; <code>except*</code> lets you match by type and handle a subset, with unmatched exceptions re-raised as a smaller group. It makes structured concurrency's "any sibling can fail" model ergonomic.</div>
+            </details>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="cheatsheet">
+            <h2>17. One-Page Cheatsheet</h2>
+
+            <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Need</th><th>Idiom</th></tr></thead>
+              <tbody>
+                <tr><td>Run N coros concurrently, all-or-nothing</td><td><code>async with asyncio.TaskGroup() as tg: ...</code></td></tr>
+                <tr><td>Run N, collect results in order</td><td><code>await asyncio.gather(*coros)</code></td></tr>
+                <tr><td>Stream results as they finish</td><td><code>for f in asyncio.as_completed(coros): r = await f</code></td></tr>
+                <tr><td>Timeout a block</td><td><code>async with asyncio.timeout(s): ...</code></td></tr>
+                <tr><td>Timeout a single call</td><td><code>await asyncio.wait_for(c, s)</code></td></tr>
+                <tr><td>Limit concurrency</td><td><code>sem = Semaphore(N); async with sem: ...</code></td></tr>
+                <tr><td>Cooperative yield</td><td><code>await asyncio.sleep(0)</code></td></tr>
+                <tr><td>Run blocking code</td><td><code>await asyncio.to_thread(fn, *args)</code></td></tr>
+                <tr><td>Run CPU code</td><td><code>loop.run_in_executor(ProcessPoolExecutor(), fn, ...)</code></td></tr>
+                <tr><td>Protect cleanup from cancellation</td><td><code>await asyncio.shield(critical())</code></td></tr>
+                <tr><td>Propagate context</td><td><code>contextvars.ContextVar("name")</code></td></tr>
+                <tr><td>Stream values</td><td><code>async def gen(): yield x; ... async for x in gen()</code></td></tr>
+                <tr><td>Manage async resource</td><td><code>async with conn: ...</code></td></tr>
+                <tr><td>Producer/consumer</td><td><code>q = asyncio.Queue(maxsize=N)</code></td></tr>
+                <tr><td>One-shot signal</td><td><code>e = asyncio.Event(); await e.wait(); e.set()</code></td></tr>
+                <tr><td>Entry point</td><td><code>asyncio.run(main())</code> — once per program</td></tr>
+              </tbody>
+            </table>
+            </div>
+
+            <div class="note tip"><strong>Three rules to live by:</strong>
+              <ol>
+                <li>Never block the loop. If you must, wrap it in <code>to_thread</code>.</li>
+                <li>Never fan out without bounding (<code>Semaphore</code>) and timing out (<code>asyncio.timeout</code>).</li>
+                <li>Never spawn a task you don't structurally own (<code>TaskGroup</code>).</li>
+              </ol>
+            </div>
+          </section>
+
+          <!-- ============================================================ -->
+          <section id="mindset">
+            <h2>The Mindset</h2>
+            <div class="note key">
+              <p>By-rote async users see <code>await</code> as "the thing that makes my code work." The deeper read is <em>"the exact moment my task hands control back to the event loop, with everything that implies for cancellation, error propagation, fairness, and shared state."</em> Once that single sentence is muscle memory, every pattern in this guide — TaskGroups, semaphores, shielding, structured concurrency — is just a consequence.</p>
+            </div>
+          </section>
+
+        </div>
+        <nav class="toc">
+          <div class="toc-label">On this page</div>
+          <ul>
+            <li class="lvl-2"><a href="#mental-model">1. The Core Mental Model</a></li>
+            <li class="lvl-2"><a href="#concurrency-vs-parallelism">2. Concurrency vs Parallelism vs Async</a></li>
+            <li class="lvl-2"><a href="#event-loop">3. The Event Loop, Demystified</a></li>
+            <li class="lvl-2"><a href="#generators">4. Generators — the Engine</a></li>
+            <li class="lvl-2"><a href="#coroutines">5. Coroutines, Tasks, Futures</a></li>
+            <li class="lvl-2"><a href="#await-deep">6. What await Actually Does</a></li>
+            <li class="lvl-2"><a href="#patterns">7. Core Concurrency Patterns</a></li>
+            <li class="lvl-2"><a href="#taskgroups">8. TaskGroups &amp; Structured Concurrency</a></li>
+            <li class="lvl-2"><a href="#cancellation">9. Cancellation, Timeouts, Shielding</a></li>
+            <li class="lvl-2"><a href="#sync-primitives">10. Locks, Semaphores, Queues</a></li>
+            <li class="lvl-2"><a href="#blocking">11. Blocking Code &amp; the GIL</a></li>
+            <li class="lvl-2"><a href="#async-gen">12. Async Generators &amp; Context Managers</a></li>
+            <li class="lvl-2"><a href="#ai-patterns">13. AI-Engineering Patterns</a></li>
+            <li class="lvl-2"><a href="#anti-patterns">14. Anti-Patterns &amp; Footguns</a></li>
+            <li class="lvl-2"><a href="#debugging">15. Debugging &amp; Observability</a></li>
+            <li class="lvl-2"><a href="#qa">16. Q&amp;A Appendix</a></li>
+            <li class="lvl-2"><a href="#cheatsheet">17. One-Page Cheatsheet</a></li>
+            <li class="lvl-2"><a href="#mindset">The Mindset</a></li>
+          </ul>
+        </nav>
+      </div>
+    </article>
+    <footer class="doc-foot">
+      <span class="a">The Vault</span>
+      <span class="b">Python 3.11+ idioms · Build a streaming chat server, a batch embedding pipeline, and an agent with concurrent tool calls</span>
+    </footer>
+  </main>
+</div>
+<script src="../../_assets/app.js"></script>
+</body>
+</html>

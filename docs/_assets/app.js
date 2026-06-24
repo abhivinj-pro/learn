@@ -35,21 +35,50 @@
       }
     });
   }
-  // sidebar folder toggles
-  document.querySelectorAll('.nav-caret').forEach(function(c){
-    c.addEventListener('click',function(e){
-      e.preventDefault();
-      var li=c.closest('.nav-folder,.nav-section');
-      if(li)li.classList.toggle('is-open');
-    });
-  });
   // mobile sidebar
   var st=document.getElementById('sidebarToggle'),sc=document.getElementById('scrim');
   if(st)st.addEventListener('click',function(){document.body.classList.toggle('nav-open');});
   if(sc)sc.addEventListener('click',function(){document.body.classList.remove('nav-open');});
-  // ensure active nav item visible
-  var active=document.querySelector('.nav-file a.active');
-  if(active)active.scrollIntoView({block:'center'});
+  // runtime sidebar nav: fetch the single shared partial and inject it.
+  // The page declares data-root (relative path to site root) and data-page
+  // (its own root-relative href) on #sidebar so the same partial works at
+  // every depth and self-highlights the active entry.
+  var sb=document.getElementById('sidebar');
+  function bindCarets(){
+    sb.querySelectorAll('.nav-caret').forEach(function(c){
+      c.addEventListener('click',function(e){
+        e.preventDefault();
+        var li=c.closest('.nav-folder,.nav-section');
+        if(li)li.classList.toggle('is-open');
+      });
+    });
+  }
+  function markActive(){
+    var page=sb.getAttribute('data-page');
+    if(!page)return;
+    var a=null;
+    sb.querySelectorAll('a[href]').forEach(function(l){if(l.getAttribute('href')===page)a=l;});
+    if(!a)return;
+    a.classList.add('active');
+    var el=a;
+    while(el&&el!==sb){
+      if(el.classList&&(el.classList.contains('nav-folder')||el.classList.contains('nav-section')))el.classList.add('is-open');
+      el=el.parentElement;
+    }
+    a.scrollIntoView({block:'center'});
+  }
+  if(sb){
+    var dataRoot=sb.getAttribute('data-root')||'';
+    var navFile=sb.getAttribute('data-nav')||'_assets/nav.html';
+    fetch(dataRoot+navFile).then(function(r){return r.text();}).then(function(html){
+      sb.innerHTML=html;
+      bindCarets();
+      markActive();
+      // rewrite root-relative hrefs to this page's depth
+      sb.querySelectorAll('a[href]').forEach(function(l){l.setAttribute('href',dataRoot+l.getAttribute('href'));});
+      sb.removeAttribute('aria-busy');
+    }).catch(function(){});
+  }
   // scrollspy for TOC
   var links=[].slice.call(document.querySelectorAll('.toc a'));
   if(links.length){

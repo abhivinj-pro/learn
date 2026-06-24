@@ -1,3 +1,8 @@
 _site_build/node_modules/
 docs/Resume`/
 docs/Companies/
+
+# Private build artifacts: assets referenced only by private notes + full nav
+docs/_private_media/
+docs/_private_widgets/
+docs/_assets/nav.full.html
