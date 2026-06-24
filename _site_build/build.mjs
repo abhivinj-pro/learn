@@ -135,6 +135,7 @@ function discoverAdhocPages() {
       const abs = path.join(absDir, e.name);
       if (e.isDirectory()) { scan(abs, childRel); continue; }
       if (!/\.html?$/i.test(e.name)) continue;
+      if (/^index\.html?$/i.test(e.name)) continue; // folder index, never a content page
       if (childRel.length < 2) continue;            // skip top-level docs/*.html (e.g. homepage)
       const key = childRel.join('/');
       if (generated.has(key)) continue;             // generated page or index
